@@ -120,15 +120,42 @@ int index (List L){
     if(L){
         return L->front->data;
     } else if(L == NULL){
-        fprintf(stderr, " List ADT; ERROR in front(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in index(): NULL pointer");
         exit(1);
     } else if(L->length <= 0){
-        fprintf(stderr, " List ADT; ERROR in front(): Empty list");
+        fprintf(stderr, " List ADT; ERROR in index(): Empty list");
         exit(1);
     }
 }
 
-bool equals(List A, List B);
+bool equals(List A, List B){
+
+    if(A && B){
+        if(A->length != B->length){
+            fprintf(stderr, " List ADT; ERROR in equals(): Empty list");
+            exit(1);
+        }
+        Node val1, val2;
+        val1 = A->front;
+        val2 = B->front;
+
+        while(val1 != NULL && val2 != NULL){
+            if (val1->data != val2->data)
+            {
+                return false;
+            }
+            else
+            {
+                val1 = val1->next;
+                val2 = val2->next;
+            }
+        }
+        return true;
+    } else if(A == NULL && B == NULL){
+        fprintf(stderr, " List ADT; ERROR in equals(): NULL pointer");
+        exit(1);
+    }
+}
 
 // ========= Manipulation Functions =========
 
