@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-typedef struct ListObj* List;
+typedef struct Listobj* List;
 
 
 // ========= Constructors =========
