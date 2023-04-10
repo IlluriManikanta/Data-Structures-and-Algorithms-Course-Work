@@ -318,16 +318,53 @@ void append(List L, int x){
             new_app->prev = L->back;
             L->back->next = new_app;
             L->back = new_app;
+            L->index += 1;
+            L->length += 1;
         } 
     } else {
-       fprintf(stderr, " List ADT; ERROR in prepend(): NULL pointer");
+       fprintf(stderr, " List ADT; ERROR in append(): NULL pointer");
         exit(1); 
     }
 }
 
-void insertBefore(List L, int x);  
+void insertBefore(List L, int x){
+    if(L){
+        if(L->front == L->cursor){
+            prepend(L, x);
+            return;
+        } else {
+            Node new_insertB = newNode(x);
+            Node node_bc = L->cursor->prev;
 
-void insertAfter(List L, int x); 
+            new_insertB->next = L->cursor;
+
+
+            // new_insertB->next = L->cursor;
+            // new_insertB->prev = node_bc;
+            // L->cursor->prev = new_insertB;
+            // node_bc->next = new_insertB;
+
+            L->length += 1;
+            L->index += 1;}
+            
+    } else {
+        fprintf(stderr, " List ADT; ERROR in insertBefore(): NULL pointer");
+        exit(1);  
+    }
+}
+
+void insertAfter(List L, int x){
+    if(L){
+        if(L->front == L->cursor){
+            append(L, x);
+            return;
+        }
+
+    } else {
+        fprintf(stderr, " List ADT; ERROR in insertAfter(): NULL pointer");
+        exit(1);  
+    }
+}
 
 void deleteFront(List L);  
 

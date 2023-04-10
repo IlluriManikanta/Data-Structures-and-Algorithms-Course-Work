@@ -14,12 +14,10 @@
 
 typedef struct Listobj* List;
 
-
 // ========= Constructors =========
 List newList(void);
 
 // ========= Destructors =========
-
 void freelist(List* pL);
 
 // ========= Access Function =========
