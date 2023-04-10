@@ -82,48 +82,59 @@ int length(List L){
 
 int front(List L){
     if(L){
+        if(L->length <= 0){
+            fprintf(stderr, " List ADT; ERROR in front(): Empty list");
+            exit(1);
+        }
         return L->front->data;
-    } else if(L == NULL){
+    } else {
         fprintf(stderr, " List ADT; ERROR in front(): NULL pointer");
-        exit(1);
-    } else if(L->length <= 0){
-        fprintf(stderr, " List ADT; ERROR in front(): Empty list");
         exit(1);
     }
 }
 
 int back(List L){
     if(L){
+        if(L->length <= 0){
+            fprintf(stderr, " List ADT; ERROR in back(): Empty list");
+            exit(1);
+        }
         return L->back->data;
-    } else if(L == NULL){
+    } else {
         fprintf(stderr, " List ADT; ERROR in back(): NULL pointer");
         exit(1);
-    } else if(L->length <= 0){
-        fprintf(stderr, " List ADT; ERROR in back(): Empty list");
-        exit(1);
-    }
+    } 
 }
 
 int get(List L){
     if(L){
+        if(L->index < 0){
+            fprintf(stderr, " List ADT; ERROR in get(): Cursor is NULL");
+            exit(1);
+        } else if(L->length <= 0){
+            fprintf(stderr, " List ADT; ERROR in get(): Empty list");
+            exit(1);
+        }
         return L->cursor->data;
-    } else if(L == NULL){
+    } else {
         fprintf(stderr, " List ADT; ERROR in get(): NULL pointer");
         exit(1);
-    } else if(L->index < 0){
-        fprintf(stderr, " List ADT; ERROR in get(): Cursor is NULL");
-        exit(1);
-    }
+    } 
 }
 
 int index (List L){
     if(L){
+        if(L->length <= 0){
+            fprintf(stderr, " List ADT; ERROR in index(): Empty list");
+            exit(1);
+        }
+        if(L->index < -1){
+            fprintf(stderr, " List ADT; ERROR in index(): Index less than -1");
+            exit(1);  
+        }
         return L->front->data;
-    } else if(L == NULL){
+    } else {
         fprintf(stderr, " List ADT; ERROR in index(): NULL pointer");
-        exit(1);
-    } else if(L->length <= 0){
-        fprintf(stderr, " List ADT; ERROR in index(): Empty list");
         exit(1);
     }
 }
@@ -151,15 +162,40 @@ bool equals(List A, List B){
             }
         }
         return true;
-    } else if(A == NULL && B == NULL){
+    } else {
         fprintf(stderr, " List ADT; ERROR in equals(): NULL pointer");
         exit(1);
     }
 }
 
 // ========= Manipulation Functions =========
-
-void clear(List L);
+// TA More helped me with wrtiting this function. 
+void clear(List L){
+    if(L){
+        if(L->length <= 0){
+            fprintf(stderr, " List ADT; ERROR in clear(): Empty list");
+            exit(1);
+        }
+        Node temp_n;
+        Node fnode = L->front;
+        while(fnode != L->back){
+            // temp_n = fnode->next;
+            // free(&fnode);
+            // fnode = temp_n;
+            deleteFront(L);
+        }
+        //free(L->back);
+        deleteBack(L);
+        L->cursor = NULL;
+        L->front = NULL;
+        L->back = NULL;
+        L->length = 0;
+        L->index = -1;
+    } else {
+        fprintf(stderr, " List ADT; ERROR in clear(): NULL pointer");
+        exit(1);
+    }
+}
 
 void set(List L, int x);
 
