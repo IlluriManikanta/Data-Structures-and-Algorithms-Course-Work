@@ -197,19 +197,133 @@ void clear(List L){
     }
 }
 
-void set(List L, int x);
+void set(List L, int x){
+    if(L){
+        if(L->length <= 0){
+            fprintf(stderr, " List ADT; ERROR in set(): Empty list");
+            exit(1);
+        }
+        if(L->index < -1){
+            fprintf(stderr, " List ADT; ERROR in set(): Index less than -1");
+            exit(1);
+        }
+        L->cursor->data = x;
+    } else {
+        fprintf(stderr, " List ADT; ERROR in set(): NULL pointer");
+        exit(1);
+    }
+}
 
-void moveFront(List L);  
+void moveFront(List L){
+    if(L){
+        if(L->length <= 0){
+            fprintf(stderr, " List ADT; ERROR in moveFront(): Empty list");
+            exit(1);
+        } else {
+            L->index = 0;
+            L->cursor = L->front; 
+        }
+    } else {
+        fprintf(stderr, " List ADT; ERROR in moveFront(): NULL pointer");
+        exit(1);
+    }
+}
 
-void moveBack(List L);
+void moveBack(List L){
+    if(L){
+        if(L->length <= 0){
+            fprintf(stderr, " List ADT; ERROR in moveBack(): Empty list");
+            exit(1);
+        } else {
+            L->index = L->length - 1;
+            L->cursor = L->back; 
+        }
+    } else {
+        fprintf(stderr, " List ADT; ERROR in moveBack(): NULL pointer");
+        exit(1);
+    }
+}
 
-void movePrev(List L);
+void movePrev(List L){
+    if(L){
+        // could use this --------------
+        // if(L->cursor != NULL){
+        //     if(L->cursor != L->front){
+        //         L->index -= 1;
+        //         L->cursor = L->cursor->prev;
+        //     }else{
+        //         L->cursor = NULL;
+        //         L->index = -1;
+        //     }
+        // } 
+        //-------------------------------
+        // or 
+        if(L->cursor != NULL && L->cursor != L->front){
+            L->index -= 1;
+            L->cursor = L->cursor->prev;
+        } else if(L->cursor == L->front){
+            L->cursor = NULL;
+            L->index = -1;
+        }
+    } else {
+        fprintf(stderr, " List ADT; ERROR in movePrev(): NULL pointer");
+        exit(1);
+    }
+}
 
-void moveNext(List L);
+void moveNext(List L){
+    if(L){
+        // you can rewire this in the same way that is commented for the movePrev function. 
+        if(L->cursor != NULL && L->cursor != L->back){
+            L->index += 1;
+            L->cursor = L->cursor->next;
+        } else if(L->cursor == L->back){
+            L->cursor   = NULL;
+            L->index = -1;
+        }
+    } else {
+        fprintf(stderr, " List ADT; ERROR in moveNext(): NULL pointer");
+        exit(1); 
+    }
+}
 
-void prepend(List L, int x);
+void prepend(List L, int x){
+    if(L){
+        Node new_pre = newNode(x);
+        //TA Arka helped me tacke the edge case where the List is empty. Will set front and back to new_prev.
+        if(L->length == 0){
+            L->front = L->back = new_pre;
+        }
+        if(L->length > 0){
+            new_pre->next = L->front;
+            L->front->prev = new_pre;
+            L->front = new_pre;
+            L->index += 1;
+            L->length += 1;
+        } 
+    } else {
+       fprintf(stderr, " List ADT; ERROR in prepend(): NULL pointer");
+        exit(1); 
+    }
+}
 
-void append(List L, int x);
+void append(List L, int x){
+     if(L){
+        Node new_app = newNode(x);
+        //TA Arka helped me tacke the edge case where the List is empty.Will set front and back to new_app. 
+        if(L->length == 0){
+            L->front = L->back = new_app;
+        }
+        if(L->length > 0){
+            new_app->prev = L->back;
+            L->back->next = new_app;
+            L->back = new_app;
+        } 
+    } else {
+       fprintf(stderr, " List ADT; ERROR in prepend(): NULL pointer");
+        exit(1); 
+    }
+}
 
 void insertBefore(List L, int x);  
 
