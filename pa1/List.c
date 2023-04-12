@@ -336,17 +336,15 @@ void insertBefore(List L, int x){
             Node new_insertB = newNode(x);
             Node node_bc = L->cursor->prev;
 
-            new_insertB->next = L->cursor;
+            if(L->length > 0 && L->index >= 0){
+                new_insertB->next = L->cursor;
+                new_insertB->prev = node_bc;
+                L->cursor->prev = new_insertB;
+                node_bc->next = new_insertB;
 
-
-            // new_insertB->next = L->cursor;
-            // new_insertB->prev = node_bc;
-            // L->cursor->prev = new_insertB;
-            // node_bc->next = new_insertB;
-
-            L->length += 1;
-            L->index += 1;}
-            
+                L->length += 1;
+                L->index += 1;}
+        }  
     } else {
         fprintf(stderr, " List ADT; ERROR in insertBefore(): NULL pointer");
         exit(1);  
@@ -358,7 +356,18 @@ void insertAfter(List L, int x){
         if(L->front == L->cursor){
             append(L, x);
             return;
+        } else {
+             Node new_insertA = newNode(x);
+            Node node_after_cursor = L->cursor->next;
+            if(L->length > 0 && L->index >=0){
+                new_insertA->prev = L->cursor;
+                new_insertA->next = node_after_cursor;
+                L->cursor->next = new_insertA;
+                node_after_cursor->prev = new_insertA;
+                L->length += 1;
+            }
         }
+
 
     } else {
         fprintf(stderr, " List ADT; ERROR in insertAfter(): NULL pointer");
@@ -366,13 +375,106 @@ void insertAfter(List L, int x){
     }
 }
 
-void deleteFront(List L);  
+void deleteFront(List L){
+    if(L){
+        if(L->front == L->cursor){
+            L->cursor = NULL;
+        } else if(L->length == 1){
+            clear(L);
+            return;
+        } else if(index(L) >= 0){
+            L->index -= 1;
+        }
+        
+        Node old = L->front;
 
-void deleteBack(List L);
+        L->front = old->next;
+        freeNode(&old);
 
-void delete(List L);
+        L->length -= 1;
 
-List copyList(List L);
+    } else {
+        fprintf(stderr, " List ADT; ERROR in deleteFront(): NULL pointer");
+        exit(1);    
+    }
+}
+
+void deleteBack(List L){
+    if(L){
+        if(L->back == L->cursor){
+            L->cursor = NULL;
+            L->index = -1;
+        }
+        if(L->length == 1){
+            clear(L);
+            return;
+        }
+
+        Node done = L->back;
+
+        L->back = NULL;
+        L->back = done->prev;
+        freeNode(&done);
+
+        L->length -= 1;
+
+    } else {
+        fprintf(stderr, " List ADT; ERROR in deleteBack(): NULL pointer");
+        exit(1); 
+    }
+}
+
+void delete(List L){
+    if(L){
+        if(L->back == L->cursor){
+            deleteBack(L);
+            return;
+        }       
+        if(L->front == L->cursor){
+            deleteFront(L);
+            return;
+        }
+
+        Node cursor = L->cursor;
+        Node node_bc = cursor->prev;
+        Node node_ac = cursor->next;
+        
+        if(node_bc){
+            node_bc->next = node_ac;
+        }
+        if(node_ac){
+            node_ac->prev = node_bc;
+        }
+
+        L->cursor = NULL;
+        L->index = -1;
+        freeNode(&cursor);
+        L->length -= 1;
+ 
+    } else {
+        fprintf(stderr, " List ADT; ERROR in delete(): NULL pointer");
+        exit(1); 
+    }
+}
+
+List copyList(List L){
+    if(L){
+        List temp_list = newlist();
+        if(L->length != 0){
+            for(int i = 0; index(L) >= 0; i++){
+                int val = get(L);
+                append(temp_list, val);
+                moveNext(L);
+            }
+        } else {
+            return temp_list;
+        }
+
+    } else {
+        fprintf(stderr, " List ADT; ERROR in List copyList(): NULL pointer");
+        exit(1);         
+    }
+}
 
 List concatList(List A, List B);
 
