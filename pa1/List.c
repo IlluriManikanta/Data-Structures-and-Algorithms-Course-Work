@@ -459,15 +459,20 @@ void delete(List L){
 
 List copyList(List L){
     if(L){
-        List temp_list = newlist();
+        List new_list = newlist();
         if(L->length != 0){
-            for(int i = 0; index(L) >= 0; i++){
-                int val = get(L);
-                append(temp_list, val);
-                moveNext(L);
+            for(int i = 0; index(L) >= 0; i++){             //iterating through L
+                append(new_list, get(L));                   //appending temp vale to new list
+                moveNext(L);                                //moving to next node
             }
-        } else {
-            return temp_list;
+            if(new_list->cursor != NULL){
+                new_list->cursor == NULL;
+                return new_list;
+            } else {
+                return new_list;
+            }
+        } else {                                            //if L empty, returning empty new list
+            return new_list;
         }
 
     } else {
@@ -476,6 +481,19 @@ List copyList(List L){
     }
 }
 
-List concatList(List A, List B);
+List concatList(List A, List B);                            // will finish this later not needed for this pa
 
-void printList(FILE* output, List L);
+void printList(FILE* output, List L){
+    if(L){
+        if(L->length != 0){
+            moveFront(L);
+            while(index(L) >= 0){
+                fprintf(output, "%d ", get(L));
+                moveNext(L);
+            }
+        }
+    } else {
+        fprintf(stderr, " List ADT; ERROR in List printList(): NULL pointer");
+        exit(1);
+    }
+}
