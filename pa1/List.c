@@ -6,10 +6,14 @@
 // Implementing List ADT      //
 // ========================== //
 
+
+//tp test make listTest.c
+//./listTest
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include "list.h"
+#include "List.h"
 
 //type casting structure pointer(nodeobj*) to a different type
 typedef struct Nodeobj* Node;
@@ -289,7 +293,7 @@ void moveNext(List L){
 
 void prepend(List L, int x){
     if(L){
-        Node new_pre = newNode(x);
+        Node new_pre = makeNode(x);
         //TA Arka helped me tacke the edge case where the List is empty. Will set front and back to new_prev.
         if(L->length == 0){
             L->front = L->back = new_pre;
@@ -309,7 +313,7 @@ void prepend(List L, int x){
 
 void append(List L, int x){
      if(L){
-        Node new_app = newNode(x);
+        Node new_app = makeNode(x);
         //TA Arka helped me tacke the edge case where the List is empty.Will set front and back to new_app. 
         if(L->length == 0){
             L->front = L->back = new_app;
@@ -333,7 +337,7 @@ void insertBefore(List L, int x){
             prepend(L, x);
             return;
         } else {
-            Node new_insertB = newNode(x);
+            Node new_insertB = makeNode(x);
             Node node_bc = L->cursor->prev;
 
             if(L->length > 0 && L->index >= 0){
@@ -357,7 +361,7 @@ void insertAfter(List L, int x){
             append(L, x);
             return;
         } else {
-             Node new_insertA = newNode(x);
+             Node new_insertA = makeNode(x);
             Node node_after_cursor = L->cursor->next;
             if(L->length > 0 && L->index >=0){
                 new_insertA->prev = L->cursor;
@@ -367,8 +371,6 @@ void insertAfter(List L, int x){
                 L->length += 1;
             }
         }
-
-
     } else {
         fprintf(stderr, " List ADT; ERROR in insertAfter(): NULL pointer");
         exit(1);  
