@@ -32,20 +32,20 @@ typedef struct Listobj{
     int index;
     Node front;
     Node back;
-    Node cursor
+    Node cursor;
 } ListObj;
 
 // Node constructor
 Node makeNode (int data){
     Node n = (Node)malloc(sizeof(NodeObj));
-    assert (n != NULL);
+    assert(n != NULL);
     n->data = data;
     n->next = NULL;
     n->prev = NULL;
     return n;
 }
 
-//Node Destructor
+// Node Destructor
 void freeNode(Node* pN){
     if(pN != NULL && *pN != NULL){
         free(*pN);
@@ -53,7 +53,7 @@ void freeNode(Node* pN){
     }
 }
 
-// ========= Constructors =========
+// Constructors
 List newList(void){
     List l = (List)mallco(sizeof(ListObj));
     assert (l != NULL);
@@ -65,15 +65,15 @@ List newList(void){
     return l;
 }
 
-// ========= Destructors =========
-void freelist(List* pL){
+// Destructors
+void freeList(List* pL){
     if(pL != NULL && *pL != NULL){
         free(*pL);
         *pL = NULL;
     }
 }
 
-// ========= Access Function =========
+// Access Function
 
 int length(List L){
     if(L){
@@ -172,7 +172,7 @@ bool equals(List A, List B){
     }
 }
 
-// ========= Manipulation Functions =========
+// Manipulation Functions
 // TA More helped me with wrtiting this function. 
 void clear(List L){
     if(L){
@@ -461,7 +461,7 @@ void delete(List L){
 
 List copyList(List L){
     if(L){
-        List new_list = newlist();
+        List new_list = newList();
         if(L->length != 0){
             for(int i = 0; index(L) >= 0; i++){             //iterating through L
                 append(new_list, get(L));                   //appending temp vale to new list
