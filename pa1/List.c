@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <assert.h>
 #include "List.h"
 
 //type casting structure pointer(nodeobj*) to a different type
@@ -55,7 +56,7 @@ void freeNode(Node* pN){
 
 // Constructors
 List newList(void){
-    List l = (List)mallco(sizeof(ListObj));
+    List l = (List)malloc(sizeof(ListObj));
     assert (l != NULL);
     l->length = 0;
     l->index = -1;
@@ -136,7 +137,7 @@ int index (List L){
             fprintf(stderr, " List ADT; ERROR in index(): Index less than -1");
             exit(1);  
         }
-        return L->front->data;
+        return L->index;
     } else {
         fprintf(stderr, " List ADT; ERROR in index(): NULL pointer");
         exit(1);
@@ -144,13 +145,13 @@ int index (List L){
 }
 
 bool equals(List A, List B){
-
     if(A && B){
         if(A->length != B->length){
             fprintf(stderr, " List ADT; ERROR in equals(): Empty list");
             exit(1);
         }
-        Node val1, val2;
+        Node val1;
+        Node val2;
         val1 = A->front;
         val2 = B->front;
 
@@ -180,7 +181,7 @@ void clear(List L){
             fprintf(stderr, " List ADT; ERROR in clear(): Empty list");
             exit(1);
         }
-        Node temp_n;
+        // Node temp_n;
         Node fnode = L->front;
         while(fnode != L->back){
             // temp_n = fnode->next;
@@ -224,8 +225,9 @@ void moveFront(List L){
             fprintf(stderr, " List ADT; ERROR in moveFront(): Empty list");
             exit(1);
         } else {
-            L->index = 0;
             L->cursor = L->front; 
+            L->index = 0;
+            
         }
     } else {
         fprintf(stderr, " List ADT; ERROR in moveFront(): NULL pointer");
@@ -297,10 +299,11 @@ void prepend(List L, int x){
         //TA Arka helped me tacke the edge case where the List is empty. Will set front and back to new_prev.
         if(L->length == 0){
             L->front = L->back = new_pre;
+            L->length += 1;
         }
         if(L->length > 0){
-            new_pre->next = L->front;
             L->front->prev = new_pre;
+            new_pre->next = L->front;
             L->front = new_pre;
             L->index += 1;
             L->length += 1;
@@ -317,10 +320,11 @@ void append(List L, int x){
         //TA Arka helped me tacke the edge case where the List is empty.Will set front and back to new_app. 
         if(L->length == 0){
             L->front = L->back = new_app;
+            L->length += 1;
         }
-        if(L->length > 0){
-            new_app->prev = L->back;
+        if(L->length > 0){ 
             L->back->next = new_app;
+            new_app->prev = L->back;
             L->back = new_app;
             L->index += 1;
             L->length += 1;
@@ -463,20 +467,20 @@ List copyList(List L){
     if(L){
         List new_list = newList();
         if(L->length != 0){
-            for(int i = 0; index(L) >= 0; i++){             //iterating through L
-                append(new_list, get(L));                   //appending temp vale to new list
-                moveNext(L);                                //moving to next node
+            Node N = L->front; 
+            while (N != NULL) {
+                append(new_list, N->data);
+                N = N->next;
             }
             if(new_list->cursor != NULL){
-                new_list->cursor == NULL;
+                new_list->cursor = NULL;
                 return new_list;
             } else {
                 return new_list;
             }
-        } else {                                            //if L empty, returning empty new list
-            return new_list;
+        } else {
+            return new_list;    
         }
-
     } else {
         fprintf(stderr, " List ADT; ERROR in List copyList(): NULL pointer");
         exit(1);         
