@@ -173,12 +173,12 @@ bool equals(List A, List B){
 // TA More helped me with wrtiting this function. 
 void clear(List L){	
     if(L){
-        Node n = L->front;
-    	Node temp = n;
-    	while (n != NULL) {
-        	temp = n->next;
-        	freeNode(&n);
-        	n = temp;
+        Node t = L->front;
+    	Node temp = t;
+    	while (t != NULL) {
+        	temp = t->next;
+        	freeNode(&t);
+        	t = temp;
    	    }
     	L->front = NULL;
    	    L->back = NULL;
@@ -357,20 +357,17 @@ void insertAfter(List L, int x){
         exit(1);  
     }
 }
-
+//TA Arka helped me with this function
 void deleteFront(List L){
     if(L){
-        Node old = L->front;
-
+        Node o = L->front;
         if(L->front == L->cursor){
             L->index = -1;
         } else {
             L->index -= 1;
         }
-        
-       
-        freeNode(&old);
-        L->front = old;
+        freeNode(&o);
+        L->front = o;
         L->length -= 1;
 
     } else {
