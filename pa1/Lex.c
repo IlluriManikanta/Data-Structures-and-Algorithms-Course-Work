@@ -20,6 +20,8 @@
 
 int strcmp(const char* str1, const char* str2);
 char *strdup(const char *string);
+size_t strlen(const char *string);
+char *strcpy(char *string1, const char *string2);
 
 
 int main(int argc, char * argv[]){
@@ -56,11 +58,12 @@ int main(int argc, char * argv[]){
 
     fseek(in_file, buffer_size, SEEK_SET); // To set the file pointer to the start of the file
     
-    char** string_array = malloc(sizeof(line_cnt) * sizeof(char*));
+    char** str_array = calloc(line_cnt, sizeof(char*));
+    
     int array_indx = 0;
-
     while(fgets(num, Maxlen, in_file) != NULL)  {
-        string_array[array_indx] = strdup(num); 
+        str_array[array_indx] = malloc(strlen(num) + 1); 
+        strcpy(str_array[array_indx], num);
         array_indx += 1;
     }
 
@@ -71,29 +74,29 @@ int main(int argc, char * argv[]){
     //Loop to iterate through string array and cmp
     for(int i = 1; i < line_cnt; i++){
         moveFront(out_list);
-        while(index(out_list) >= 0 && strcmp(string_array[i], string_array[get(out_list)]) > 0){
+        while(index(out_list) >= 0 && strcmp(str_array[i], str_array[get(out_list)]) >= 0){
             moveNext(out_list);
         }
-        if(index(out_list) < 0){
+        if(index(out_list) <= 0){
+            insertBefore(out_list, i);   
+        } else {
             append(out_list, i);
-        }else{
-            insertBefore(out_list, i);
         }
     }
 
     //Writing to out file
-    while (index(out_list) < length(out_list)) {
-        fprintf(out_file, "%s", string_array[get(out_list)]);
+    while (index(out_list) >= 0) {
+        fprintf(out_file, "%s\n", str_array[get(out_list)]);
         moveNext(out_list);
     }
 
     //Freeing Memory
     freeList(&out_list);
     for (int i = 0; i < line_cnt + 1; i++) {
-        free(string_array[i]);
+        free(str_array[i]);
     }
 
-    free(string_array);
+    free(str_array);
     fclose(in_file);
     fclose(out_file);
     return 0;
