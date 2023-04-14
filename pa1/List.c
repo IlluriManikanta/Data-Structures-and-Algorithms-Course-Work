@@ -66,6 +66,9 @@ List newList(void){
 // Destructors
 void freeList(List* pL){
     if(pL != NULL && *pL != NULL){
+        while((*pL)->length != 0){
+            deleteBack(*pL);
+        }
         free(*pL);
         *pL = NULL;
     }
