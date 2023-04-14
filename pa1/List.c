@@ -133,6 +133,7 @@ int index(List L){
             return -1;
         }
         if(L->index <= -1){
+            printf("%s", "right here");
             fprintf(stderr, " List ADT; ERROR in index(): Index less than -1\n");
             return -1;  
         }
