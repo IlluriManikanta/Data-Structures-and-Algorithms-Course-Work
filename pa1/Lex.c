@@ -91,13 +91,10 @@ int main(int argc, char * argv[]){
     }
         
     //Writing to out file
-    moveFront(out_list); // 
-    while (index(out_list) >= 0) {
+    for(moveFront(out_list); index(out_list) >= 0; moveNext(out_list)) {
         fprintf(out_file, "%s\n", str_array[get(out_list)]);
-        moveNext(out_list);
-        moveFront(out_list); // 
     }
-    
+
     //Freeing Memory
     freeList(&out_list);
     fclose(in_file);
