@@ -79,7 +79,7 @@ int length(List L){
     if(L){
         return L->length;
     } else {
-        fprintf(stderr, " List ADT; ERROR in Length(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in Length(): NULL pointer\n");
         exit(1);
     }
 }
@@ -87,12 +87,12 @@ int length(List L){
 int front(List L){
     if(L){
         if(L->length <= 0){
-            fprintf(stderr, " List ADT; ERROR in front(): Empty list");
+            fprintf(stderr, " List ADT; ERROR in front(): Empty list\n");
             exit(1);
         }
         return L->front->data;
     } else {
-        fprintf(stderr, " List ADT; ERROR in front(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in front(): NULL pointer\n");
         exit(1);
     }
 }
@@ -100,12 +100,12 @@ int front(List L){
 int back(List L){
     if(L){
         if(L->length <= 0){
-            fprintf(stderr, " List ADT; ERROR in back(): Empty list");
+            fprintf(stderr, " List ADT; ERROR in back(): Empty list\n");
             exit(1);
         }
         return L->back->data;
     } else {
-        fprintf(stderr, " List ADT; ERROR in back(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in back(): NULL pointer\n");
         exit(1);
     } 
 }
@@ -113,15 +113,15 @@ int back(List L){
 int get(List L){
     if(L){
         if(L->index < 0){
-            fprintf(stderr, " List ADT; ERROR in get(): Cursor is NULL");
+            fprintf(stderr, " List ADT; ERROR in get(): Cursor is NULL\n");
             exit(1);
         } else if(L->length <= 0){
-            fprintf(stderr, " List ADT; ERROR in get(): Empty list");
+            fprintf(stderr, " List ADT; ERROR in get(): Empty list\n");
             exit(1);
         }
         return L->cursor->data;
     } else {
-        fprintf(stderr, " List ADT; ERROR in get(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in get(): NULL point\n");
         exit(1);
     } 
 }
@@ -129,16 +129,16 @@ int get(List L){
 int index(List L){
     if(L){
         if(L->length <= 0){
-            fprintf(stderr, " List ADT; ERROR in index(): Empty list");
+            fprintf(stderr, " List ADT; ERROR in index(): Empty list\n");
             return -1;
         }
         if(L->index <= -1){
-            fprintf(stderr, " List ADT; ERROR in index(): Index less than -1");
+            fprintf(stderr, " List ADT; ERROR in index(): Index less than -1\n");
             return -1;  
         }
         return L->index;
     } else {
-        fprintf(stderr, " List ADT; ERROR in index(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in index(): NULL pointer\n");
         exit(1);
     }
 }
@@ -166,7 +166,7 @@ bool equals(List A, List B){
         }
         return true;
     } else {
-        fprintf(stderr, " List ADT; ERROR in equals(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in equals(): NULL pointer\n");
         exit(1);
     }
 }
@@ -189,7 +189,7 @@ void clear(List L){
     	L->length = 0;
     	L->index = -1;
     } else {
-        fprintf(stderr, " List ADT; ERROR in clear(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in clear(): NULL pointer\n");
         exit(1);
     }
 }
@@ -197,16 +197,16 @@ void clear(List L){
 void set(List L, int x){
     if(L){
         if(L->length <= 0){
-            fprintf(stderr, " List ADT; ERROR in set(): Empty list");
+            fprintf(stderr, " List ADT; ERROR in set(): Empty list\n");
             exit(1);
         }
         if(L->index < -1){
-            fprintf(stderr, " List ADT; ERROR in set(): Index less than -1");
+            fprintf(stderr, " List ADT; ERROR in set(): Index less than -1\n");
             exit(1);
         }
         L->cursor->data = x;
     } else {
-        fprintf(stderr, " List ADT; ERROR in set(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in set(): NULL pointer\n");
         exit(1);
     }
 }
@@ -214,7 +214,7 @@ void set(List L, int x){
 void moveFront(List L){
     if(L){
         if(L->length <= 0){
-            fprintf(stderr, " List ADT; ERROR in moveFront(): Empty list");
+            fprintf(stderr, " List ADT; ERROR in moveFront(): Empty list\n");
             exit(1);
         } else {
             L->cursor = L->front; 
@@ -222,7 +222,7 @@ void moveFront(List L){
             
         }
     } else {
-        fprintf(stderr, " List ADT; ERROR in moveFront(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in moveFront(): NULL pointer\n");
         exit(1);
     }
 }
@@ -230,14 +230,14 @@ void moveFront(List L){
 void moveBack(List L){
    if(L){
         if(L->length <= 0){
-            fprintf(stderr, " List ADT; ERROR in moveBack(): Empty list");
+            fprintf(stderr, " List ADT; ERROR in moveBack(): Empty list\n");
             exit(1);
         } else {
             L->cursor = L->back; 
             L->index = L->length - 1;
         }
     } else {
-        fprintf(stderr, " List ADT; ERROR in moveBack(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in moveBack(): NULL pointer\n");
         exit(1);
     }
 }
@@ -252,7 +252,7 @@ void movePrev(List L){
             L->index = -1;
         }
     } else {
-        fprintf(stderr, " List ADT; ERROR in movePrev(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in movePrev(): NULL pointer\n");
         exit(1);
     }
 }
@@ -268,7 +268,7 @@ void moveNext(List L){
             L->index = -1;
         }
     } else {
-        fprintf(stderr, " List ADT; ERROR in moveNext(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in moveNext(): NULL pointer\n");
         exit(1); 
     }
 }
@@ -288,7 +288,7 @@ void prepend(List L, int x){
             L->length += 1;
         } 
     } else {
-       fprintf(stderr, " List ADT; ERROR in prepend(): NULL pointer");
+       fprintf(stderr, " List ADT; ERROR in prepend(): NULL pointer\n");
         exit(1); 
     }
 }
@@ -314,7 +314,7 @@ void append(List L, int x){
             L->length += 1;
         } 
     } else {
-       fprintf(stderr, " List ADT; ERROR in append(): NULL pointer");
+       fprintf(stderr, " List ADT; ERROR in append(): NULL pointer\n");
         exit(1); 
     }
 }
@@ -340,7 +340,7 @@ void insertBefore(List L, int x){
             }
         }  
     } else {
-        fprintf(stderr, " List ADT; ERROR in insertBefore(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in insertBefore(): NULL pointer\n");
         exit(1);  
     }
 }
@@ -362,7 +362,7 @@ void insertAfter(List L, int x){
             }
         }
     } else {
-        fprintf(stderr, " List ADT; ERROR in insertAfter(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in insertAfter(): NULL pointer\n");
         exit(1);  
     }
 }
@@ -370,7 +370,7 @@ void insertAfter(List L, int x){
 void deleteFront(List L){
     if(L){
         if(L->length == 0){
-            fprintf(stderr,"List ADT; ERROR in deletBack(): Empty List");
+            fprintf(stderr,"List ADT; ERROR in deletBack(): Empty List\n");
             exit(1);
         }
         if(L->front == L->cursor){
@@ -394,7 +394,7 @@ void deleteFront(List L){
         L->index -= 1;
 
     } else {
-        fprintf(stderr, " List ADT; ERROR in deleteFront(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in deleteFront(): NULL pointer\n");
         exit(1);    
     }
 }
@@ -402,7 +402,7 @@ void deleteFront(List L){
 void deleteBack(List L){
     if(L){
         if(L->length == 0){
-            fprintf(stderr, "List ADT; ERROR in deletBack(): Empty List");
+            fprintf(stderr, "List ADT; ERROR in deletBack(): Empty List\n");
             exit(1);
         }
         
@@ -427,7 +427,7 @@ void deleteBack(List L){
         }
         L->length -= 1;
     } else {
-        fprintf(stderr, " List ADT; ERROR in deleteBack(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in deleteBack(): NULL pointer\n");
         exit(1); 
     }
 }
@@ -459,7 +459,7 @@ void delete(List L){
         L->length -= 1;
  
     } else {
-        fprintf(stderr, " List ADT; ERROR in delete(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in delete(): NULL pointer\n");
         exit(1); 
     }
 }
@@ -483,7 +483,7 @@ List copyList(List L){
             return new_list;    
         }
     } else {
-        fprintf(stderr, " List ADT; ERROR in List copyList(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in List copyList(): NULL pointer\n");
         exit(1);         
     }
 }
@@ -500,7 +500,7 @@ void printList(FILE* output, List L){
             }
         }
     } else {
-        fprintf(stderr, " List ADT; ERROR in List printList(): NULL pointer");
+        fprintf(stderr, " List ADT; ERROR in List printList(): NULL pointer\n");
         exit(1);
     }
 }
