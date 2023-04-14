@@ -357,19 +357,28 @@ void insertAfter(List L, int x){
 //TA Arka helped me with this function
 void deleteFront(List L){
     if(L){
-        if (length(L) == 0) {
+        if (L->length == 0) {
             printf("List ADT; ERROR in deletFront(): Empty List");
             exit(1);
         }
+
+        if(L->length == 1){
+            freeNode(&L->front);
+            L->back = NULL;
+            L->front = NULL;
+        }
+
         Node o = L->front;
+        Node fn = L->front->next;
         if(L->cursor == o){
             L->cursor = NULL;
         }
         if(o->next != NULL){
-            L->front = o->next;
+            o->next->prev = NULL;
+            freeNode(&o);
+            L->front = fn;
         }
         
-        freeNode(&o);
         L->length -= 1;
 
     } else {
@@ -384,16 +393,31 @@ void deleteBack(List L){
             printf("List ADT; ERROR in deletBack(): Empty List");
             exit(1);
         }
+        
+        if(L->length == 1){
+            freeNode(&L->front);
+            L->back = NULL;
+            L->front = NULL;
+        }
+
         if(L->back == L->cursor){
             L->index = -1;
             L->cursor = NULL;
         }
 
-        Node end = L->back;
-        L->back = end->prev;
-        freeNode(&end);
-
+        Node o = L->back;
+        Node fn = L->back->prev;
+        if(L->cursor == o){
+            L->cursor = NULL;
+        }
+        if(o->prev != NULL){
+            o->prev->next = NULL;
+            freeNode(&o);
+            L->back = fn;
+        }
+        
         L->length -= 1;
+
 
     } else {
         fprintf(stderr, " List ADT; ERROR in deleteBack(): NULL pointer");
@@ -402,61 +426,35 @@ void deleteBack(List L){
 }
 
 void delete(List L){
-    	if (L == NULL) {
-		printf("List Error: calling delete() on NULL list reference\n");
-		exit(EXIT_FAILURE);
-	}
-	if (length(L) == 0) {
-		printf("List Error: calling delete() on an empty list\n");
-		exit(EXIT_FAILURE);
-	}
-	if (L->cursor == NULL) {
-		printf("List Error: calling delete() on NULL cursor\n");
-	}
-	if (L->cursor == L->front) {
-		deleteFront(L);
-	}
-	else if (L->cursor == L->back) {
-		deleteBack(L);
-	} 
-	else {
-		Node N = L->cursor;
-        	N->prev->next = N->next;
-        	N->next->prev = N->prev;
-        	freeNode(&N);
-        	L->length--;
-    }
-    L->index = -1;
-    // if(L){
-    //     if(L->back == L->cursor){
-    //         deleteBack(L);
-    //         return;
-    //     }       
-    //     if(L->front == L->cursor){
-    //         deleteFront(L);
-    //         return;
-    //     }
+    if(L){
+        if(L->back == L->cursor){
+            deleteBack(L);
+            return;
+        }       
+        if(L->front == L->cursor){
+            deleteFront(L);
+            return;
+        }
 
-    //     Node cursor = L->cursor;
-    //     Node node_bc = cursor->prev;
-    //     Node node_ac = cursor->next;
+        Node node_bc = L->cursor->prev;
+        Node node_ac = L->cursor->next;
         
-    //     if(node_bc){
-    //         node_bc->next = node_ac;
-    //     }
-    //     if(node_ac){
-    //         node_ac->prev = node_bc;
-    //     }
+        if(node_bc){
+            node_bc->next = node_ac;
+        }
+        if(node_ac){
+            node_ac->prev = node_bc;
+        }
 
-    //     L->cursor = NULL;
-    //     L->index = -1;
-    //     freeNode(&cursor);
-    //     L->length -= 1;
+        L->cursor = NULL;
+        L->index = -1;
+        freeNode(&L->cursor);
+        L->length -= 1;
  
-    // } else {
-    //     fprintf(stderr, " List ADT; ERROR in delete(): NULL pointer");
-    //     exit(1); 
-    // }
+    } else {
+        fprintf(stderr, " List ADT; ERROR in delete(): NULL pointer");
+        exit(1); 
+    }
 }
 
 List copyList(List L){
