@@ -14,10 +14,13 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include <string.h>
 #include "List.h"
 
 #define Maxlen 100
+
+int strcmp(const char* str1, const char* str2);
+char *strdup(const char *string);
+
 
 int main(int argc, char * argv[]){
     int line_cnt = 0;
@@ -27,7 +30,7 @@ int main(int argc, char * argv[]){
     int buffer_size = 512;
 
     //Checking for correct number of arguments
-    if(argc != 2){
+    if(argc != 3){
         fprintf(stderr, " Lex: ERROR: Unexpected number of arguments");
         exit(1);
     }
@@ -47,7 +50,6 @@ int main(int argc, char * argv[]){
     }
 
     // Count the number of lines in the input file
-    int line_cnt = 0;
     while( fgets(num, Maxlen, in_file) != NULL )  {
         line_cnt += 1;
     }
@@ -69,7 +71,7 @@ int main(int argc, char * argv[]){
     //Loop to iterate through string array and cmp
     for(int i = 1; i < line_cnt; i++){
         moveFront(out_list);
-        while(index(out_list) >= 0 && strcmp(string_array[i], string_array[get(num)]) > 0){
+        while(index(out_list) >= 0 && strcmp(string_array[i], string_array[get(out_list)]) > 0){
             moveNext(out_list);
         }
         if(index(out_list) < 0){
