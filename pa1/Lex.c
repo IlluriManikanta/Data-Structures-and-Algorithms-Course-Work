@@ -33,7 +33,7 @@ int main(int argc, char * argv[]){
 
     //Checking for correct number of arguments
     if(argc != 3){
-        fprintf(stderr, " Lex: ERROR: Unexpected number of arguments");
+        fprintf(stderr, " Lex: ERROR: Unexpected number of arguments\n");
         exit(1);
     }
     
@@ -43,11 +43,11 @@ int main(int argc, char * argv[]){
    
     //Checking if files are NULL or not
     if(in_file == NULL){
-        fprintf(stderr, " Lex: ERROR: Unable to open file to read");
+        fprintf(stderr, " Lex: ERROR: Unable to open file to read\n");
         exit(1);
     } 
     if(out_file == NULL){
-        fprintf(stderr, " Lex: ERROR: Unable to open file to write");
+        fprintf(stderr, " Lex: ERROR: Unable to open file to write\n");
         exit(1);
     }
 
