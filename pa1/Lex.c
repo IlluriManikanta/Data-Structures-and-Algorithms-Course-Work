@@ -23,8 +23,8 @@
 
 int main(int argc, char * argv[]){
     int line_cnt = 0;
-    FILE *in_file;
-    FILE *out_file;
+    FILE *in_file = stdin;
+    FILE *out_file = stdout;
     char num[Maxlen];
 
     //Checking for correct number of arguments
