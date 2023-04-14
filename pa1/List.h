@@ -14,11 +14,14 @@
 
 typedef struct Listobj* List;
 
+
 // Constructors 
 List newList(void);
 
+
 // Destructors
 void freeList(List* pL);
+
 
 // Access Functions
 
@@ -33,6 +36,7 @@ int get(List L);
 int index(List L);
 
 bool equals(List A, List B);
+
 
 // Manipulation Functions
 

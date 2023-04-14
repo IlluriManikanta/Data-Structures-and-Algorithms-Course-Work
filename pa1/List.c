@@ -259,8 +259,7 @@ void movePrev(List L){
 }
 
 void moveNext(List L){
-    if(L){
-        // you can rewire this in the same way that is commented for the movePrev function. 
+    if(L){ 
         if(L->cursor != NULL && L->cursor != L->back){
             L->index += 1;
             L->cursor = L->cursor->next;
@@ -277,7 +276,7 @@ void moveNext(List L){
 void prepend(List L, int x){
     if(L){
         Node new_pre = makeNode(x);
-        //TA Arka helped me tacke the edge case where the List is empty. Will set front and back to new_prev.
+        //TA Arka helped me tackle the edge case where the List is empty. Will set front and back to new_prev.
         if(L->length == 0){
             L->front = L->back = new_pre;
             L->length += 1;
@@ -299,7 +298,7 @@ void append(List L, int x){
      if(L){
         
         Node new_app = makeNode(x);
-        //TA Arka helped me tacke the edge case where the List is empty. Will set front and back to new_app. 
+        //TA Arka helped me tackle the edge case where the List is empty. Will set front and back to new_app. 
        
         if(L->length == 0){
             
@@ -489,7 +488,7 @@ List copyList(List L){
     }
 }
 
-List concatList(List A, List B);                            // will finish this later not needed for this pa
+List concatList(List A, List B); // will finish this later not needed for this pa
 
 void printList(FILE* output, List L){
     if(L){

@@ -1,6 +1,12 @@
+// ========== Name ========== //
+// Manikantanagasai H. Illuri //
+// milluri@ucsc.edu           //
+// 2023 Spring CSE101         //
+// PA 1                       //
+// Testing ADT Functions      //
+// ========================== //
 /****************************************************************************************
-*  ListClient.c
-*  Test client for List ADT
+*  ListTest.c
 *****************************************************************************************/
 #include<stdio.h>
 #include<stdlib.h>
@@ -11,18 +17,18 @@ int main(int argc, char* argv[]){
    
    List A = newList();
    List B = newList();
-   List C = NULL;
+   List C = newList();
+   List D = newList();
+   
    int i;
-
    for(i=1; i<=20; i++){
       append(A,i);
       prepend(B,i);
+      printList(stdout, A);
+      printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+      printList(stdout, B);
+      printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
    }
-
-   printList(stdout,A); 
-   printf("\n");
-   printList(stdout,B); 
-   printf("\n");
 
    for(moveFront(A); index(A)>=0; moveNext(A)){
       printf("%d ", get(A));
@@ -33,10 +39,9 @@ int main(int argc, char* argv[]){
    }
    printf("\n");
 
-   C = copyList(A);
+
    printf("%s\n", equals(A,B)?"true":"false");
-   printf("%s\n", equals(B,C)?"true":"false");
-   printf("%s\n", equals(C,A)?"true":"false");
+
 
 
    moveFront(A);
@@ -54,15 +59,7 @@ int main(int argc, char* argv[]){
    clear(A);
    printf("%d\n", length(A));
 
-
-
-    // List newlisttest = newList();
-    // if(index(newlisttest) == -1){
-    //     printf("%s", "HERE");
-    // } else {
-    //     printf("%s", "NOT HERE");
-    // }
-    // List D = newList();
+// My own tests for append
     printf("%s", "0");
     append(A, 5);
     printf("%s", "0");
@@ -87,7 +84,7 @@ int main(int argc, char* argv[]){
         printf("%s", "iii");
     }
    
-    //   return 1;
+
     insertAfter(A, 345);
     printf("%s", "0");
     moveBack(A);
@@ -95,6 +92,12 @@ int main(int argc, char* argv[]){
     if (index(A) != 7){
       printf("%s", "jjj");
     }
+
+    //Test cases for Prepend
+    prepend(A, 8);
+
+    prepend(A, 3);
+    prepend(A, 6);
 
     
     freeList(&A);

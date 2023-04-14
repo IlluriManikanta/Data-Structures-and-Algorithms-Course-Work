@@ -6,10 +6,13 @@ I was also tasked to use this ADT as part of a lexographic sorting algorithm.
 ***BUILD***
 To compile this function you must first run:
 make
+make ListTest
 
 ***RUN***
 To run this function you must:
+./ListTest
 ./Lex in_file_name out_file_name
+
 
 
 
