@@ -32,7 +32,6 @@ int main(int argc, char * argv[]){
     FILE *in_file;
     FILE *out_file;
     char num[Maxlen];
-    int buffer_size = 512;
 
     //Checking for correct number of arguments
     if(argc != 3){
