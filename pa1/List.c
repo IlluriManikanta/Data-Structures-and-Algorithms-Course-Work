@@ -132,7 +132,7 @@ int index(List L){
             fprintf(stderr, " List ADT; ERROR in index(): Empty list");
             exit(1);
         }
-        if(L->index < -1){
+        if(L->index <= -1){
             fprintf(stderr, " List ADT; ERROR in index(): Index less than -1");
             exit(1);  
         }
@@ -369,12 +369,9 @@ void deleteFront(List L){
             exit(1);
         }
         if(L->front == L->cursor){
-            L->index = -1;
             L->cursor = NULL;
-            
+            L->index = -1;
         } 
-        
-
         if(L->length == 1){
             freeNode(&L->front);
             L->front = NULL;
@@ -387,11 +384,9 @@ void deleteFront(List L){
                 freeNode(&o);
                 L->front = fn;
             }
-        }
-
-        
-        
+        } 
         L->length -= 1;
+        L->index -= 1;
 
     } else {
         fprintf(stderr, " List ADT; ERROR in deleteFront(): NULL pointer");
@@ -425,12 +420,7 @@ void deleteBack(List L){
                 L->back = fn;
             }
         }
-
-        
-        
         L->length -= 1;
-
-
     } else {
         fprintf(stderr, " List ADT; ERROR in deleteBack(): NULL pointer");
         exit(1); 
