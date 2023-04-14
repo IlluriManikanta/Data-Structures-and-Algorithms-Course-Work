@@ -74,13 +74,14 @@ int main(int argc, char * argv[]){
     //Loop to iterate through string array and cmp
     for(int i = 1; i < line_cnt; i++){
         moveFront(out_list);
-        while(index(out_list) >= 0 && strcmp(str_array[i], str_array[get(out_list)]) >= 0){
+        int cnt = i;
+        while(index(out_list) >= 0 && strcmp(str_array[cnt], str_array[get(out_list)]) >= 0){
             moveNext(out_list);
         }
         if(index(out_list) <= 0){
-            insertBefore(out_list, i);   
+            insertBefore(out_list, cnt);   
         } else {
-            append(out_list, i);
+            append(out_list, cnt);
         }
     }
 
