@@ -143,8 +143,7 @@ int index(List L){
 bool equals(List A, List B){
     if(A && B){
         if(A->length != B->length){
-            fprintf(stderr, " List ADT; ERROR in equals(): Empty list");
-            exit(1);
+            return false;
         }
         Node val1;
         Node val2;
@@ -277,8 +276,7 @@ void prepend(List L, int x){
         if(L->length == 0){
             L->front = L->back = new_pre;
             L->length += 1;
-        }
-        if(L->length > 0){
+        } else if(L->length > 0){
             L->front->prev = new_pre;
             new_pre->next = L->front;
             L->front = new_pre;
@@ -298,8 +296,7 @@ void append(List L, int x){
         if(L->length == 0){
             L->front = L->back = new_app;
             L->length += 1;
-        }
-        if(L->length > 0){ 
+        } else if(L->length > 0){ 
             L->back->next = new_app;
             new_app->prev = L->back;
             L->back = new_app;
