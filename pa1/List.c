@@ -178,7 +178,8 @@ void clear(List L){
         Node t = L->front;
     	Node temp = t;
     	while (t != NULL) {
-        	temp = t->next;
+            temp = t->next;
+            deleteFront(L);
         	freeNode(&t);
         	t = temp;
    	    }
