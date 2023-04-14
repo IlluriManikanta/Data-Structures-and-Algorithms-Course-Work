@@ -45,8 +45,10 @@ int main(int argc, char* argv[]){
    for(i=0; i<9; i++) moveNext(A); // at index 15
    insertAfter(A, -2);
    for(i=0; i<5; i++) movePrev(A); // at index 10
+
    delete(A);
    printList(stdout,A);
+
    printf("\n");
    printf("%d\n", length(A));
    clear(A);
@@ -72,3 +74,6 @@ true
 21
 0
 */
+
+
+

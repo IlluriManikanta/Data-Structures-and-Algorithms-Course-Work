@@ -7,9 +7,6 @@
 // ========================== //
 
 
-//tp test make listTest.c
-//./listTest
-
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -75,7 +72,6 @@ void freeList(List* pL){
 }
 
 // Access Function
-
 int length(List L){
     if(L){
         return L->length;
@@ -127,7 +123,7 @@ int get(List L){
     } 
 }
 
-int index (List L){
+int index(List L){
     if(L){
         if(L->length <= 0){
             fprintf(stderr, " List ADT; ERROR in index(): Empty list");
@@ -236,13 +232,13 @@ void moveFront(List L){
 }
 
 void moveBack(List L){
-    if(L){
+   if(L){
         if(L->length <= 0){
             fprintf(stderr, " List ADT; ERROR in moveBack(): Empty list");
             exit(1);
         } else {
-            L->index = L->length - 1;
             L->cursor = L->back; 
+            L->index = L->length - 1;
         }
     } else {
         fprintf(stderr, " List ADT; ERROR in moveBack(): NULL pointer");
@@ -252,18 +248,6 @@ void moveBack(List L){
 
 void movePrev(List L){
     if(L){
-        // could use this --------------
-        // if(L->cursor != NULL){
-        //     if(L->cursor != L->front){
-        //         L->index -= 1;
-        //         L->cursor = L->cursor->prev;
-        //     }else{
-        //         L->cursor = NULL;
-        //         L->index = -1;
-        //     }
-        // } 
-        //-------------------------------
-        // or 
         if(L->cursor != NULL && L->cursor != L->front){
             L->index -= 1;
             L->cursor = L->cursor->prev;
@@ -407,20 +391,18 @@ void deleteFront(List L){
 
 void deleteBack(List L){
     if(L){
-        if(L->back == L->cursor){
-            L->cursor = NULL;
-            L->index = -1;
-        }
         if(L->length == 1){
             clear(L);
             return;
         }
+        if(L->back == L->cursor){
+            L->index = -1;
+            L->cursor = NULL;
+        }
 
-        Node done = L->back;
-
-        L->back = NULL;
-        L->back = done->prev;
-        freeNode(&done);
+        Node end = L->back;
+        L->back = end->prev;
+        freeNode(&end);
 
         L->length -= 1;
 
@@ -503,3 +485,5 @@ void printList(FILE* output, List L){
         exit(1);
     }
 }
+
+
