@@ -58,6 +58,14 @@ int main(int argc, char* argv[]){
    freeList(&B);
    freeList(&C);
 
+    // List newlisttest = newList();
+    // if(index(newlisttest) == -1){
+    //     printf("%s", "HERE");
+    // } else {
+    //     printf("%s", "NOT HERE");
+    // }
+
+
    return(0);
 }
 
