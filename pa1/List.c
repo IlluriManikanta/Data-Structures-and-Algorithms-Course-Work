@@ -322,7 +322,7 @@ void insertBefore(List L, int x){
             Node new_insertB = makeNode(x);
             Node node_bc = L->cursor->prev;
 
-            if(L->length > 0 && L->index >= 0){
+            if(L->index >= 0){
                 
                 node_bc->next = new_insertB;
                 new_insertB->prev = node_bc;
@@ -347,7 +347,7 @@ void insertAfter(List L, int x){
         } else {
              Node new_insertA = makeNode(x);
             Node node_after_cursor = L->cursor->next;
-            if(L->length > 0 && L->index >=0){
+            if(L->index >= 0){
                 node_after_cursor->prev = new_insertA;
                 new_insertA->next = node_after_cursor;
                 L->cursor->next = new_insertA;
