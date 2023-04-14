@@ -304,7 +304,7 @@ void append(List L, int x){
             L->back->next = new_app;
             new_app->prev = L->back;
             L->back = new_app;
-            L->index += 1;
+
             L->length += 1;
         } 
     } else {
