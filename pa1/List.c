@@ -347,7 +347,7 @@ void insertBefore(List L, int x){
 
 void insertAfter(List L, int x){
     if(L){
-        if(L->front == L->cursor){
+        if(L->back == L->cursor){
             append(L, x);
             return;
         } else {
