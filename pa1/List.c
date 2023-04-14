@@ -356,26 +356,43 @@ void insertAfter(List L, int x){
 }
 //TA Arka helped me with this function
 void deleteFront(List L){
-    if(L){
-        if (length(L) == 0) {
-            printf("List ADT; ERROR in deletFront(): Empty List");
-            exit(1);
-        }
-        Node o = L->front;
-        if(L->cursor == o){
-            L->cursor = NULL;
-        }
-        if(o->next != NULL){
-            L->front = o->next;
-        }
+    if (L == NULL) {
+		printf("List Error: calling deleteFront() on NULL list reference\n");
+		exit(EXIT_FAILURE);
+	}
+	if (length(L) == 0) {
+		printf("List Error: calling deleteFront() on an empty list\n");
+		exit(EXIT_FAILURE);
+	}
+	Node n = L->front;
+   	if (n->next != NULL){
+        	L->front = n->next;
+    	}
+    	if (L->cursor == n) {
+    		L->cursor = NULL;
+    	}
+    	freeNode(&n);
+	L->length--;
+    // if(L){
+    //     if (length(L) == 0) {
+    //         printf("List ADT; ERROR in deletFront(): Empty List");
+    //         exit(1);
+    //     }
+    //     Node o = L->front;
+    //     if(L->cursor == o){
+    //         L->cursor = NULL;
+    //     }
+    //     if(o->next != NULL){
+    //         L->front = o->next;
+    //     }
         
-        freeNode(&o);
-        L->length -= 1;
+    //     freeNode(&o);
+    //     L->length -= 1;
 
-    } else {
-        fprintf(stderr, " List ADT; ERROR in deleteFront(): NULL pointer");
-        exit(1);    
-    }
+    // } else {
+    //     fprintf(stderr, " List ADT; ERROR in deleteFront(): NULL pointer");
+    //     exit(1);    
+    // }
 }
 
 void deleteBack(List L){
