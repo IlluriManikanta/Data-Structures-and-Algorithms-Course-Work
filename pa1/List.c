@@ -357,14 +357,19 @@ void insertAfter(List L, int x){
 //TA Arka helped me with this function
 void deleteFront(List L){
     if(L){
-        Node o = L->front;
-        if(L->front == L->cursor){
-            L->index = -1;
-        } else {
-            L->index -= 1;
+        if (length(L) == 0) {
+            printf("List ADT; ERROR in deletFront(): Empty List");
+            exit(1);
         }
+        Node o = L->front;
+        if(L->cursor == o){
+            L->cursor = NULL;
+        }
+        if(o->next != NULL){
+            L->front = o->next;
+        }
+        
         freeNode(&o);
-        L->front = o;
         L->length -= 1;
 
     } else {
