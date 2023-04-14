@@ -1,0 +1,16 @@
+Assignment: pa1 -> Lexographic Sorter
+
+In this assighnment, I was tasked to implement a list ADT with multiple functions to manipulate a doubly linked list. 
+I was also tasked to use this ADT as part of a lexographic sorting algorithm. 
+
+***BUILD***
+To compile this function you must first run:
+make
+
+***RUN***
+To run this function you must:
+./Lex in_file_name out_file_name
+
+
+
+
