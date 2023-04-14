@@ -5,6 +5,7 @@
 // PA 1                       //
 // Testing ADT Functions      //
 // ========================== //
+// I have added more of my own tests to 
 /****************************************************************************************
 *  ListTest.c
 *****************************************************************************************/
@@ -15,10 +16,10 @@
 
 int main(int argc, char* argv[]){
    
-   List A = newList();
-   List B = newList();
-   List C = newList();
-   List D = newList();
+    List A = newList();
+    List B = newList();
+    List C = newList();
+
    
    int i;
    for(i=1; i<=20; i++){
