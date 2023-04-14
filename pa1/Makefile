@@ -27,8 +27,8 @@ clean :
 	rm -f Lex ListTest Lex.o ListTest.o List.o
 
 checkClient : 
-	valgrind --leak-check=full ListTest
+	valgrind --leak-check=full ./ListTest
 
 checkLex :
-	valgrind --leak-check=full Lex in3 blah3
+	valgrind --leak-check=full ./Lex in3 blah3
 
