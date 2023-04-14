@@ -172,30 +172,46 @@ bool equals(List A, List B){
 // Manipulation Functions
 // TA More helped me with wrtiting this function. 
 void clear(List L){
-    if(L){
-        if(L->length <= 0){
-            fprintf(stderr, " List ADT; ERROR in clear(): Empty list");
-            exit(1);
-        }
-        // Node temp_n;
-        Node fnode = L->front;
-        while(fnode != L->back){
-            // temp_n = fnode->next;
-            // free(&fnode);
-            // fnode = temp_n;
-            deleteFront(L);
-        }
-        //free(L->back);
-        deleteBack(L);
-        L->cursor = NULL;
-        L->front = NULL;
-        L->back = NULL;
-        L->length = 0;
-        L->index = -1;
-    } else {
-        fprintf(stderr, " List ADT; ERROR in clear(): NULL pointer");
-        exit(1);
-    }
+    if (L == NULL){
+        	printf("List error: calling clear() on NULL list reference.");
+        	exit(EXIT_FAILURE);
+    	}
+    	Node n = L->front;
+    	Node temp = n;
+    	while (n != NULL) {
+        	temp = n->next;
+        	freeNode(&n);
+        	n = temp;
+   	}
+    	L->front = NULL;
+   	L->back = NULL;
+    	L->cursor = NULL;
+    	L->length = 0;
+    	L->index = -1;	
+    // if(L){
+    //     if(L->length <= 0){
+    //         fprintf(stderr, " List ADT; ERROR in clear(): Empty list");
+    //         exit(1);
+    //     }
+    //     Node temp_n;
+    //     Node fnode = L->front;
+    //     while(fnode != L->back){
+    //         temp_n = fnode->next;
+    //         free(&fnode);
+    //         fnode = temp_n;
+    //         // deleteFront(L);
+    //     }
+    //     //free(L->back);
+    //     deleteBack(L);
+    //     L->cursor = NULL;
+    //     L->front = NULL;
+    //     L->back = NULL;
+    //     L->length = 0;
+    //     L->index = -1;
+    // } else {
+    //     fprintf(stderr, " List ADT; ERROR in clear(): NULL pointer");
+    //     exit(1);
+    // }
 }
 
 void set(List L, int x){
