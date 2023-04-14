@@ -177,10 +177,10 @@ void clear(List L){
     if(L){
         Node t = L->front;
     	Node temp = t;
-    	while (t != NULL) {
+    	while (L->length > 0) {
             temp = t->next;
             deleteFront(L);
-        	freeNode(&t);
+        	// freeNode(&t);
         	t = temp;
    	    }
     	L->front = NULL;

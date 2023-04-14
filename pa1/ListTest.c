@@ -54,9 +54,7 @@ int main(int argc, char* argv[]){
    clear(A);
    printf("%d\n", length(A));
 
-   freeList(&A);
-   freeList(&B);
-   freeList(&C);
+
 
     // List newlisttest = newList();
     // if(index(newlisttest) == -1){
@@ -64,6 +62,27 @@ int main(int argc, char* argv[]){
     // } else {
     //     printf("%s", "NOT HERE");
     // }
+    List D = newList();
+    printf("%s", "0");
+    append(D, 1);
+    printf("%s", "1");
+    append(D, 2);
+    printf("%s", "2");
+    append(D, 3);
+    printf("%s", "3");
+    append(D, 5);
+    printf("%s", "4");
+    moveFront(D);
+    printf("%s", "5");
+    insertAfter(D, 12);
+    printf("%s", "6");
+    if(length(A) == 5){
+         printf("%s", "7");
+    }
+    freeList(&A);
+    freeList(&B);
+    freeList(&C);
+    freeList(&D);
 
 
    return(0);
