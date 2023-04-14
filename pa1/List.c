@@ -35,7 +35,7 @@ typedef struct Listobj{
 
 // Node constructor
 Node makeNode (int data){
-    Node n = (Node)malloc(sizeof(NodeObj));
+    Node n = malloc(sizeof(NodeObj));
     assert(n != NULL);
     n->data = data;
     n->next = NULL;
