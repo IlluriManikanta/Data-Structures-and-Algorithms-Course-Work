@@ -380,9 +380,9 @@ void deleteFront(List L){
 
 void deleteBack(List L){
     if(L){
-        if(L->length == 1){
-            clear(L);
-            return;
+        if(L->length == 0){
+            printf("List ADT; ERROR in deletBack(): Empty List");
+            exit(1);
         }
         if(L->back == L->cursor){
             L->index = -1;
