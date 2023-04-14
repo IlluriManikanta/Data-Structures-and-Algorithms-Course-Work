@@ -352,7 +352,7 @@ void insertAfter(List L, int x){
                 new_insertA->next = node_after_cursor;
                 L->cursor->next = new_insertA;
                 new_insertA->prev = L->cursor;
-                L->index += 1;
+
                 L->length += 1;
             }
         }
