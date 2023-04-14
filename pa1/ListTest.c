@@ -82,16 +82,20 @@ int main(int argc, char* argv[]){
     printf("%s", "0");
     moveNext(A);
     printf("%s", "0");
-    if (index(A) != 6)
+    if (index(A) != 6){
         printf("%s", "0");
         printf("%s", "iii");
+    }
+   
     //   return 1;
     insertAfter(A, 345);
     printf("%s", "0");
     moveBack(A);
     printf("%s", "0");
-    if (index(A) != 7)
+    if (index(A) != 7){
       printf("%s", "jjj");
+    }
+
     
     freeList(&A);
     freeList(&B);
