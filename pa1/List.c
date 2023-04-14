@@ -367,20 +367,17 @@ void insertAfter(List L, int x){
 
 void deleteFront(List L){
     if(L){
+        Node old = L->front;
+
         if(L->front == L->cursor){
-            L->cursor = NULL;
-        } else if(L->length == 1){
-            clear(L);
-            return;
-        } else if(index(L) >= 0){
+            L->index = -1;
+        } else {
             L->index -= 1;
         }
         
-        Node old = L->front;
-
-        L->front = old->next;
+       
         freeNode(&old);
-
+        L->front = old;
         L->length -= 1;
 
     } else {
