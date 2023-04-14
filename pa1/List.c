@@ -365,7 +365,7 @@ void insertAfter(List L, int x){
 void deleteFront(List L){
     if(L){
         if(L->length == 0){
-            printf("List ADT; ERROR in deletBack(): Empty List");
+            fprintf("List ADT; ERROR in deletBack(): Empty List");
             exit(1);
         }
         if(L->front == L->cursor){
@@ -397,7 +397,7 @@ void deleteFront(List L){
 void deleteBack(List L){
     if(L){
         if(L->length == 0){
-            printf("List ADT; ERROR in deletBack(): Empty List");
+            fprintf("List ADT; ERROR in deletBack(): Empty List");
             exit(1);
         }
         
