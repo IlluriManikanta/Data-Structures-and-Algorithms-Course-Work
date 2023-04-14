@@ -294,7 +294,7 @@ void prepend(List L, int x){
 }
 
 void append(List L, int x){
-    printf("%s", "begin");
+
      if(L){
         
         Node new_app = makeNode(x);
