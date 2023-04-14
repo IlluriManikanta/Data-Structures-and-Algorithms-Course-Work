@@ -395,9 +395,9 @@ void deleteBack(List L){
         }
         
         if(L->length == 1){
-            freeNode(&L->front);
-            L->back = NULL;
+            freeNode(&L->back);
             L->front = NULL;
+            L->back = NULL;
         }
 
         if(L->back == L->cursor){
