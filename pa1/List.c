@@ -280,7 +280,7 @@ void prepend(List L, int x){
         if(L->length == 0){
             L->front = L->back = new_pre;
             L->length += 1;
-        } else if(L->length > 0){
+        } else {
             L->front->prev = new_pre;
             new_pre->next = L->front;
             L->front = new_pre;
@@ -300,7 +300,7 @@ void append(List L, int x){
         if(L->length == 0){
             L->front = L->back = new_app;
             L->length += 1;
-        } else if(L->length > 0){ 
+        } else { 
             L->back->next = new_app;
             new_app->prev = L->back;
             L->back = new_app;
@@ -352,7 +352,6 @@ void insertAfter(List L, int x){
                 new_insertA->next = node_after_cursor;
                 L->cursor->next = new_insertA;
                 new_insertA->prev = L->cursor;
-
                 L->length += 1;
             }
         }

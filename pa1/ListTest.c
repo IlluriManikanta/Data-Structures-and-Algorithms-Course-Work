@@ -62,27 +62,41 @@ int main(int argc, char* argv[]){
     // } else {
     //     printf("%s", "NOT HERE");
     // }
-    List D = newList();
+    // List D = newList();
     printf("%s", "0");
-    append(D, 1);
-    printf("%s", "1");
-    append(D, 2);
-    printf("%s", "2");
-    append(D, 3);
-    printf("%s", "3");
-    append(D, 5);
-    printf("%s", "4");
-    moveFront(D);
-    printf("%s", "5");
-    insertAfter(D, 12);
-    printf("%s", "6");
-    if(length(A) == 5){
-         printf("%s", "7");
-    }
+    append(A, 5);
+    printf("%s", "0");
+    append(A, 6);
+    printf("%s", "0");
+    append(A, 4);
+    printf("%s", "0");
+    append(A, 33);
+    printf("%s", "0");
+    append(A, 2);
+    printf("%s", "0");
+    append(A, 1);
+    printf("%s", "0");
+    moveBack(A);
+    printf("%s", "0");
+    insertAfter(A, 75);
+    printf("%s", "0");
+    moveNext(A);
+    printf("%s", "0");
+    if (index(A) != 6)
+        printf("%s", "0");
+        printf("%s", "iii");
+    //   return 1;
+    insertAfter(A, 345);
+    printf("%s", "0");
+    moveBack(A);
+    printf("%s", "0");
+    if (index(A) != 7)
+      printf("%s", "jjj");
+    
     freeList(&A);
     freeList(&B);
     freeList(&C);
-    freeList(&D);
+
 
 
    return(0);
