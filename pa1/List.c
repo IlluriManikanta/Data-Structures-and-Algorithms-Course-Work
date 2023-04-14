@@ -357,27 +357,29 @@ void insertAfter(List L, int x){
 //TA Arka helped me with this function
 void deleteFront(List L){
     if(L){
-        if (L->length == 0) {
-            printf("List ADT; ERROR in deletFront(): Empty List");
+        if(L->length == 0){
+            printf("List ADT; ERROR in deletBack(): Empty List");
             exit(1);
         }
-
-        if(L->length == 1){
-            freeNode(&L->front);
-            L->back = NULL;
-            L->front = NULL;
-        }
-
-        Node o = L->front;
-        Node fn = L->front->next;
-        if(L->cursor == o){
+        
+        if(L->cursor == L->front){
             L->cursor = NULL;
         }
-        if(o->next != NULL){
-            o->next->prev = NULL;
-            freeNode(&o);
-            L->front = fn;
+        if(L->length == 1){
+            freeNode(&L->front);
+            L->front = NULL;
+            L->back = NULL;
+        } else { 
+            Node o = L->front;
+            Node fn = L->front->next;
+            if(o->next != NULL){
+                o->next->prev = NULL;
+                freeNode(&o);
+                L->front = fn;
+            }
         }
+
+        
         
         L->length -= 1;
 
@@ -394,27 +396,27 @@ void deleteBack(List L){
             exit(1);
         }
         
+        if(L->back == L->cursor){
+            L->index = -1;
+            L->cursor = NULL;
+            
+        } 
+
         if(L->length == 1){
             freeNode(&L->back);
             L->front = NULL;
             L->back = NULL;
+        } else { 
+            Node o = L->back;
+            Node fn = L->back->prev;
+            if(o->prev != NULL){
+                o->prev->next = NULL;
+                freeNode(&o);
+                L->back = fn;
+            }
         }
 
-        if(L->back == L->cursor){
-            L->index = -1;
-            L->cursor = NULL;
-        }
-
-        Node o = L->back;
-        Node fn = L->back->prev;
-        if(L->cursor == o){
-            L->cursor = NULL;
-        }
-        if(o->prev != NULL){
-            o->prev->next = NULL;
-            freeNode(&o);
-            L->back = fn;
-        }
+        
         
         L->length -= 1;
 
