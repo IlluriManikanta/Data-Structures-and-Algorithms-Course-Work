@@ -1,3 +1,6 @@
+#Manikantanagasai Harshit Illuri
+#milluri@ucsc.edu
+#PA1 Make FILE
 #------------------------------------------------------------------------------
 # Makefile for CSE 101 Programming Assignment 1
 #
