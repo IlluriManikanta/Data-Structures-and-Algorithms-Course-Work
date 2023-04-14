@@ -296,17 +296,17 @@ void prepend(List L, int x){
 void append(List L, int x){
     printf("%s", "begin");
      if(L){
-        printf("%s", "start");
+        
         Node new_app = makeNode(x);
         //TA Arka helped me tacke the edge case where the List is empty. Will set front and back to new_app. 
-       printf("%s", "before if");
+       
         if(L->length == 0){
-            printf("%s", "inside if");
+            
             L->front = new_app;
             L->back = new_app;
             L->length += 1;
         } else { 
-            printf("%s", "inside else");
+           
             L->back->next = new_app;
             new_app->prev = L->back;
             L->back = new_app;
