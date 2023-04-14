@@ -50,7 +50,7 @@ int main(int argc, char * argv[]){
     }
 
     // Count the number of lines in the input file
-    while( fgets(num, Maxlen, in_file) != NULL )  {
+    while(fgets(num, Maxlen, in_file) != NULL)  {
         line_cnt += 1;
     }
 
