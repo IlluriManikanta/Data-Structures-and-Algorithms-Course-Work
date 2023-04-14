@@ -1,78 +1,100 @@
 
 #include <stdio.h>
-#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdint.h>
-#include <assert.h>
-#include <stdbool.h>
 #include "List.h"
 
+#define MAX_LINE_LENGTH 1000
 
-int main (int argc, char * argv[]) {
-	int buffer_size = 512;
-	if (argc != 3) {
-		fprintf(stderr, "Number of arguments is invalid.");
-		exit(EXIT_FAILURE);
-	}
-	FILE *infile = fopen(argv[1], "r");           
-  	FILE *outfile = fopen(argv[2], "w"); 
-  	
-  	if (infile == NULL) {         
-    		fprintf(stderr, "Cannot open the input file"); 
-    	}
-    	if (outfile == NULL) {         
-    		fprintf(stderr, "Cannot open the output file"); 
-    	}
-    	int count = 0;
-    	char lines[buffer_size];
-    	while (fgets(lines, buffer_size, infile) != NULL) {
-    		count++;
-    	}
-    	rewind(infile);
-    	char** arraystring = malloc((count) * sizeof(char*));
-    	int i = 0;
-    	while (i < count) {
-    		arraystring[i] = malloc((buffer_size * sizeof(char)));
-    		fgets(arraystring[i], buffer_size, infile);
-    		i++;
-    	}
-    
-    	List list = newList();
-    	append(list, 0);
-    	
-    	for (int i = 1; i < count; i++) {
-    		moveFront(list);
-    		int k = i;
-    		while (index(list) != -1 && k > 0 && strcmp(arraystring[i], arraystring[get(list)]) > 0) {
-    			moveNext(list);
-    			k--;
-    		}
-    		if (index(list) >= 0) {
-    			insertBefore(list, i);
-    		}	
-    		else {
-    			append(list, i);
-    		}
-    	}
-    	moveFront(list);
-    	
-    	while (index(list) < length(list)) {
-    		fprintf(outfile, "%s", arraystring[get(list)]);
-    		moveNext(list);
-    	}
-    	
-    	freeList(&list);
-    	for (int i = 0; i < count; i++) {
-    		free(arraystring[i]);
-    	}
-    	free(arraystring);
-    	fclose(infile);
-    	fclose(outfile);
-    	return 0;
+int main(int argc, char* argv[]) {
+    // Check command line arguments
+    if (argc != 3) {
+        fprintf(stderr, "Usage: %s <input file> <output file>\n", argv[0]);
+        exit(1);
+    }
+
+    // Open input file
+    FILE* input_file = fopen(argv[1], "r");
+    if (input_file == NULL) {
+        fprintf(stderr, "Error: cannot open input file %s\n", argv[1]);
+        exit(1);
+    }
+
+    // Count number of lines in input file
+    int num_lines = 0;
+    char line[MAX_LINE_LENGTH];
+    while (fgets(line, MAX_LINE_LENGTH, input_file) != NULL) {
+        num_lines++;
+    }
+    rewind(input_file);
+
+    // Allocate array of strings
+    char** string_array = calloc(num_lines, sizeof(char*));
+    if (string_array == NULL) {
+        fprintf(stderr, "Error: cannot allocate memory for string array\n");
+        exit(1);
+    }
+
+    // Read lines into string array
+    int i = 0;
+    while (fgets(line, MAX_LINE_LENGTH, input_file) != NULL) {
+        // Remove newline character from end of line
+        line[strcspn(line, "\n")] = '\0';
+        // Allocate memory for string and copy it
+        string_array[i] = malloc(strlen(line) + 1);
+        if (string_array[i] == NULL) {
+            fprintf(stderr, "Error: cannot allocate memory for string %d\n", i);
+            exit(1);
+        }
+        strcpy(string_array[i], line);
+        i++;
+    }
+
+    // Close input file
+    fclose(input_file);
+
+    // Create list of indices
+    List list = newList();
+    append(list, 0);
+    for (int j = 1; j < num_lines; j++) {
+        int curr_index = j;
+        moveBack(list);
+        while (index(list) >= 0 && strcmp(string_array[curr_index], string_array[get(list)]) <= 0) {
+            movePrev(list);
+        }
+        if (index(list) >= 0) {
+            insertAfter(list, curr_index);
+        } else {
+            prepend(list, curr_index);
+        }
+    }
+
+    // Open output file
+    FILE* output_file = fopen(argv[2], "w");
+    if (output_file == NULL) {
+        fprintf(stderr, "Error: cannot open output file %s\n", argv[2]);
+        exit(1);
+    }
+
+    // Print strings in alphabetical order
+    moveFront(list);
+    while (index(list) >= 0) {
+        fprintf(output_file, "%s\n", string_array[get(list)]);
+        moveNext(list);
+    }
+
+    // Close output file
+    fclose(output_file);
+
+    // Free memory
+    for (int j = 0; j < num_lines; j++) {
+        free(string_array[j]);
+    }
+    free(string_array);
+    freeList(&list);
+
+    return 0;
 }
-
-
 // // ========== Name ========== //
 // // Manikantanagasai H. Illuri //
 // // milluri@ucsc.edu           //
