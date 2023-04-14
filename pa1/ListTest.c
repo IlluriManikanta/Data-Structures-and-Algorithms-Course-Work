@@ -24,11 +24,12 @@ int main(int argc, char* argv[]){
    for(i=1; i<=20; i++){
       append(A,i);
       prepend(B,i);
-      printList(stdout, A);
-      printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-      printList(stdout, B);
-      printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+
    }
+    printList(stdout, A);
+    printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printList(stdout, B);
+    printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
 
    for(moveFront(A); index(A)>=0; moveNext(A)){
       printf("%d ", get(A));
