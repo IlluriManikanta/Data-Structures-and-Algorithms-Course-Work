@@ -345,14 +345,14 @@ void insertAfter(List L, int x){
             append(L, x);
             return;
         } else {
-             Node new_insertA = makeNode(x);
+            Node new_insertA = makeNode(x);
             Node node_after_cursor = L->cursor->next;
             if(L->index >= 0){
                 node_after_cursor->prev = new_insertA;
                 new_insertA->next = node_after_cursor;
                 L->cursor->next = new_insertA;
                 new_insertA->prev = L->cursor;
-                
+                L->index += 1;
                 L->length += 1;
             }
         }
