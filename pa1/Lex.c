@@ -19,7 +19,7 @@
 #include <unistd.h>
 #include "List.h"
 
-#define Maxlen 100
+#define Maxlen 1000
 
 // int strcmp(const char* str1, const char* str2);
 // char *strdup(const char *string);
@@ -75,29 +75,29 @@ int main(int argc, char * argv[]){
 
     //Loop to iterate through string array and cmp
     for(int i = 1; i < line_cnt; i++){
-        moveFront(out_list);
+        
+    // TA Arka helped me with this section
 
-        while(index(out_list) >= 0){
+        for(moveFront(out_list); index(out_list) >= 0; moveNext(out_list)){
             if(strcmp(&str_array[i][0], &str_array[get(out_list)][0]) < 0){
                 insertBefore(out_list, i);
                 break;
             }
-            moveNext(out_list); //
-            moveFront(out_list); // 
         }
         if(index(out_list) < 0){
             append(out_list, i);
         } 
-        
-        //Writing to out file
-        moveFront(out_list); // 
-        while (index(out_list) >= 0) {
-            fprintf(out_file, "%s\n", str_array[get(out_list)]);
-            moveNext(out_list);
-            moveFront(out_list); // 
-        }
-    }
 
+    }
+        
+    //Writing to out file
+    moveFront(out_list); // 
+    while (index(out_list) >= 0) {
+        fprintf(out_file, "%s\n", str_array[get(out_list)]);
+        moveNext(out_list);
+        moveFront(out_list); // 
+    }
+    
     //Freeing Memory
     freeList(&out_list);
     fclose(in_file);
