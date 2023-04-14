@@ -292,7 +292,7 @@ void prepend(List L, int x){
 void append(List L, int x){
      if(L){
         Node new_app = makeNode(x);
-        //TA Arka helped me tacke the edge case where the List is empty.Will set front and back to new_app. 
+        //TA Arka helped me tacke the edge case where the List is empty. Will set front and back to new_app. 
         if(L->length == 0){
             L->front = L->back = new_app;
             L->length += 1;
@@ -319,13 +319,15 @@ void insertBefore(List L, int x){
             Node node_bc = L->cursor->prev;
 
             if(L->length > 0 && L->index >= 0){
-                new_insertB->next = L->cursor;
+                
+                node_bc->next = new_insertB;
                 new_insertB->prev = node_bc;
                 L->cursor->prev = new_insertB;
-                node_bc->next = new_insertB;
+                new_insertB->next = L->cursor;
 
                 L->length += 1;
-                L->index += 1;}
+                L->index += 1;
+            }
         }  
     } else {
         fprintf(stderr, " List ADT; ERROR in insertBefore(): NULL pointer");
@@ -342,10 +344,11 @@ void insertAfter(List L, int x){
              Node new_insertA = makeNode(x);
             Node node_after_cursor = L->cursor->next;
             if(L->length > 0 && L->index >=0){
-                new_insertA->prev = L->cursor;
+                node_after_cursor->prev = new_insertA;
                 new_insertA->next = node_after_cursor;
                 L->cursor->next = new_insertA;
-                node_after_cursor->prev = new_insertA;
+                new_insertA->prev = L->cursor;
+                
                 L->length += 1;
             }
         }
@@ -361,10 +364,13 @@ void deleteFront(List L){
             printf("List ADT; ERROR in deletBack(): Empty List");
             exit(1);
         }
-        
-        if(L->cursor == L->front){
+        if(L->front == L->cursor){
+            L->index = -1;
             L->cursor = NULL;
-        }
+            
+        } 
+        
+
         if(L->length == 1){
             freeNode(&L->front);
             L->front = NULL;
