@@ -29,13 +29,15 @@ typedef struct Graphobj{
 Graph makeGraph(int n){
     Graph graph = malloc(sizeof(GraphObj));
     assert(graph != NULL);
+    graph->neighbor = malloc(sizeof(List));
+    graph->color = malloc(sizeof(int));
+    graph->parent = malloc(sizeof(int));
+    graph->distance = malloc(sizeof(int));
+
     graph->order = n;
-    graph->size = NULL;
-    graph->recentVertex = NULL;
-    graph->neighbor = NULL;
-    graph->color = NULL;
-    graph->parent = NULL;
-    graph->distance = NULL;
+    graph->size = 0;
+    graph->recentVertex = NIL;
+
     return graph;
 }
 
@@ -126,11 +128,11 @@ void makeNull(Graph G){
     }
 }
 
-void addEdge(Graph G, int u, int v);
+// void addEdge(Graph G, int u, int v);
 
-void addArc(Graph G, int u, int v);
+// void addArc(Graph G, int u, int v);
 
-void BFS(Graph G, int s);
+// void BFS(Graph G, int s);
 
-/*** Other operations ***/
-void printGraph(FILE* out, Graph G);
+// /*** Other operations ***/
+// void printGraph(FILE* out, Graph G);

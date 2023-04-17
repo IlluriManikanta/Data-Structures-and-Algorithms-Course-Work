@@ -10,8 +10,13 @@
 #define LIST_H_INCLUDE_
 
 #include <stdio.h>
+#include <math.h>
 #include <stdbool.h>
 #include "List.h"
+
+#define INF INFINITY
+#define NIL 0
+
 
 //Defining Pointer to Struct 
 typedef struct GraphObj* Graph;
