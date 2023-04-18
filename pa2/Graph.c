@@ -25,26 +25,6 @@ typedef struct Graphobj{
     int source;
 } GraphObj;
 
-Graph newGraph(int n){
-    Graph g = (GraphObj *)malloc(1 * sizeof(GraphObj));
-    g->neighbors = (List*)calloc(n + 1, sizeof(List));
-
-    for(int i = 0; i <= n; i++){
-        g->neighbors[i] = newList();
-    }
-    g->color = newList();
-    g->parent = newList();
-    g->distance = newList();
-    for(int i = 0; i <= n; i++){
-        append(g->color, WHITE);
-        append(g->distance, INF);
-        append(g->parent, NIL);
-    }
-    g->order = n;
-    g->size = 0;
-    g->source = NIL;
-    return g;
-}
 
 /*** Constructor ***/
 Graph newGraph(int n){
