@@ -16,33 +16,60 @@
 
 //defining structure for Graphobj
 typedef struct Graphobj{
-    List* neighbor;
-    int* color;
-    int* parent;
-    int* distance;
+    List* neighbor;             //An array of Lists whose i th element contains the neighbors of vertex i.
+    int* color;                 //An array of ints (or chars, or strings) whose i th element is the color (white, gray, black) of vertex i
+    int* parent;                //An array of ints whose i th element is the parent of vertex i.
+    int* distance;              //An array of ints whose i th element is the distance from the (most recent) source to vertex i.
     int order;
     int size;
-    int recentVertex;
+    int source;
 } GraphObj;
 
+Graph newGraph(int n){
+    Graph g = (GraphObj *)malloc(1 * sizeof(GraphObj));
+    g->neighbors = (List*)calloc(n + 1, sizeof(List));
+
+    for(int i = 0; i <= n; i++){
+        g->neighbors[i] = newList();
+    }
+    g->color = newList();
+    g->parent = newList();
+    g->distance = newList();
+    for(int i = 0; i <= n; i++){
+        append(g->color, WHITE);
+        append(g->distance, INF);
+        append(g->parent, NIL);
+    }
+    g->order = n;
+    g->size = 0;
+    g->source = NIL;
+    return g;
+}
+
 /*** Constructor ***/
-Graph makeGraph(int n){
+Graph newGraph(int n){
     Graph graph = malloc(sizeof(GraphObj));
     assert(graph != NULL);
-    graph->neighbor = malloc(sizeof(List));
-    graph->color = malloc(sizeof(int));
-    graph->parent = malloc(sizeof(int));
-    graph->distance = malloc(sizeof(int));
+    graph->neighbor = malloc(sizeof(List*) * (n + 1));
+    graph->color = malloc(sizeof(int*) * (n + 1));
+    graph->parent = malloc(sizeof(int*) * (n + 1));
+    graph->distance = malloc(sizeof(int*) * (n +1));
 
+    for(int i = 0; i <= n; i++){
+        graph->neighbor[i] = newList();
+        graph->color[i] = WHITE;
+        graph->parent[i] = NIL;
+        graph->distance[i] = INF;
+    }
     graph->order = n;
     graph->size = 0;
-    graph->recentVertex = NIL;
+    graph->source = NIL;
 
     return graph;
 }
 
 /*** Destructor ***/
-void freegraph(Graph* pG){
+void freeGraph(Graph* pG){
     if(pG != NULL && *pG != NULL){
         free(*pG);
         *pG = NULL;
@@ -70,7 +97,10 @@ int getSize(Graph G){
 
 int getSource(Graph G){
     if(G){
-        return G->recentVertex;
+        if(G->source == NIL){
+            return NIL;
+        }
+        return G->source;
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
         exit(1);
@@ -79,7 +109,12 @@ int getSource(Graph G){
 
 int getParent(Graph G, int u){
     if(G){
-        return G->parent;
+        if(G->parent == NIL){
+            return NIL;
+        }
+        List p = G->parent;
+
+        return G->parent[u];
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getParent(): NULL pointer\n");
         exit(1);
@@ -88,35 +123,48 @@ int getParent(Graph G, int u){
 
 int getDist(Graph G, int u){
     if(G){
-        return G->distance;
+        if(G->source == INF){
+            return INF;
+        }
+        return G->distance[u];
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getDist(): NULL pointer\n");
         exit(1);
     }
 }
 
+//finish this shit
 void getPath(List L, Graph G, int u){
     if(G){
-        return G->;
+        if (u == G->source){
+            append(L, u);                       // append to the list 
+        }   
+        else if (G->parent[u] == NIL){
+            append(L, NIL);
+        } else{
+            getPath(L, G, G->parent[u])
+            append(L, u);
+        }
+
     } else {
-        fprintf(stderr, " Graph ADT; ERROR in getOrder(): NULL pointer\n");
+        fprintf(stderr, " Graph ADT; ERROR in getPath(): NULL pointer\n");
         exit(1);
     }
 }
 
 /*** Manipulation procedures ***/
 void makeNull(Graph G){
-        if(L){
+        if(G){
         Graph t = G->order;
     	Graph temp = t;
     	while (G->size > 0) {
-            temp = t->recentVertex;
+            temp = t->source;
             deleteFront(G);
         	t = temp;
    	    }
         graph->order = n;
         graph->size = NULL;
-        graph->recentVertex = NULL;
+        graph->source = NULL;
         graph->neighbor = NULL;
         graph->color = NULL;
         graph->parent = NULL;

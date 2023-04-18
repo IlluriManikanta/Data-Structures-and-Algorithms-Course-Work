@@ -10,12 +10,14 @@
 #define LIST_H_INCLUDE_
 
 #include <stdio.h>
-#include <math.h>
 #include <stdbool.h>
 #include "List.h"
 
-#define INF INFINITY
+#define INF -1
 #define NIL 0
+#define WHITE 0
+#define GREY 1
+#define BLACK 2
 
 
 //Defining Pointer to Struct 
