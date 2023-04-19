@@ -89,10 +89,6 @@ int getSource(Graph G){
 
 int getParent(Graph G, int u){
     if(G){
-        if(G->parent == NIL){
-            return NIL;
-        }
-        List p = G->parent;
 
         return G->parent[u];
     } else {
@@ -103,9 +99,6 @@ int getParent(Graph G, int u){
 
 int getDist(Graph G, int u){
     if(G){
-        if(G->source == INF){
-            return INF;
-        }
         return G->distance[u];
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getDist(): NULL pointer\n");
@@ -113,19 +106,20 @@ int getDist(Graph G, int u){
     }
 }
 
-//finish this shit
+//TA Sheel helped me(i think thats how your spell his name)
 void getPath(List L, Graph G, int u){
     if(G){
-        if (u == G->source){
-            append(L, u);                       // append to the list 
-        }   
-        else if (G->parent[u] == NIL){
+        if(getSource(G) == NIL){
+            fprintf(stderr, "GraphADT; Error in getPath(): getPath() is being called before BFS() was run");
+        }
+        if(getSource(G) == u){
+            append(L, u);
+        } else if(getParent(G, u) == NIL){
             append(L, NIL);
-        } else{
-            getPath(L, G, G->parent[u])
+        } else {
+            getPath(L, G, getParent(G, u));
             append(L, u);
         }
-
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getPath(): NULL pointer\n");
         exit(1);
