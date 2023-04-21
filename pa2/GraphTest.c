@@ -34,7 +34,7 @@ int main(int argc, char* argv[]){
    // Build graph G 
    printf("%s\n", "Calling addEdge -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
    G = newGraph(n);
-   printf("%s\n", "New Graph called-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+   printf("%s\n", "New Graph called -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
    for(i=1; i<n; i++){
       if( i%7!=0 ) addEdge(G, i, i+1);
       if( i<=28  ) addEdge(G, i, i+7);
@@ -43,7 +43,7 @@ int main(int argc, char* argv[]){
    addEdge(G, 9, 31);
    addEdge(G, 17, 13);
    addEdge(G, 14, 33);
-    printf("%s\n", "addEdge called-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+    printf("%s\n", "addEdge called -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
    // Print adjacency list representation of G
    printGraph(stdout, G);
 

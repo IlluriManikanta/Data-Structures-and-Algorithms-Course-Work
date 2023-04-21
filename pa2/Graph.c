@@ -51,6 +51,13 @@ Graph newGraph(int n){
 /*** Destructor ***/
 void freeGraph(Graph* pG){
     if(pG != NULL && *pG != NULL){
+        for(int i = 0; i <= (*pG)->order; i++){
+            freeList(&((*pG)->neighbors[i]));
+        }
+        freeList(&((*pG)->color));
+        freeList((*pG)->neighbors);
+        freeList(&((*pG)->distance));
+        freeList(&((*pG)->parent));
         free(*pG);
         *pG = NULL;
     }
@@ -89,7 +96,6 @@ int getSource(Graph G){
 
 int getParent(Graph G, int u){
     if(G){
-
         return G->parent[u];
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getParent(): NULL pointer\n");
@@ -106,7 +112,7 @@ int getDist(Graph G, int u){
     }
 }
 
-//TA Sheel helped me(i think thats how your spell his name)
+//TA Sheel helped me
 void getPath(List L, Graph G, int u){
     if(G){
         if(getSource(G) == NIL){
@@ -128,33 +134,98 @@ void getPath(List L, Graph G, int u){
 
 /*** Manipulation procedures ***/
 void makeNull(Graph G){
-        if(G){
-        Graph t = G->order;
-    	Graph temp = t;
-    	while (G->size > 0) {
-            temp = t->source;
-            deleteFront(G);
-        	t = temp;
-   	    }
-        graph->order = n;
-        graph->size = NULL;
-        graph->source = NULL;
-        graph->neighbor = NULL;
-        graph->color = NULL;
-        graph->parent = NULL;
-        graph->distance = NULL;
-
+    if(G){
+        G->size = 0;
+        G->source= NIL;
+        int i = 0;
+        while(i <= getOrder(G)){
+            G->parent[i] = NIL;
+            G->distance[i] = INF;
+            G->color[i]= WHITE;
+            clear(G->neighbor[i]);
+            i++;
+        }
     } else {
-        fprintf(stderr, " List ADT; ERROR in clear(): NULL pointer\n");
+        fprintf(stderr, " Graph ADT; ERROR in makeNull(): NULL pointer\n");
         exit(1);
     }
 }
 
-// void addEdge(Graph G, int u, int v);
+void addEdge(Graph G, int u, int v){
+    if(G){
+        if(u >= 1 && v >= 1 && u < getOrder(G) && v < getOrder(G)){
+            append(G->neighbors[u], v);
+            append(G->neighbors[v], u);
+            G->size++;
+        }
+    } else {
+        fprintf(stderr, " Graph ADT; ERROR in addEdge(): NULL pointer\n");
+        exit(1);
+    }
+}
 
-// void addArc(Graph G, int u, int v);
+//NEED TO FINISH
+void addArc(Graph G, int u, int v){
+    if(G){
+        if(u != v){
+            append(G->neighbors[u], v);
+            G->size++;
+        }
+    } else {
+        fprintf(stderr, " Graph ADT; ERROR in addArc(): NULL pointer\n");
+        exit(1);
+    }
+}
 
-// void BFS(Graph G, int s);
+//NEED TO FINISH
+void BFS(Graph G, int s){
+    if(G){
+        for(int i = 1; i <= getOrder(G); i++){
+            G->parent[i] = NIL;
+            G->color[i] = WHITE;
+            G->distance[i] = INF;
+        }
+        G->parent[s] = NIL; 
+        G->color[s] = GRAY;
+        G->distance[s] = 0;
+        G->source = s;
+
+        List new_queue = newList();
+        append(new_queue, s);
+        while(length(new_queue) > 0){
+            int x = front(new_queue);
+            deleteFront(new_queue);
+            moveFront(G->neighbor[x]);
+            while(index(G->neighbor[x]) != -1){
+                int got = get(G->neighbor[x]);
+                if(G->color[got] == WHITE){
+                    G->color[got] = GRAY;
+                    G->distance[got] = G->distance[x] + 1;
+                    G->parent[got] = x;
+                }
+                moveNext(G->neighbor[x]);
+            }
+            G->color[x] = BLACK;
+        }
+        freeList(&new_queue);
+    } else {
+        fprintf(stderr, " Graph ADT; ERROR in addBFS(): NULL pointer\n");
+        exit(1);
+    }
+}
 
 // /*** Other operations ***/
-// void printGraph(FILE* out, Graph G);
+void printGraph(FILE* out, Graph G){
+    if(G){
+        int i = 0;
+        while(i <= getOrder(G)){
+            fprintf(out, "%d", i);
+            printList(out, G->neightbor[i]);
+            fprintf(out, "\n");
+            i++;
+        }
+    } else {
+        fprintf(stderr, " Graph ADT; ERROR in printGraph(): NULL pointer\n");
+        exit(1);
+    }
+}
