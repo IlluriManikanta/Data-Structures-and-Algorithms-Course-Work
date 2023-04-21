@@ -97,7 +97,13 @@ int getSource(Graph G){
 
 int getParent(Graph G, int u){
     if(G){
-        return G->parent[u];
+        if(1 <= u <= getOrder(G)){
+            return G->parent[u];
+        } else {
+            fprintf(stderr, " Graph ADT; ERROR in getParent(): Input provided is greater than graph order and less than 1.\n");
+            exit(1);
+        }
+        
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getParent(): NULL pointer\n");
         exit(1);
@@ -106,7 +112,12 @@ int getParent(Graph G, int u){
 
 int getDist(Graph G, int u){
     if(G){
-        return G->distance[u];
+        if(1 <= u <= getOrder(G)){
+            return G->distance[u];
+        } else {
+            fprintf(stderr, " Graph ADT; ERROR in getDist(): Input provided is greater than graph order and less than 1.\n");
+            exit(1);
+        }
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getDist(): NULL pointer\n");
         exit(1);
