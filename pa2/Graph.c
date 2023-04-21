@@ -154,23 +154,56 @@ void makeNull(Graph G){
 
 void addEdge(Graph G, int u, int v){
     if(G){
-        if(u >= 1 && v >= 1 && u < getOrder(G) && v < getOrder(G)){
-            append(G->neighbor[u], v);
-            append(G->neighbor[v], u);
-            G->size++;
+        if (v > getOrder(G) || u > getOrder(G)){
+            fprintf(stderr, " Graph Error; ERROR in addEdge(): Inputs provided are greater than Graph Order\n");
+            exit(1);
         }
+        if (v < 1 || u < 1){
+            fprintf(stderr, " Graph Error; ERROR in addEdge(): Inputs provided are less than 1\n");
+            exit(1);
+        }
+        addArc(G, u, v);
+        addArc(G, v, u);
     } else {
         fprintf(stderr, " Graph ADT; ERROR in addEdge(): NULL pointer\n");
         exit(1);
     }
 }
 
-//NEED TO FINISH
 void addArc(Graph G, int u, int v){
     if(G){
-        if(u != v){
+        if (v > getOrder(G) || u > getOrder(G)){
+            fprintf(stderr, " Graph Error; ERROR in addEdge(): Inputs provided are greater than Graph Order\n");
+            exit(1);
+        }
+        if (v < 1 || u < 1){
+            fprintf(stderr, " Graph Error; ERROR in addEdge(): Inputs provided are less than 1\n");
+            exit(1);
+        }
+
+        if (length(G->neighbor[u]) == 0){
             append(G->neighbor[u], v);
             G->size++;
+        } else {
+            moveFront(G->neighbor[u]);
+            for (int i = 1; i <= length(G->neighbor[u]); i++){
+                if (get(G->neighbor[u]) > v){
+                    insertBefore(G->neighbor[u], v);
+
+                    G->size++;
+
+                    break;
+                } else {
+                    moveNext(G->neighbor[u]);
+                    if (index(G->neighbor[u]) == -1){
+                        append(G->neighbor[u], v);
+
+                        G->size++;
+
+                        break;
+                    }
+                }
+            }
         }
     } else {
         fprintf(stderr, " Graph ADT; ERROR in addArc(): NULL pointer\n");
