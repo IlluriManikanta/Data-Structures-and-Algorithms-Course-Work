@@ -178,6 +178,7 @@ void addArc(Graph G, int u, int v){
     }
 }
 
+//used sudo code provided and got help from TA Sheel
 void BFS(Graph G, int s){
     if(G){
         for(int i = 1; i <= getOrder(G); i++){
@@ -214,7 +215,7 @@ void BFS(Graph G, int s){
         }
         clear(new_queue);
         freeList(&new_queue);
-        
+
     } else {
         fprintf(stderr, " Graph ADT; ERROR in addBFS(): NULL pointer\n");
         exit(1);
