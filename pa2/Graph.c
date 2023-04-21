@@ -225,41 +225,14 @@ void BFS(Graph G, int s){
 // /*** Other operations ***/
 void printGraph(FILE* out, Graph G){
     if(G){
-        // int i = 1;
-        // while(i <= getOrder(G)){
-        //     fprintf(out, "%d: ", i);
-        //     printList(out, G->neighbor[i]);
-        //     fprintf(out, "\n");
-        //     i++;
-        // }
-        for (int i = 1; i <= getOrder(G); i++)
-    {
-        fprintf(out, "%d:", i);
-        if (length(G->neighbor[i]) != 0)
-        {
-            fprintf(out, " ");
-            moveFront(G->neighbor[i]);
-            while (index(G->neighbor[i]) != -1)
-            {
-                fprintf(out, "%d", get(G->neighbor[i]));
-                moveNext(G->neighbor[i]);
-                if (index(G->neighbor[i]) != -1)
-                {
-                    fprintf(out, " ");
-                }
-                else
-                {
-                    if (i != getOrder(G))
-                        fprintf(out, "\n");
-                }
-            }
-        }
-        else
-        {
+        int i = 1;
+        while(i <= getOrder(G)){
+            fprintf(out, "%d: ", i);
+            printList(out, G->neighbor[i]);
             fprintf(out, "\n");
+            i++;
         }
-    }
-    fprintf(out, "\n");
+
     } else {
         fprintf(stderr, " Graph ADT; ERROR in printGraph(): NULL pointer\n");
         exit(1);
