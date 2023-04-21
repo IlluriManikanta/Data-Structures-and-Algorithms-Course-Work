@@ -163,6 +163,7 @@ void makeNull(Graph G){
     }
 }
 
+//TA More helped me with the addEdge function
 void addEdge(Graph G, int u, int v){
     if(G){
         if (v > getOrder(G) || u > getOrder(G)){
