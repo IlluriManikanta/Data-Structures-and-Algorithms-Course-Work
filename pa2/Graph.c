@@ -55,10 +55,10 @@ void freeGraph(Graph* pG){
         for(int i = 0; i <= (*pG)->order; i++){
             freeList(&((*pG)->neighbor[i]));
         }
-        freeList(&((*pG)->color));
+        free(&((*pG)->color));
         freeList((*pG)->neighbor);
-        freeList(&((*pG)->distance));
-        freeList(&((*pG)->parent));
+        free(&((*pG)->distance));
+        free(&((*pG)->parent));
         free(*pG);
         *pG = NULL;
     }
