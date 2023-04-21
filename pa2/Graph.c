@@ -235,15 +235,15 @@ void printGraph(FILE* out, Graph G){
         for (int i = 1; i <= getOrder(G); i++)
     {
         fprintf(out, "%d:", i);
-        if (length(G->neighbour[i]) != 0)
+        if (length(G->neighbor[i]) != 0)
         {
             fprintf(out, " ");
-            moveFront(G->neighbour[i]);
-            while (index(G->neighbour[i]) != -1)
+            moveFront(G->neighbor[i]);
+            while (index(G->neighbor[i]) != -1)
             {
-                fprintf(out, "%d", get(G->neighbour[i]));
-                moveNext(G->neighbour[i]);
-                if (index(G->neighbour[i]) != -1)
+                fprintf(out, "%d", get(G->neighbor[i]));
+                moveNext(G->neighbor[i]);
+                if (index(G->neighbor[i]) != -1)
                 {
                     fprintf(out, " ");
                 }
