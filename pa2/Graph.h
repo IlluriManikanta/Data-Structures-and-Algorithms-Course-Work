@@ -6,8 +6,8 @@
 // Header file for Graph.h    //
 // ========================== //
 
-#ifndef LIST_H_INCLUDE_
-#define LIST_H_INCLUDE_
+#ifndef GRAPH_H_INCLUDE_
+#define GRAPH_H_INCLUDE_
 
 #include <stdio.h>
 #include <stdbool.h>

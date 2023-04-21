@@ -11,12 +11,12 @@
 #include <stdbool.h>
 
 #include "Graph.h"
-// #include "List.h"
+
 
 
 //defining structure for Graphobj
-typedef struct Graphobj{
-    List* neighbor;             //An array of Lists whose i th element contains the neighbors of vertex i.
+typedef struct GraphObj{
+    List* neighbor;             //An array of Lists whose i th element contains the neighbor of vertex i.
     int* color;                 //An array of ints (or chars, or strings) whose i th element is the color (white, gray, black) of vertex i
     int* parent;                //An array of ints whose i th element is the parent of vertex i.
     int* distance;              //An array of ints whose i th element is the distance from the (most recent) source to vertex i.
@@ -52,10 +52,10 @@ Graph newGraph(int n){
 void freeGraph(Graph* pG){
     if(pG != NULL && *pG != NULL){
         for(int i = 0; i <= (*pG)->order; i++){
-            freeList(&((*pG)->neighbors[i]));
+            freeList(&((*pG)->neighbor[i]));
         }
         freeList(&((*pG)->color));
-        freeList((*pG)->neighbors);
+        freeList((*pG)->neighbor);
         freeList(&((*pG)->distance));
         freeList(&((*pG)->parent));
         free(*pG);
@@ -154,8 +154,8 @@ void makeNull(Graph G){
 void addEdge(Graph G, int u, int v){
     if(G){
         if(u >= 1 && v >= 1 && u < getOrder(G) && v < getOrder(G)){
-            append(G->neighbors[u], v);
-            append(G->neighbors[v], u);
+            append(G->neighbor[u], v);
+            append(G->neighbor[v], u);
             G->size++;
         }
     } else {
@@ -168,7 +168,7 @@ void addEdge(Graph G, int u, int v){
 void addArc(Graph G, int u, int v){
     if(G){
         if(u != v){
-            append(G->neighbors[u], v);
+            append(G->neighbor[u], v);
             G->size++;
         }
     } else {
@@ -220,7 +220,7 @@ void printGraph(FILE* out, Graph G){
         int i = 0;
         while(i <= getOrder(G)){
             fprintf(out, "%d", i);
-            printList(out, G->neightbor[i]);
+            printList(out, G->neighbor[i]);
             fprintf(out, "\n");
             i++;
         }
