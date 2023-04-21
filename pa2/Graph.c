@@ -213,7 +213,7 @@ void addArc(Graph G, int u, int v){
                 }
                 i++;
             }
-        }
+        } 
     } else {
         fprintf(stderr, " Graph ADT; ERROR in addArc(): NULL pointer\n");
         exit(1);
