@@ -191,7 +191,7 @@ void addArc(Graph G, int u, int v){
             fprintf(stderr, " Graph Error; ERROR in addEdge(): Inputs provided are less than 1\n");
             exit(1);
         }
-        if (length(G->neighbor[u]) == WHITE){
+        if (length(G->neighbor[u]) == 0){
             append(G->neighbor[u], v);
             G->size++;
         } else {
@@ -205,7 +205,7 @@ void addArc(Graph G, int u, int v){
                     break;
                 } else{
                     moveNext(X);
-                    if (index(X) == INF){
+                    if (index(X) == -1){
                         append(X, v);
                         G->size++;
                         break;
