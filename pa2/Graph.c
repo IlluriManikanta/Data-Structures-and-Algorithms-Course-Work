@@ -180,29 +180,27 @@ void addArc(Graph G, int u, int v){
             fprintf(stderr, " Graph Error; ERROR in addEdge(): Inputs provided are less than 1\n");
             exit(1);
         }
-
-        if (length(G->neighbor[u]) == 0){
+        if (length(G->neighbor[u]) == WHITE){
             append(G->neighbor[u], v);
             G->size++;
         } else {
-            moveFront(G->neighbor[u]);
-            for (int i = 1; i <= length(G->neighbor[u]); i++){
-                if (get(G->neighbor[u]) > v){
-                    insertBefore(G->neighbor[u], v);
-
+            List X = G->neighbor[u];
+            moveFront(X);
+            int i = 1;
+            while(i <= length(X)){
+                if (get(X) > v){
+                    insertBefore(X, v);
                     G->size++;
-
                     break;
-                } else {
-                    moveNext(G->neighbor[u]);
-                    if (index(G->neighbor[u]) == -1){
-                        append(G->neighbor[u], v);
-
+                } else{
+                    moveNext(X);
+                    if (index(X) == INF){
+                        append(X, v);
                         G->size++;
-
                         break;
                     }
                 }
+                i++;
             }
         }
     } else {
