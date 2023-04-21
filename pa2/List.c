@@ -128,16 +128,11 @@ int get(List L){
 
 int index(List L){
     if(L){
-        if(L->length <= 0){
-            fprintf(stderr, " List ADT; ERROR in index(): Empty list\n");
+        if(L->cursor){
+            return L->index;
+        } else {
             return -1;
         }
-        if(L->index <= -1){
-
-            fprintf(stderr, " List ADT; ERROR in index(): Index less than -1\n");
-            return -1;  
-        }
-        return L->index;
     } else {
         fprintf(stderr, " List ADT; ERROR in index(): NULL pointer\n");
         exit(1);

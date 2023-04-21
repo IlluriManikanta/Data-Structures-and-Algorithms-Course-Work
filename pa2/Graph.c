@@ -178,7 +178,6 @@ void addArc(Graph G, int u, int v){
     }
 }
 
-//NEED TO FINISH
 void BFS(Graph G, int s){
     if(G){
         for(int i = 1; i <= getOrder(G); i++){
@@ -194,21 +193,28 @@ void BFS(Graph G, int s){
         List new_queue = newList();
         append(new_queue, s);
         while(length(new_queue) > 0){
-            int x = front(new_queue);
+
+            moveFront(new_queue);
+            int v = get(new_queue);
             deleteFront(new_queue);
-            moveFront(G->neighbor[x]);
-            while(index(G->neighbor[x]) != -1){
-                int got = get(G->neighbor[x]);
+            if(length(G->neighbor[v]) > 0){
+                moveFront(G->neighbor[v]);
+            }
+            while(index(G->neighbor[v]) != -1){
+                int got = get(G->neighbor[v]);
                 if(G->color[got] == WHITE){
                     G->color[got] = GRAY;
-                    G->distance[got] = G->distance[x] + 1;
-                    G->parent[got] = x;
+                    G->distance[got] = G->distance[v] + 1;
+                    G->parent[got] = v;
+                    append(new_queue, got);
                 }
-                moveNext(G->neighbor[x]);
+                moveNext(G->neighbor[v]);
             }
-            G->color[x] = BLACK;
+            G->color[v] = BLACK;
         }
+        clear(new_queue);
         freeList(&new_queue);
+        
     } else {
         fprintf(stderr, " Graph ADT; ERROR in addBFS(): NULL pointer\n");
         exit(1);
@@ -218,9 +224,9 @@ void BFS(Graph G, int s){
 // /*** Other operations ***/
 void printGraph(FILE* out, Graph G){
     if(G){
-        int i = 0;
+        int i = 1;
         while(i <= getOrder(G)){
-            fprintf(out, "%d", i);
+            fprintf(out, "%d: ", i);
             printList(out, G->neighbor[i]);
             fprintf(out, "\n");
             i++;
