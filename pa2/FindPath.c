@@ -46,17 +46,16 @@ int main(int argc, char * argv[]){
     fscanf(in_file, "%d", &x);
     //Creating new graph with x number of vertices
     Graph Graph = newGraph(x);
-
-
+    
     for(;;){
         //Checking if pair is present and if pair is "0,0" dummy pair
         if(fscanf(in_file, "%d %d", &y, &z) != 2 || (y == 0 && z == 0)){
-            addEdge(Graph, y, z); 
-
+            break;
         }
-        break;
-    }
+        addEdge(Graph, y, z); 
+       
 
+    }
 
     //Calling printGraph Function to print Adjacency list representation
     printGraph(out_file, Graph);
@@ -69,6 +68,7 @@ int main(int argc, char * argv[]){
             break;
         }
     }
+
         //Calling BFS on graph "Graph"
         BFS(Graph, y);
         clear(p);
