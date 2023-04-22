@@ -66,16 +66,16 @@ int main(int argc, char * argv[]){
         getPath(path, Graph, z);
         int distance = getDist(Graph, z);
         fprintf(out_file, "The distance from %d to %d is ", y, z);
-        if (distance == -1) {
+        if (distance == getSource(Graph)) {
             fprintf(out_file, "infinity\n");
             fprintf(out_file, "No %d-%d path exists\n", y, z);
         } else {
             fprintf(out_file, "%d\n", distance);
-            fprintf(out_file, "A shortest %d-%d\n path is: ", y, z);
+            fprintf(out_file, "A shortest %d-%d path is: ", y, z);
             moveNext(path);
             printList(out_file, path);
         }
-        // fprintf(out_file, "\n");
+        fprintf(out_file, "\n");
     }
     freeGraph(&Graph);
     freeList(&path);
