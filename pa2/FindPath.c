@@ -71,11 +71,11 @@ int main(int argc, char * argv[]){
             fprintf(out_file, "No %d-%d path exists\n", y, z);
         } else {
             fprintf(out_file, "%d\n", distance);
-            fprintf(out_file, "A shortest %d-%d path is: ", y, z);
+            fprintf(out_file, "A shortest %d-%d\n path is: ", y, z);
             moveNext(path);
             printList(out_file, path);
         }
-        fprintf(out_file, "\n");
+        // fprintf(out_file, "\n");
     }
     freeGraph(&Graph);
     freeList(&path);
