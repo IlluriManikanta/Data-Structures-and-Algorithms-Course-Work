@@ -64,20 +64,22 @@ int main(int argc, char * argv[]){
     BFS(G, y);
         clear(path);
         getPath(path, G, z);
-        fprintf(out_file, "The dim %d to %d is ", y, z);
-        if (getDist(G, z) != -1) {
-            fprintf(out_file, "%d\n", getDist(G, z));
+        int distance = getDist(G, z);
+        fprintf(out_file, "The distance from %d to %d is ", y, z);
+        if (distance == -1) {
+            fprintf(out_file, "infinity\n");
+            fprintf(out_file, "No %d-%d path exists\n", y, z);
+        } else {
+            fprintf(out_file, "%d\n", distance);
             fprintf(out_file, "A shortest %d-%d path is: ", y, z);
             moveNext(path);
             printList(out_file, path);
-        } else {
-            fprintf(out_file, "infinity\n");
-            fprintf(out_file, "No %d-%d path exists\n", y, z);
         }
         fprintf(out_file, "\n");
     }
     freeGraph(&G);
     freeList(&path);
+
     fclose(in_file);
     fclose(out_file);
     return 0;
