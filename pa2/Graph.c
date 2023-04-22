@@ -176,6 +176,7 @@ void addEdge(Graph G, int u, int v){
         }
         addArc(G, u, v);
         G->size--;
+
         addArc(G, v, u);
     } else {
         fprintf(stderr, " Graph ADT; ERROR in addEdge(): NULL pointer\n");
