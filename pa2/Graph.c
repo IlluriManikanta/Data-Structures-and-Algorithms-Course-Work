@@ -275,9 +275,9 @@ void printGraph(FILE* out, Graph G){
             fprintf(out, "%d: ", i);
             printList(out, G->neighbor[i]);
             fprintf(out, "\n");
-            i++;
+            i++;   
         }
-
+        fprintf(out, "\n");
     } else {
         fprintf(stderr, " Graph ADT; ERROR in printGraph(): NULL pointer\n");
         exit(1);
