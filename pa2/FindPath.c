@@ -52,6 +52,7 @@ int main(int argc, char * argv[]){
         if(fscanf(in_file, "%d %d", &y, &z) != 2 || (y == 0 && z == 0)){
             break;
         }
+        //adding edge if pair is correct and exists
         addEdge(Graph, y, z); 
     }
  
@@ -68,6 +69,7 @@ int main(int argc, char * argv[]){
 
         //Calling BFS on graph "Graph"
         BFS(Graph, y);
+        //Clearing path
         clear(p);
         getPath(p, Graph, z);
 
