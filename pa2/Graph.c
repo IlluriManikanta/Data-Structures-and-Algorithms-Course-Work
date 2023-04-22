@@ -183,6 +183,7 @@ void addEdge(Graph G, int u, int v){
     }
 }
 
+//TA More helped me with the addArc function
 void addArc(Graph G, int u, int v){
     if(G){
         if (v > getOrder(G) || u > getOrder(G)){
@@ -222,7 +223,7 @@ void addArc(Graph G, int u, int v){
     }
 }
 
-//used sudo code provided and got help from TA Sheel
+//Used sudo code provided and got help from TA Sheel
 void BFS(Graph G, int s){
     if(G){
         for(int i = 1; i <= getOrder(G); i++){
