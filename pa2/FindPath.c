@@ -77,13 +77,11 @@ int main(int argc, char * argv[]){
             printList(out_file, path);
         }
         fprintf(out_file, "\n");
-    }
+    
     freeGraph(&Graph);
     freeList(&path);
 
     fclose(in_file);
     fclose(out_file);
     return 0;
-
-
 }
