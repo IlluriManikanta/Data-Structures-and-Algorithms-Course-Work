@@ -1,34 +1,23 @@
-//-----------------------------------------------------------------------------
-//
-// GraphClient.c
-// 
-// This is a fancy test client that calculates the Radius and Diameter of 
-// the graph defined on lines 41-49, along with its Central and Peripheral 
-// vertices.  The definitions of these terms at:
-// 
-//    http://en.wikipedia.org/wiki/Distance_(graph_theory)
-// 
-// Place this file in a directory with copies of your List.c, List.h, Graph.c, 
-// Graph.h and an appropriate Makefile, then compile and run. The output 
-// is contained in the file GraphClientOut.
-// 
-// This program does not exercise all functions in your Graph ADT, but it 
-// does a pretty good job of testing BFS().  If your output differs from 
-// the above, you have a logical problem in either your Graph or List ADT.
-// 
-// Remember you are required to submit a file named GraphTest.c with pa4 that
-// exercises your Graph functions.  Do not submit this file.
-//
-//-----------------------------------------------------------------------------
+// ========== Name ========== //
+// Manikantanagasai H. Illuri //
+// milluri@ucsc.edu           //
+// 2023 Spring CSE101         //
+// PA 2                       //
+// Testing ADT Functions      //
+// ========================== //
+// I have added more of my own tests to 
+/****************************************************************************************
+*  GraphTest.c
+*****************************************************************************************/
 #include<stdio.h>
 #include<stdlib.h>
 #include"Graph.h"
 
 int main(int argc, char* argv[]){
    int i, s, max, min, d, n=35;
-   List  C = newList(); // central vertices 
-   List  P = newList(); // peripheral vertices 
-   List  E = newList(); // eccentricities 
+   List  C = newList(); 
+   List  P = newList(); 
+   List  E = newList();
    Graph G = NULL;
 
    // Build graph G 
@@ -37,11 +26,18 @@ int main(int argc, char* argv[]){
       if( i%7!=0 ) addEdge(G, i, i+1);
       if( i<=28  ) addEdge(G, i, i+7);
    }
+   printf("%s\n", "AddEdge test");
    addEdge(G, 9, 31);
+   addEdge(G, 10, 31);
+   addEdge(G, 8, 31);
+   addEdge(G, 13, 31);
+   addEdge(G, 16, 31);
    addEdge(G, 17, 13);
    addEdge(G, 14, 33);
+   printf("%s\n", "AddEdge test DONE");
 
    // Print adjacency list representation of G
+   printf("%s\n", " Print adjacency list representation of Graph DONE");
    printGraph(stdout, G);
 
    // Calculate the eccentricity of each vertex 
@@ -57,12 +53,12 @@ int main(int argc, char* argv[]){
 
    // Determine the Radius and Diameter of G, as well as the Central and 
    // Peripheral vertices.
-   append(C, 1);
-   append(P, 1);
+   append(C, 6);
+   append(P, 6);
    min = max = front(E);
    moveFront(E);
    moveNext(E);
-   for(i=2; i<=n; i++){
+   for(i=8; i<=n; i++){
       d = get(E);
       if( d==min ){
          append(C, i);

@@ -53,8 +53,6 @@ int main(int argc, char * argv[]){
             break;
         }
         addEdge(Graph, y, z); 
-       
-
     }
 
     //Calling printGraph Function to print Adjacency list representation
