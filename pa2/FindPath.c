@@ -98,6 +98,7 @@ int main(int argc, char * argv[]){
             fprintf(out_file, "A shortest %d-%d path is %d\n", y, z, d);
             printList(out_file, p);
         }
+        fprintf(out_file, "\n");
         freeList(&p);
         fscanf(in_file, "%d %d\n", &y, &z);
     }
