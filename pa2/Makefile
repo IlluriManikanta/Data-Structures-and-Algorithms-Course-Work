@@ -1,3 +1,10 @@
+#// ========== Name ========== //
+#// Manikantanagasai H. Illuri //
+#// milluri@ucsc.edu           //
+#// 2023 Spring CSE101         //
+#// PA 2                       //
+#// Makefile			       //
+#// ========================== //
 #------------------------------------------------------------------------------
 #  Makefile for CMPS 101 Programming Assignment 2
 #
