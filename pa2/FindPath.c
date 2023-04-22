@@ -68,7 +68,7 @@ int main(int argc, char * argv[]){
         if(fscanf(in_file, "%d %d", &y, &z) != 2 || (y == 0 && z == 0)){
             break;
         }
-
+    }
         //Calling BFS on graph "Graph"
         BFS(Graph, y);
         clear(p);
