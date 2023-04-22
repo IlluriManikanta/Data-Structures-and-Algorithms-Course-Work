@@ -47,29 +47,30 @@ int main(int argc, char * argv[]){
     //Creating new graph with x number of vertices
     Graph Graph = newGraph(x);
 
+
     for(;;){
         //Checking if pair is present and if pair is "0,0" dummy pair
         if(fscanf(in_file, "%d %d", &y, &z) != 2 || (y == 0 && z == 0)){
-            break;
+            addEdge(Graph, y, z); 
+
         }
-        //adding edge if pair is correct and exists
-        addEdge(Graph, y, z); 
+        break;
     }
- 
+
+
     //Calling printGraph Function to print Adjacency list representation
     printGraph(out_file, Graph);
     List p = newList();
+
     //Sourcing & Destination pair Checks
     for (;;) {
         //Checking if pair is present and if pair is "0,0" dummy pair
         if(fscanf(in_file, "%d %d", &y, &z) != 2 || (y == 0 && z == 0)){
             break;
         }
-    }
 
         //Calling BFS on graph "Graph"
         BFS(Graph, y);
-        //Clearing path
         clear(p);
         getPath(p, Graph, z);
 
