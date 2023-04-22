@@ -80,7 +80,7 @@ int main(int argc, char * argv[]){
         } else {
             //Printing output in specified format
             fprintf(out_file, "The distance from %d to %d is %d\n", y, z, d);
-            fprintf(out_file, "%d\n", d);
+
         }
         
         List p = newList();
