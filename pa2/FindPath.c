@@ -68,8 +68,9 @@ for (;;) {
 
     //Calling BFS on graph "Graph"
     BFS(Graph, y);
-    clear(path);
     getPath(path, Graph, z);
+    clear(path);
+    
     fprintf(out_file, "The distance from %d to %d is ", y, z);
     if (getDist(Graph, z) != INF) {
         fprintf(out_file, "%d\n", getDist(Graph, z));
