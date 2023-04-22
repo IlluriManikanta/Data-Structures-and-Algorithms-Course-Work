@@ -70,14 +70,15 @@ int main(int argc, char * argv[]){
             fprintf(out_file, "A shortest %d-%d path is: ", y, z);
             moveNext(p);
             printList(out_file, p);
-            fprintf(out_file, "\n");
+
             
         } else {
             fprintf(out_file, "infinity\n");
             fprintf(out_file, "No %d-%d path exists\n", y, z);
-            fprintf(out_file, "\n");
+
             
         }
+        fprintf(out_file, "\n");
         
     
     freeGraph(&Graph);
