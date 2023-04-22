@@ -64,13 +64,13 @@ int main(int argc, char * argv[]){
     BFS(Graph, y);
         clear(path);
         getPath(path, Graph, z);
-        int distance = getDist(Graph, z);
+        // int distance = ;
         fprintf(out_file, "The distance from %d to %d is ", y, z);
-        if (distance == getSource(Graph)) {
+        if (getDist(Graph, z) == INF) {
             fprintf(out_file, "infinity\n");
             fprintf(out_file, "No %d-%d path exists\n", y, z);
         } else {
-            fprintf(out_file, "%d\n", distance);
+            fprintf(out_file, "%d\n", getDist(Graph, z));
             fprintf(out_file, "A shortest %d-%d path is: ", y, z);
             moveNext(path);
             printList(out_file, path);
