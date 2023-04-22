@@ -44,13 +44,13 @@ int main(int argc, char * argv[]){
     // read graph from input file
 fscanf(in_file, "%d", &x);
 Graph Graph = newGraph(x);
-int u, v;
-for (;;) {
-    int read_result = fscanf(in_file, "%d %d", &u, &v);
-    if (read_result != 2 || (u == 0 && v == 0)) {
+
+int read_result = fscanf(in_file, "%d %d", &y, &z);
+while(read_result == 2){
+    if (read_result != 2 || (y == 0 && z == 0)) {
         break;
     }
-    addEdge(Graph, u, v);
+    addEdge(Graph, y, z);
 }
 
 // print adjacency list representation of graph
@@ -68,11 +68,12 @@ for (;;) {
 
     //Calling BFS on graph "Graph"
     BFS(Graph, y);
-    getPath(path, Graph, z);
     clear(path);
-    
+    getPath(path, Graph, z);
+   
+    //Printing output in specified format
     fprintf(out_file, "The distance from %d to %d is ", y, z);
-    if (getDist(Graph, z) != INF) {
+    if (getDist(Graph, z) != INF){
         fprintf(out_file, "%d\n", getDist(Graph, z));
         fprintf(out_file, "A shortest %d-%d path is: ", y, z);
         moveNext(path);
