@@ -54,7 +54,6 @@ int main(int argc, char * argv[]){
 
     //Calling printGraph Function to print Adjacency list representation
     printGraph(out_file, Graph);
-
     List p = newList();
 
     //Sourcing & Destination pair Checks
@@ -77,7 +76,8 @@ int main(int argc, char * argv[]){
             moveNext(p);
             printList(out_file, p);
             
-        } else if(getDist(Graph, z) == -1){
+        }
+        if(getDist(Graph, z) == -1){
             fprintf(out_file, "\n");
             fprintf(out_file, "The distance from %d to %d is ", y, z);
             fprintf(out_file, "infinity\n");
