@@ -16,6 +16,9 @@
 int main(int argc, char * argv[]){
     FILE *in_file = stdin;
     FILE *out_file = stdout;
+    int x;
+    int y;
+    int z;
 
     //Checking for correct number of arguments
     if(argc != 3){
@@ -38,5 +41,48 @@ int main(int argc, char * argv[]){
         exit(1);
     }
 
-    
+    fscanf(in_file, "%d", &x);
+    Graph G = newGraph(x);
+    while (fscanf(in_file, "%d %d", &y, &z) == 2) {
+        if (x != 0 && z != 0) {
+            addEdge(G, y, z);
+        } else {
+            break;  
+        }
+        
+    }
+
+    printGraph(out_file, G);
+    fprintf(out_file, "\n");
+    List path = newList();
+
+    while (fscanf(in_file, "%d %d", &y, &z) == 2) {
+        if (y == 0 && z == 0) {
+            break;
+        }
+
+    BFS(G, y);
+        clear(path);
+        getPath(path, G, z);
+        int distance = getDist(G, z);
+        fprintf(out_file, "The distance from %d to %d is ", y, z);
+        if (distance == INF) {
+            fprintf(out_file, "infinity\n");
+            fprintf(out_file, "No %d-%d path exists\n", y, z);
+        } else {
+            fprintf(out_file, "%d\n", distance);
+            fprintf(out_file, "A shortest %d-%d path is: ", y, z);
+            moveNext(path);
+            printList(out_file, path);
+        }
+        fprintf(out_file, "\n");
+    }
+
+    freeList(&path);
+    freeGraph(&G);
+    fclose(in_file);
+    fclose(out_file);
+    return 0;
+
+
 }
