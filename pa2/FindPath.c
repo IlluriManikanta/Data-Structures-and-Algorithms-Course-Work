@@ -74,8 +74,10 @@ int main(int argc, char * argv[]){
             fprintf(out_file, "The distance from %d to %d is ", y, z);
             fprintf(out_file, "%d\n", getDist(Graph, z));
             fprintf(out_file, "A shortest %d-%d path is: ", y, z);
+
             moveNext(p);
             printList(out_file, p);
+            
             fprintf(out_file, "\n");
             
         }
