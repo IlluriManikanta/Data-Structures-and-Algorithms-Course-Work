@@ -95,7 +95,7 @@ int main(int argc, char * argv[]){
             fprintf(out_file, "No %d-%d path exists\n", y, z);
         } else {
             //Printing output in specified format
-            fprintf(out_file, "A shortest %d-%d path is %d", y, z, d);
+            fprintf(out_file, "A shortest %d-%d path is ", y, z);
             printList(out_file, p);
         }
         fprintf(out_file, "\n");
