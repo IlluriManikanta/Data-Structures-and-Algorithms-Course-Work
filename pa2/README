@@ -1,0 +1,27 @@
+Manikantanagasai Harshit Illuri
+milluri@ucsc.edu
+PA2 README
+Assignment: pa2 -> BFS
+
+In this assighnment, I was tasked to implement a Graph ADT with multiple functions to manipulate a graph. 
+I was also tasked to use this ADT as part of a findibng the shortest path to a node algorithm. 
+
+***Files Included***
+List.c - made in asgn1
+List.h 
+Graph.c - Graph ADT
+Graph.h 
+GraphTest.c - Test file
+FindPath.c - Finding the shortest path file
+Makefile 
+README 
+
+***BUILD***
+To compile this function you must first run:
+make
+make GraphTest
+
+***RUN***
+To run this function you must:
+./ListTest
+./Lex in_file_name out_file_name
