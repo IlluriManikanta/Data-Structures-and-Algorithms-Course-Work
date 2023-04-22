@@ -45,7 +45,7 @@ int main(int argc, char * argv[]){
     fscanf(in_file, "%d", &x);
     Graph Graph = newGraph(x);
     for(;;){
-        if (fscanf(in_file, "%d %d", &y, &z) != 2 || (y == 0 && z == 0)) {
+        if(fscanf(in_file, "%d %d", &y, &z) != 2 || (y == 0 && z == 0)){
             break;
         }
         addEdge(Graph, y, z);
@@ -58,7 +58,7 @@ int main(int argc, char * argv[]){
 
     //Sourcing & Destination pair Checks
     for (;;) {
-        if (fscanf(in_file, "%d %d", &y, &z) != 2 || (y == 0 && z == 0)) {
+        if(fscanf(in_file, "%d %d", &y, &z) != 2 || (y == 0 && z == 0)){
             break;
         }
 
@@ -77,7 +77,7 @@ int main(int argc, char * argv[]){
 
             moveNext(p);
             printList(out_file, p);
-            
+
             fprintf(out_file, "\n");
             
         }
