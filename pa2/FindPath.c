@@ -44,69 +44,71 @@ int main(int argc, char * argv[]){
 
     //Reading inputfile and storing number of vertices in x
     fscanf(in_file, "%d", &x);
-    //Creating new graph with x number of vertices
-    Graph Graph = newGraph(x);
 
-    while(y != 0 && z != 0){
+    //Creating new graph with x number of vertices
+    Graph G = newGraph(x);
+
+    //Reading inputfile and storing adjacent pair values
+    fscanf(in_file, "%d %d\n", &y, &z);
+    while(y != 0 || z != 0){
         //adding edge if pair is correct and exists
-        addEdge(Graph, y, z); 
-        //Checking if pair is present and if pair is "0,0" dummy pair
-        if(fscanf(in_file, "%d %d", &y, &z) != 2 || (y == 0 && z == 0)){
-            break;
-        }
-       
+        addEdge(G, y, z); 
+        fscanf(in_file, "%d %d", &y, &z);
     }
  
     //Calling printGraph Function to print Adjacency list representation
-    printGraph(out_file, Graph);
-    List p = newList();
-
-    //Sourcing & Destination pair Checks
-    for (;;) {
-        //Checking if pair is present and if pair is "0,0" dummy pair
-        if(fscanf(in_file, "%d %d", &y, &z) != 2 || (y == 0 && z == 0)){
-            break;
-        }
-    }
-        //Calling BFS on graph "Graph"
-        BFS(Graph, y);
-        //Clearing path
-        clear(p);
-        getPath(p, Graph, z);
-
-        //Printing output in specified format
-        //Checking if distance G->distance[u] is != -1
-        if(getDist(Graph, z) != -1){
-            fprintf(out_file, "\n");
-            fprintf(out_file, "The distance from %d to %d is ", y, z);
-            fprintf(out_file, "%d\n", getDist(Graph, z));
-            fprintf(out_file, "A shortest %d-%d path is: ", y, z);
-
-            moveNext(p);
-            printList(out_file, p);
-
-            fprintf(out_file, "\n");
-            
-        }
-        //Checking if distance G->distance[u] is == -1
-        if(getDist(Graph, z) == -1){
-            fprintf(out_file, "\n");
-            fprintf(out_file, "The distance from %d to %d is ", y, z);
-            fprintf(out_file, "infinity\n");
-            fprintf(out_file, "No %d-%d path exists\n", y, z);
-            fprintf(out_file, "\n");
-        }
-
+    printGraph(out_file, G);
     
 
+
+    fscanf(in_file, "%d %d", &y, &z);
+
+    //Sourcing & Destination pair Checks
+    while(y != 0 || z != 0){
+        //Checking if pair is present and if pair is "0,0" dummy pair
+        if(y == z){
+            fprintf(out_file, "\n");
+            fprintf(out_file, "The distance from %d to %d is 0\n", y, z);
+            fprintf(out_file, "A shortest %d-%d path is: ", y, z);
+            fscanf(in_file, "%d %d\n", &y, &z);
+            continue;
+        }
+        //Calling BFS on graph "Graph"
+        BFS(G, y);
+        int d = getDist(G, z);
+        
+        if(d = INF){
+            //Printing output in specified format
+            fprintf(out_file, "The distance from %d to %d is infinity\n", y, z);
+        } else {
+            //Printing output in specified format
+            fprintf(out_file, "The distance from %d to %d is ", y, z);
+            fprintf(out_file, "%d\n", d);
+        }
+        
+        List p = newList();
+
+        getPath(p, G, z);
+
+        if(front(p) == NIL){
+            //Printing output in specified format
+            fprintf(out_file, "No %d-%d path exists\n", y, z);
+        } else {
+            //Printing output in specified format
+            fprintf(out_file, "A shortest %d-%d path is ", y, z);
+            printList(out_file, p);
+        }
+        freeList(&p);
+        fscanf(in_file, "%d %d\n", &y, &z);
+    }
     //Freeing Graph and List
-    freeGraph(&Graph);
-    freeList(&p);
+        freeGraph(&G);
 
     //Closing input and output files
     fclose(in_file);
     fclose(out_file);
 
     return 0;
+
 
 }
