@@ -43,23 +43,22 @@ int main(int argc, char * argv[]){
 
     fscanf(in_file, "%d", &x);
     Graph Graph = newGraph(x);
-    while (fscanf(in_file, "%d %d", &y, &z) == 2) {
+    for (; fscanf(in_file, "%d %d", &y, &z) == 2; ) {
         if (x != 0 && z != 0) {
             addEdge(Graph, y, z);
         } else {
-            break;  
+            break;
         }
-        
     }
 
     printGraph(out_file, Graph);
     fprintf(out_file, "\n");
     List path = newList();
-
-    while (fscanf(in_file, "%d %d", &y, &z) == 2) {
+    for (; fscanf(in_file, "%d %d", &y, &z) == 2; ) {
         if (y == 0 && z == 0) {
             break;
         }
+    }
 
     BFS(Graph, y);
         clear(path);
@@ -67,9 +66,11 @@ int main(int argc, char * argv[]){
         // int distance = ;
         fprintf(out_file, "The distance from %d to %d is ", y, z);
         if (getDist(Graph, z) == INF) {
+            fprintf(out_file, "\n");
             fprintf(out_file, "infinity\n");
             fprintf(out_file, "No %d-%d path exists\n", y, z);
         } else {
+            fprintf(out_file, "\n");
             fprintf(out_file, "%d\n", getDist(Graph, z));
             fprintf(out_file, "A shortest %d-%d path is: ", y, z);
             moveNext(path);
