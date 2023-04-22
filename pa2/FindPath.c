@@ -42,17 +42,17 @@ int main(int argc, char * argv[]){
     }
 
     fscanf(in_file, "%d", &x);
-    Graph G = newGraph(x);
+    Graph Graph = newGraph(x);
     while (fscanf(in_file, "%d %d", &y, &z) == 2) {
         if (x != 0 && z != 0) {
-            addEdge(G, y, z);
+            addEdge(Graph, y, z);
         } else {
             break;  
         }
         
     }
 
-    printGraph(out_file, G);
+    printGraph(out_file, Graph);
     fprintf(out_file, "\n");
     List path = newList();
 
@@ -61,10 +61,10 @@ int main(int argc, char * argv[]){
             break;
         }
 
-    BFS(G, y);
+    BFS(Graph, y);
         clear(path);
-        getPath(path, G, z);
-        int distance = getDist(G, z);
+        getPath(path, Graph, z);
+        int distance = getDist(Graph, z);
         fprintf(out_file, "The distance from %d to %d is ", y, z);
         if (distance == -1) {
             fprintf(out_file, "infinity\n");
@@ -77,7 +77,7 @@ int main(int argc, char * argv[]){
         }
         fprintf(out_file, "\n");
     }
-    freeGraph(&G);
+    freeGraph(&Graph);
     freeList(&path);
 
     fclose(in_file);
