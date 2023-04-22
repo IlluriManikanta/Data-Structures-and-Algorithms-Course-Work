@@ -53,7 +53,7 @@ int main(int argc, char * argv[]){
 
     printGraph(out_file, Graph);
     fprintf(out_file, "\n");
-    List path = newList();
+    List p = newList();
     for (; fscanf(in_file, "%d %d", &y, &z) == 2; ) {
         if (y == 0 && z == 0) {
             break;
@@ -61,25 +61,27 @@ int main(int argc, char * argv[]){
     }
 
     BFS(Graph, y);
-        clear(path);
-        getPath(path, Graph, z);
+        clear(p);
+        getPath(p, Graph, z);
         // int distance = ;
         fprintf(out_file, "The distance from %d to %d is ", y, z);
-        if (getDist(Graph, z) == INF) {
-            fprintf(out_file, "\n");
-            fprintf(out_file, "infinity\n");
-            fprintf(out_file, "No %d-%d path exists\n", y, z);
-        } else {
-            fprintf(out_file, "\n");
+        if (getDist(Graph, z) != -1) {
             fprintf(out_file, "%d\n", getDist(Graph, z));
             fprintf(out_file, "A shortest %d-%d path is: ", y, z);
-            moveNext(path);
-            printList(out_file, path);
+            moveNext(p);
+            printList(out_file, p);
+            fprintf(out_file, "\n");
+            
+        } else {
+            fprintf(out_file, "infinity\n");
+            fprintf(out_file, "No %d-%d path exists\n", y, z);
+            fprintf(out_file, "\n");
+            
         }
-        fprintf(out_file, "\n");
+        
     
     freeGraph(&Graph);
-    freeList(&path);
+    freeList(&p);
 
     fclose(in_file);
     fclose(out_file);
