@@ -24,7 +24,7 @@ int main(int argc, char* argv[]){
    G = newGraph(n);
    for(i=1; i<n; i++){
       if( i%7!=0 ) addEdge(G, i, i+1);
-      if( i<=28  ) addEdge(G, i, i+7);
+      if( i<=28  ) addEdge(G, i, i+5);
    }
    printf("%s\n", "AddEdge test");
    addEdge(G, 9, 31);
