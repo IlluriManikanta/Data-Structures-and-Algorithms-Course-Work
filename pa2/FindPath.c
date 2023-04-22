@@ -64,7 +64,7 @@ int main(int argc, char * argv[]){
     BFS(G, y);
         clear(path);
         getPath(path, G, z);
-        fprintf(out_file, "The distance from %d to %d is ", y, z);
+        fprintf(out_file, "The dim %d to %d is ", y, z);
         if (getDist(G, z) != -1) {
             fprintf(out_file, "%d\n", getDist(G, z));
             fprintf(out_file, "A shortest %d-%d path is: ", y, z);
