@@ -59,17 +59,14 @@ int main(int argc, char * argv[]){
     //Calling printGraph Function to print Adjacency list representation
     printGraph(out_file, G);
     
-
-
     fscanf(in_file, "%d %d", &y, &z);
 
     //Sourcing & Destination pair Checks
     while(y != 0 || z != 0){
         //Checking if pair is present and if pair is "0,0" dummy pair
         if(y == z){
-            fprintf(out_file, "\n");
-            fprintf(out_file, "The distance from %d to %d is 0\n", y, z);
-            fprintf(out_file, "A shortest %d-%d path is: ", y, z);
+            fprintf(out_file, "\nThe distance from %d to %d is 0\n", y, z);
+            fprintf(out_file, "A shortest %d-%d path is: %d\n", y, z, y);
             fscanf(in_file, "%d %d\n", &y, &z);
             continue;
         }
@@ -82,7 +79,7 @@ int main(int argc, char * argv[]){
             fprintf(out_file, "The distance from %d to %d is infinity\n", y, z);
         } else {
             //Printing output in specified format
-            fprintf(out_file, "The distance from %d to %d is ", y, z);
+            fprintf(out_file, "The distance from %d to %d is %d\n", y, z, d);
             fprintf(out_file, "%d\n", d);
         }
         
@@ -98,7 +95,7 @@ int main(int argc, char * argv[]){
             fprintf(out_file, "A shortest %d-%d path is ", y, z);
             printList(out_file, p);
         }
-        fprintf(out_file, "\n");
+
         freeList(&p);
         fscanf(in_file, "%d %d\n", &y, &z);
     }
