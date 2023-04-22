@@ -69,14 +69,16 @@ for (;;) {
     getPath(path, Graph, z);
    
     //Printing output in specified format
-    fprintf(out_file, "The distance from %d to %d is ", y, z);
+    
     if(getDist(Graph, z) != -1){
+        fprintf(out_file, "The distance from %d to %d is ", y, z);
         fprintf(out_file, "%d\n", getDist(Graph, z));
         fprintf(out_file, "A shortest %d-%d path is: ", y, z);
         moveNext(path);
         printList(out_file, path);
         
     } else if(getDist(Graph, z) == -1){
+        fprintf(out_file, "The distance from %d to %d is ", y, z);
         fprintf(out_file, "infinity\n");
         fprintf(out_file, "No %d-%d path exists\n", y, z);
     }
