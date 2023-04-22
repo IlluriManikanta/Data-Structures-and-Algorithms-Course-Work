@@ -43,19 +43,19 @@ int main(int argc, char * argv[]){
 
     // read graph from input file
 fscanf(in_file, "%d", &x);
-Graph G = newGraph(x);
+Graph Graph = newGraph(x);
 int u, v;
 for (;;) {
     int read_result = fscanf(in_file, "%d %d", &u, &v);
     if (read_result != 2 || (u == 0 && v == 0)) {
         break;
     }
-    addEdge(G, u, v);
+    addEdge(Graph, u, v);
 }
 
 // print adjacency list representation of graph
 //fprintf(out, "Adjacency list representation of graph:\n");
-printGraph(out_file, G);
+printGraph(out_file, Graph);
 fprintf(out_file, "\n");
 List path = newList();
 
@@ -66,14 +66,13 @@ for (;;) {
         break;
     }
 
-    // perform BFS and print results
-    BFS(G, y);
+    //Calling BFS on graph "Graph"
+    BFS(Graph, y);
     clear(path);
-    getPath(path, G, z);
-    int distance = getDist(G, z);
+    getPath(path, Graph, z);
     fprintf(out_file, "The distance from %d to %d is ", y, z);
-    if (distance != INF) {
-        fprintf(out_file, "%d\n", distance);
+    if (getDist(Graph, z) != INF) {
+        fprintf(out_file, "%d\n", getDist(Graph, z));
         fprintf(out_file, "A shortest %d-%d path is: ", y, z);
         moveNext(path);
         printList(out_file, path);
@@ -86,7 +85,7 @@ for (;;) {
 }
 
 //Freeing Graph and List
-freeGraph(&G);
+freeGraph(&Graph);
 freeList(&path);
 
 //Closing input and output files
