@@ -16,6 +16,7 @@
 int main(int argc, char * argv[]){
     FILE *in_file = stdin;
     FILE *out_file = stdout;
+    //Initiating temp variables to hold values of vertices, and adjacency pairs
     int x;
     int y;
     int z;
@@ -41,12 +42,16 @@ int main(int argc, char * argv[]){
         exit(1);
     }
 
-    //Reading inputfile
+    //Reading inputfile and storing number of vertices in x
     fscanf(in_file, "%d", &x);
+    //Creating new graph with x number of vertices
     Graph Graph = newGraph(x);
     for(;;){
-        if(fscanf(in_file, "%d %d", &y, &z) != 2 || (y == 0 && z == 0)){
-            break;
+        if(fscanf(in_file, "%d %d", &y, &z) != 2){
+            if((y == 0 && z == 0)){
+                break;
+            }
+           
         }
         addEdge(Graph, y, z);
 
@@ -58,8 +63,10 @@ int main(int argc, char * argv[]){
 
     //Sourcing & Destination pair Checks
     for (;;) {
-        if(fscanf(in_file, "%d %d", &y, &z) != 2 || (y == 0 && z == 0)){
-            break;
+        if(fscanf(in_file, "%d %d", &y, &z) != 2){
+            if(y == 0 && z == 0){
+                break;
+            }
         }
 
         //Calling BFS on graph "Graph"
