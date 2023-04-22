@@ -23,5 +23,5 @@ make GraphTest
 
 ***RUN***
 To run this function you must:
-./ListTest
-./Lex in_file_name out_file_name
+./GraphTest
+./FindPath in_file_name out_file_name
