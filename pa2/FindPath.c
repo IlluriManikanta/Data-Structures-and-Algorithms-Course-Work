@@ -42,11 +42,11 @@ int main(int argc, char * argv[]){
     }
 
     // read graph from input file
-fscanf(in, "%d", &n);
-Graph G = newGraph(n);
+fscanf(in_file, "%d", &x);
+Graph G = newGraph(x);
 int u, v;
 for (;;) {
-    int read_result = fscanf(in, "%d %d", &u, &v);
+    int read_result = fscanf(in_file, "%d %d", &u, &v);
     if (read_result != 2 || (u == 0 && v == 0)) {
         break;
     }
@@ -55,40 +55,40 @@ for (;;) {
 
 // print adjacency list representation of graph
 //fprintf(out, "Adjacency list representation of graph:\n");
-printGraph(out, G);
-fprintf(out, "\n");
+printGraph(out_file, G);
+fprintf(out_file, "\n");
 List path = newList();
 
 // process source-destination pairs
 for (;;) {
-    int read_result = fscanf(in, "%d %d", &u, &v);
-    if (read_result != 2 || (u == 0 && v == 0)) {
+    int read_result = fscanf(in_file, "%d %d", &y, &z);
+    if (read_result != 2 || (y == 0 && z == 0)) {
         break;
     }
 
     // perform BFS and print results
-    BFS(G, u);
+    BFS(G, y);
     clear(path);
-    getPath(path, G, v);
-    int distance = getDist(G, v);
-    fprintf(out, "The distance from %d to %d is ", u, v);
+    getPath(path, G, z);
+    int distance = getDist(G, z);
+    fprintf(out_file, "The distance from %d to %d is ", y, z);
     if (distance == INF) {
-        fprintf(out, "infinity\n");
-        fprintf(out, "No %d-%d path exists\n", u, v);
+        fprintf(out_file, "infinity\n");
+        fprintf(out_file, "No %d-%d path exists\n", y, z);
     } else {
-        fprintf(out, "%d\n", distance);
-        fprintf(out, "A shortest %d-%d path is: ", u, v);
+        fprintf(out_file, "%d\n", distance);
+        fprintf(out_file, "A shortest %d-%d path is: ", y, z);
         moveNext(path);
-        printList(out, path);
+        printList(out_file, path);
     }
-    fprintf(out, "\n");
+    fprintf(out_file, "\n");
 }
 
 // clean up
 freeList(&path);
 freeGraph(&G);
-fclose(in);
-fclose(out);
+fclose(in_file);
+fclose(out_file);
 return 0;
 
     // fscanf(in_file, "%d", &x);
