@@ -54,7 +54,7 @@ int main(int argc, char * argv[]){
 
     //Calling printGraph Function to print Adjacency list representation
     printGraph(out_file, Graph);
-    fprintf(out_file, "\n");
+
     List p = newList();
 
     //Sourcing & Destination pair Checks
@@ -67,9 +67,10 @@ int main(int argc, char * argv[]){
         BFS(Graph, y);
         clear(p);
         getPath(p, Graph, z);
-    
+
         //Printing output in specified format
         if(getDist(Graph, z) != -1){
+            fprintf(out_file, "\n");
             fprintf(out_file, "The distance from %d to %d is ", y, z);
             fprintf(out_file, "%d\n", getDist(Graph, z));
             fprintf(out_file, "A shortest %d-%d path is: ", y, z);
@@ -77,6 +78,7 @@ int main(int argc, char * argv[]){
             printList(out_file, p);
             
         } else if(getDist(Graph, z) == -1){
+            fprintf(out_file, "\n");
             fprintf(out_file, "The distance from %d to %d is ", y, z);
             fprintf(out_file, "infinity\n");
             fprintf(out_file, "No %d-%d path exists\n", y, z);
