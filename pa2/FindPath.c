@@ -47,10 +47,12 @@ int main(int argc, char * argv[]){
     //Creating new graph with x number of vertices
     Graph Graph = newGraph(x);
     for(;;){
-        if(fscanf(in_file, "%d %d", &y, &z) != 2 || (y == 0 && z == 0)){
-                break; 
+        if(fscanf(in_file, "%d %d", &y, &z) == 2 || (y != 0 && z != 0)){
+            addEdge(Graph, y, z); 
+        } else {
+            break; 
         }
-        addEdge(Graph, y, z);
+       
 
     }
 
