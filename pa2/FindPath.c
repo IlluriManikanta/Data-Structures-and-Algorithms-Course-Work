@@ -68,6 +68,7 @@ int main(int argc, char * argv[]){
         getPath(p, Graph, z);
 
         //Printing output in specified format
+        //Checking if distance G->distance[u] is != -1
         if(getDist(Graph, z) != -1){
             fprintf(out_file, "\n");
             fprintf(out_file, "The distance from %d to %d is ", y, z);
@@ -75,15 +76,18 @@ int main(int argc, char * argv[]){
             fprintf(out_file, "A shortest %d-%d path is: ", y, z);
             moveNext(p);
             printList(out_file, p);
+            fprintf(out_file, "\n");
             
         }
+        //Checking if distance G->distance[u] is == -1
         if(getDist(Graph, z) == -1){
             fprintf(out_file, "\n");
             fprintf(out_file, "The distance from %d to %d is ", y, z);
             fprintf(out_file, "infinity\n");
             fprintf(out_file, "No %d-%d path exists\n", y, z);
+            fprintf(out_file, "\n");
         }
-        fprintf(out_file, "\n");
+
     }
 
     //Freeing Graph and List
