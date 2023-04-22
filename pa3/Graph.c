@@ -34,6 +34,7 @@ Graph newGraph(int n){
     graph->color = malloc(sizeof(int*) * (n + 1));
     graph->parent = malloc(sizeof(int*) * (n + 1));
     graph->discover = malloc(sizeof(int*) * (n +1));
+    graph->finish = malloc(sizeof(int*) * (n + 1));
 
     for(int i = 0; i <= n; i++){
         graph->neighbor[i] = newList();
@@ -41,6 +42,7 @@ Graph newGraph(int n){
         graph->parent[i] = NIL;
         graph->discover[i] = UNDEF;
     }
+
     graph->order = n;
     graph->size = 0;
     graph->finish = UNDEF;
@@ -48,28 +50,121 @@ Graph newGraph(int n){
     return graph;
 }
 
-void freeGraph(Graph* pG);
+void freeGraph(Graph* pG){
+    if(pG != NULL && *pG != NULL){
+        for(int i = 0; i <= (*pG)->order; i++){
+            freeList(&((*pG)->neighbor[i]));
+        }
+        free((*pG)->neighbor);
+        free((*pG)->color);
+        free((*pG)->discover);
+        free((*pG)->parent);
+        free((*pG)->finish);
+        free(*pG);
+        *pG = NULL;
+    }
+}
 
 /*** Access functions ***/
-int getOrder(Graph G);
+int getOrder(Graph G){
+    if(G){
+        return G->order;
+    } else {
+        fprintf(stderr, " Graph ADT; ERROR in getOrder(): NULL pointer\n");
+        exit(1);
+    }
+}
 
-int getSize(Graph G);
+int getSize(Graph G){
+    if(G){
+        return G->size;
+    } else {
+        fprintf(stderr, " Graph ADT; ERROR in getSize(): NULL pointer\n");
+        exit(1);
+    }
+}
 
-int getDiscover(Graph G, int u);
+//NEED TO FINISH
+int getDiscover(Graph G, int u){
+    if(G){
 
-void getFinish(Graph G, int u);
+
+    } else {
+        fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
+        exit(1);
+    }
+}
+
+//NEED TO FINISH
+void getFinish(Graph G, int u){
+    if(G){
+
+
+    } else {
+        fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
+        exit(1);
+    }
+}
 
 /*** Manipulation procedures ***/
 
-void addArc(Graph G, int u, int v);
+void addArc(Graph G, int u, int v){
+    if(G){
 
-void addEdge(Graph G, int u, int v);
 
-void DFS(Graph G, List s);
+    } else {
+        fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
+        exit(1);
+    }
+}
+
+void addEdge(Graph G, int u, int v){
+    if(G){
+
+
+    } else {
+        fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
+        exit(1);
+    }
+}
+
+void DFS(Graph G, List s){
+    if(G){
+
+
+    } else {
+        fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
+        exit(1);
+    }
+}
 
 /*** Other operations ***/
-Graph transpose(Graph G);
+Graph transpose(Graph G){
+    if(G){
 
-Graph copyGraph(Graph G);
 
-void printGraph(FILE* out , Graph G);
+    } else {
+        fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
+        exit(1);
+    }
+}
+
+Graph copyGraph(Graph G){
+    if(G){
+
+
+    } else {
+        fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
+        exit(1);
+    }
+}
+
+void printGraph(FILE* out , Graph G){
+    if(G){
+
+
+    } else {
+        fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
+        exit(1);
+    }
+}
