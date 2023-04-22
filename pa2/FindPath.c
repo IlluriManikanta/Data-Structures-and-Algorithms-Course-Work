@@ -77,7 +77,7 @@ int main(int argc, char * argv[]){
         BFS(G, y);
         int d = getDist(G, z);
         
-        if(d = INF){
+        if(d == INF){
             //Printing output in specified format
             fprintf(out_file, "The distance from %d to %d is infinity\n", y, z);
         } else {
