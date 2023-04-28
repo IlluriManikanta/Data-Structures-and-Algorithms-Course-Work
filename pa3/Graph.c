@@ -139,6 +139,7 @@ void addEdge(Graph G, int u, int v){
     }
 }
 
+// TA Moore helped me fix my original implementation by adding extra checks
 void addArc(Graph G, int u, int v){
     if(G){
         if (v > getOrder(G) || u > getOrder(G)){
