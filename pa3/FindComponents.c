@@ -81,7 +81,36 @@ int main(int argc, char * argv[]){
     }
     fprintf(out_file, "G contains %d strongly connected components:\n", count); 
     
-    
+    int k = 1;
+    while(index(graph) >= 0){
+        fprintf(out_file, "Component %d: ", k++);
+        List components = newList();
+
+        if(index(graph) < 0) moveBack(graph);
+        while(index(graph) >= 0){
+            if(getParent(graphT,get(graph)) == NIL){
+
+                prepend(components, get(graph));
+                movePrev(graph);
+                break;
+            }
+            prepend(components, get(graph));
+
+            movePrev(graph);
+        }
+        printList(out_file, components);
+        fprintf(out_file, "\n");
+        freeList(&components);
+        moveNext(graph);
+    }
+
+    fclose(in_file);
+    fclose(out_file);
+    // Free Graph
+    freeGraph(&graphT);
+    freeGraph(&new);
+
+    return(0);
     
 
 }
