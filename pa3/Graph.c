@@ -181,10 +181,10 @@ void addArc(Graph G, int u, int v){
 int Visit(Graph G, List S, int u, int time){
     int temp = time;
     temp++;
-    G->discover[u];
+    G->discover[u] = temp;
     G->color[u] = GRAY;
 
-    if(length(G->neighbor[u])){
+    if(length(G->neighbor[u]) > 0){
         moveFront(G->neighbor[u]);
         while(index(G->neighbor[u]) >= 0){
             if(G->color[u] == WHITE){
