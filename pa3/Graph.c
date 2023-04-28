@@ -198,7 +198,7 @@ int Visit(Graph G, List S, int u, int time){
 
     G->color[u] = BLACK;
     time++;
-    printf("%s%d\n", "G finish u: ", G->finish[u]);
+    // printf("%s%d\n", "G finish u: ", G->finish[u]);
     G->finish[u] = time;
     prepend(S, u);
     return time;
@@ -289,7 +289,6 @@ void printGraph(FILE* out , Graph G){
             } else {
                 fprintf(out, "\n");
             }
-            
         }
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
