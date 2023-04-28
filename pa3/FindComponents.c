@@ -17,8 +17,8 @@ int main(int argc, char * argv[]){
     FILE *in_file = stdin;
     FILE *out_file = stdout;
     //Initiating temp variables to hold values of vertices, and adjacency pairs
-    int val1 = 0;
-    int val2 = 0;
+    int x = 0;
+    int y = 0;
     int count = 0;
 
     //Checking for correct number of arguments
@@ -42,11 +42,45 @@ int main(int argc, char * argv[]){
         exit(1);
     }
 
-    //NEED TO FINISH
+    //Read the first line
+    fscanf(in_file, "%d\n", &count);
+    Graph new = newGraph(count);
+    fscanf(in_file, "%d\n", &x, &y);
+
+    while(x != 0 && y != 0){
+        addArc(new, x, y);
+        fscanf(in_file, "%d %d\n", &x, &y);
+    }
+
+    //Printing Lable message
+    fprintf(out_file, "Adjacency list representation of G:\n");
+    printGraph(out_file, new);
+    fprintf(out_file, "\n");
     
+    //Creating list for DFS
+    List graph= newList(); 
+    int i = 1;
+    while(i <= getOrder(new)){
+        append(graph, i);
+        i++; 
+    }
 
+    DFS(new, graph); 
+    Graph graphT = transpose(new); 
+    DFS(graphT, graph); 
+    
+    fprintf(out_file, "\n"); 
 
-
-
+    count = 0; 
+    moveBack(graph); 
+    while (index(graph) != -1){
+        if (getParent(graphT, get(graph)) == NIL){
+            count++; 
+        }
+        movePrev(graph);
+    }
+    fprintf(out_file, "G contains %d strongly connected components:\n", count); 
+    
+    
 
 }

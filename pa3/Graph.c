@@ -270,8 +270,22 @@ Graph copyGraph(Graph G){
 
 void printGraph(FILE* out , Graph G){
     if(G){
-
-
+        for(int i = 1; i <= getOrder(G); i++){
+            int temp = G->neighbor[i];
+            moveFront(temp);
+            fprintf(out, "%d:", i);
+            if (length(temp) != 0){
+                while(index(temp) >= 0){
+                    int neighbor = get(temp);
+                    fprintf(out, " %d", neighbor);
+                    moveNext(temp);
+                }
+                fprintf(out, "\n");
+            } else {
+                fprintf(out, "\n");
+            }
+            
+        }
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
         exit(1);
