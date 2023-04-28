@@ -178,6 +178,7 @@ void addArc(Graph G, int u, int v){
     }
 }
 
+//TA Norton Choy helped me fix my original implementation was having a seg fault earlier
 int Visit(Graph G, List S, int u, int time){
     // int temp = time;
     time++;
@@ -203,6 +204,7 @@ int Visit(Graph G, List S, int u, int time){
     return time;
 }
 
+//TA Norton Choy helped me fix my original implementation was having a seg fault earlier
 void DFS(Graph G, List s){
     if(G){
         if (length(s) != getOrder(G)) {
@@ -240,6 +242,7 @@ void DFS(Graph G, List s){
 }
 
 /*** Other operations ***/
+//TA Norton Choy helped me fix my original implementation was having a seg fault earlier
 Graph transpose(Graph G){
     if(G){
         Graph g = newGraph(getOrder(G));  
@@ -269,6 +272,7 @@ Graph copyGraph(Graph G){
     }
 }
 
+//TA Norton Choy helped me fix my original implementation was having printing issues
 void printGraph(FILE* out , Graph G){
     if(G){
         for(int i = 1; i <= getOrder(G); i++){
