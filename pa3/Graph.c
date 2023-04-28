@@ -187,7 +187,7 @@ int Visit(Graph G, List S, int u, int time){
     if(length(G->neighbor[u]) > 0){
         moveFront(G->neighbor[u]);
         while(index(G->neighbor[u]) >= 0){
-            if(G->color[u] == WHITE){
+            if(G->color[get(G->neighbor[u])] == WHITE){
                 G->parent[get(G->neighbor[u])] = u;
                 temp = Visit(G, S, get(G->neighbor[u]), temp);
             }
@@ -210,8 +210,6 @@ void DFS(Graph G, List s){
         }
 
         for(int i = 1; i <= G->neighbor; i++) {
-            G->discover[i] = UNDEF;
-            G->finish[i] = UNDEF;
             G->parent[i] = NIL;
             G->color[i] = WHITE;
         }
