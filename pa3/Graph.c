@@ -43,6 +43,7 @@ Graph newGraph(int n){
         graph->color[i] = WHITE;
         graph->parent[i] = NIL;
         graph->discover[i] = UNDEF;
+        graph->finish[i] = UNDEF;
     }
 
     graph->order = n;
