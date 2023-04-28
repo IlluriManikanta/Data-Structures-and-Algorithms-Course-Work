@@ -81,6 +81,7 @@ int main(int argc, char * argv[]){
     }
     fprintf(out_file, "G contains %d strongly connected components:\n", count); 
     
+    //O0O0O0O0O0O0O0O0O0O00O0O0O00
     int k = 1;
     while(index(graph) >= 0){
         fprintf(out_file, "Component %d: ", k++);
@@ -106,6 +107,7 @@ int main(int argc, char * argv[]){
 
     fclose(in_file);
     fclose(out_file);
+
     // Free Graph
     freeGraph(&graphT);
     freeGraph(&new);
