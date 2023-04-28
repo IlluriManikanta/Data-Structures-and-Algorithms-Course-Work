@@ -276,7 +276,7 @@ Graph copyGraph(Graph G){
 void printGraph(FILE* out , Graph G){
     if(G){
         for(int i = 1; i <= getOrder(G); i++){
-            int temp = G->neighbor[i];  
+            List temp = G->neighbor[i];  
             fprintf(out, "%d:", i);
             if (length(temp) != 0){
                 moveFront(temp);
