@@ -48,7 +48,6 @@ Graph newGraph(int n){
 
     graph->order = n;
     graph->size = 0;
-    graph->finish = UNDEF;
 
     return graph;
 }
