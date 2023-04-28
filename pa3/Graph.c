@@ -32,11 +32,11 @@ typedef struct GraphObj{
 Graph newGraph(int n){
     Graph graph = malloc(sizeof(GraphObj));
     assert(graph != NULL);
-    graph->neighbor = malloc(sizeof(List*) * (n + 1));
-    graph->color = malloc(sizeof(int*) * (n + 1));
-    graph->parent = malloc(sizeof(int*) * (n + 1));
-    graph->discover = malloc(sizeof(int*) * (n +1));
-    graph->finish = malloc(sizeof(int*) * (n + 1));
+    graph->neighbor = malloc(sizeof(List) * (n + 1));
+    graph->color = malloc(sizeof(int) * (n + 1));
+    graph->parent = malloc(sizeof(int) * (n + 1));
+    graph->discover = malloc(sizeof(int) * (n +1));
+    graph->finish = malloc(sizeof(int) * (n + 1));
 
     for(int i = 0; i <= n; i++){
         graph->neighbor[i] = newList();
