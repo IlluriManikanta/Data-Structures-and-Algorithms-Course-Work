@@ -45,7 +45,7 @@ int main(int argc, char * argv[]){
     //Read the first line
     fscanf(in_file, "%d\n", &count);
     Graph new = newGraph(count);
-    fscanf(in_file, "%d\n", &x, &y);
+    fscanf(in_file, "%d%d\n", &x, &y);
 
     while(x != 0 && y != 0){
         addArc(new, x, y);
