@@ -1,11 +1,24 @@
 Manikantanagasai Harshit Illuri
 milluri@ucsc.edu
-PA2 README
-Assignment: pa2 -> BFS
+PA3 README
+Assignment: pa3 -> DFS
 
 
 ***Files Included***
+README
+Makefile
+List.h
+List.c -  LIST ADY
+Graph.h
+Graph.c - GRAPH ADT WITH DFS
+GraphTest.c - GRAPH TEST FILE
+FindComponents.c - FUNS DFS
 
 ***BUILD***
+Enter correct directory then run:
+make clean
+make
 
 ***Run***
+./GraphTest
+./FindComponents <in_file_name>  <out_file_name>
