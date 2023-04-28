@@ -35,9 +35,11 @@ int getOrder(Graph G);
 
 int getSize(Graph G);
 
+int getParent(Graph G, int u);
+
 int getDiscover(Graph G, int u);
 
-void getFinish(Graph G, int u);
+int getFinish(Graph G, int u);
 
 /*** Manipulation procedures ***/
 

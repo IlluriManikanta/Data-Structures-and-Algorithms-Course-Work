@@ -92,27 +92,26 @@ int getSize(Graph G){
 //NEED TO FINISH
 int getParent(Graph G, int u){
     if(G){
-        return G->parent;
+        return G->parent[u];
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getSize(): NULL pointer\n");
         exit(1);
     }
 }
 
-//
 int getDiscover(Graph G, int u){
     if(G){
-        return G->discover;
+        return G->discover[u];
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
         exit(1);
     }
 }
 
-//NEED TO FINISH
-void getFinish(Graph G, int u){
+
+int getFinish(Graph G, int u){
     if(G){
-        return G->finish;
+        return G->finish[u];
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
         exit(1);
@@ -179,6 +178,30 @@ void addArc(Graph G, int u, int v){
     }
 }
 
+int Visit(Graph G, List S, int u, int time){
+    int temp = time;
+    temp++;
+    G->discover[u];
+    G->color[u] = GRAY;
+
+    if(length(G->neighbor[u])){
+        moveFront(G->neighbor[u]);
+        while(index(G->neighbor[u]) >= 0){
+            if(G->color[u] == WHITE){
+                G->parent[get(G->neighbor[u])] = u;
+                temp = Visit(G, S, get(G->neighbor[u]), temp);
+            }
+            moveNext(G->neighbor[u]);
+        }
+    }
+
+    G->color[u] = BLACK;
+    temp++;
+    G->finish[u] = temp;
+    prepend(S, u);
+    return temp;
+}
+
 void DFS(Graph G, List s){
     if(G){
         if (length(s) != getOrder(G)) {
@@ -193,23 +216,26 @@ void DFS(Graph G, List s){
             G->color[i] = 0;
         }
 
+        List new = newList();
+ 
         int time = 0;
-        for(moveFront(s); index(s) >= 0; moveNext(s)) {
-            int temp = get(s);
-            if(G->color[temp] == WHITE){
-                G->discover[temp]= time++;
-                G->color[temp] = GRAY;
-                List G_neighbor_Fs = G->neighbor[front(s)];
-                moveFront(G_neighbor_Fs);
-                while(index(G_neighbor_Fs >= 0)){
-                    if(G->color[get(G_neighbor_Fs)] == WHITE){
-                        G_neighbor_Fs = front(s);
-// call visit
-
-                    }
-                }
+        int temp = get(s);
+        G->color[temp] = GRAY;
+        
+        while(length(s) > 0){
+            int x = front(s);
+            deleteFront(s);
+            if(G->color[x] == WHITE){
+                time = Visit(G, new, x, time);
             }
         }
+
+        moveFront(new);
+        while(index(new) >= 0){
+            append(s, get(new));
+            moveNext(new);
+        }
+        freeList(&new);
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
         exit(1);
@@ -219,8 +245,15 @@ void DFS(Graph G, List s){
 /*** Other operations ***/
 Graph transpose(Graph G){
     if(G){
-        
-
+        Graph g = newGraph(getOrder(G));  
+        for(int i = 0; i <= getOrder(G); i++){
+            moveFront(G->neighbor[i]);
+            while(index(G->neighbor[i]) >= 0){
+                addArc(g, get(G->neighbor[i]), i);
+                moveNext(G->neighbor[i]);
+            }
+        }        
+    return g;
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
         exit(1);
@@ -229,7 +262,7 @@ Graph transpose(Graph G){
 
 Graph copyGraph(Graph G){
     if(G){
-
+        
 
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");

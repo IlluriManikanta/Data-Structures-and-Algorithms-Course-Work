@@ -17,9 +17,9 @@ int main(int argc, char * argv[]){
     FILE *in_file = stdin;
     FILE *out_file = stdout;
     //Initiating temp variables to hold values of vertices, and adjacency pairs
-    int x;
-    int y;
-    int z;
+    int val1 = 0;
+    int val2 = 0;
+    int count = 0;
 
     //Checking for correct number of arguments
     if(argc != 3){
@@ -44,6 +44,7 @@ int main(int argc, char * argv[]){
 
     //NEED TO FINISH
     
+
 
 
 
