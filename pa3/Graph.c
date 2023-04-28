@@ -158,7 +158,8 @@ void addArc(Graph G, int u, int v){
             int i = 1;
             while(i <= length(X)){
                 if(get(X) == v){
-                    moveNext(X);
+                    // moveNext(X);
+                    return;
                 } else if (get(X) > v){
                     insertBefore(X, v);
                     G->size++;
