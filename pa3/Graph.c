@@ -179,9 +179,9 @@ void addArc(Graph G, int u, int v){
 }
 
 int Visit(Graph G, List S, int u, int time){
-    int temp = time;
-    temp++;
-    G->discover[u] = temp;
+    // int temp = time;
+    time++;
+    G->discover[u] = time;
     G->color[u] = GRAY;
 
     if(length(G->neighbor[u]) > 0){
@@ -189,17 +189,17 @@ int Visit(Graph G, List S, int u, int time){
         while(index(G->neighbor[u]) >= 0){
             if(G->color[get(G->neighbor[u])] == WHITE){
                 G->parent[get(G->neighbor[u])] = u;
-                temp = Visit(G, S, get(G->neighbor[u]), temp);
+                time = Visit(G, S, get(G->neighbor[u]), time);
             }
             moveNext(G->neighbor[u]);
         }
     }
 
     G->color[u] = BLACK;
-    temp++;
-    G->finish[u] = temp;
+    time++;
+    G->finish[u] = time;
     prepend(S, u);
-    return temp;
+    return time;
 }
 
 void DFS(Graph G, List s){
