@@ -36,7 +36,7 @@ int main(int argc, char* argv[]){
    fprintf(stdout, "\n");
    fprintf(stdout, "x:  d  f  p\n");
    for(i=1; i<=n; i++){
-      fprintf(stdout, "%d: %2d %2d %2d\n", i, getDiscover(G, i), getclearFinish(G, i), getParent(G, i));
+      fprintf(stdout, "%d: %2d %2d %2d\n", i, getDiscover(G, i), getFinish(G, i), getParent(G, i));
    }
    fprintf(stdout, "\n");
    printList(stdout, S);
