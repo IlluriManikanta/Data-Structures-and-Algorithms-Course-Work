@@ -262,10 +262,14 @@ Graph transpose(Graph G){
     }
 }
 
+//CAUSING EMP
 Graph copyGraph(Graph G){
     if(G){
-        
-
+        Graph copyG = newGraph(getOrder(G));
+        for(int i = 1; i <= getOrder(G); i++){
+            copyG->neighbor[i] = copyList(G->neighbor[i]);
+        }
+        return copyG;
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
         exit(1);

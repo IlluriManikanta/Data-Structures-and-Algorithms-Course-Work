@@ -13,7 +13,7 @@ int main(int argc, char* argv[]){
    List S = newList();
    Graph G = newGraph(n);
    Graph T=NULL;
-   // Graph C=NULL;
+   Graph C=NULL;
 
    for(i=1; i<=n; i++) append(S, i);
 
@@ -43,9 +43,9 @@ int main(int argc, char* argv[]){
    fprintf(stdout, "\n");
 
    T = transpose(G);
-   // C = copyGraph(G);
+   C = copyGraph(G);
    fprintf(stdout, "\n");
-   // printGraph(stdout, C);
+   printGraph(stdout, C);
    fprintf(stdout, "\n");
    printGraph(stdout, T);
    fprintf(stdout, "\n");
@@ -63,7 +63,7 @@ int main(int argc, char* argv[]){
    freeList(&S);
    freeGraph(&G);
    freeGraph(&T);
-   // freeGraph(&C);
+   freeGraph(&C);
    return(0);
 }
 
