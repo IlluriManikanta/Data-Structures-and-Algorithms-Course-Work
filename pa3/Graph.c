@@ -271,10 +271,10 @@ Graph copyGraph(Graph G){
 void printGraph(FILE* out , Graph G){
     if(G){
         for(int i = 1; i <= getOrder(G); i++){
-            int temp = G->neighbor[i];
-            moveFront(temp);
+            int temp = G->neighbor[i];  
             fprintf(out, "%d:", i);
             if (length(temp) != 0){
+                moveFront(temp);
                 while(index(temp) >= 0){
                     int neighbor = get(temp);
                     fprintf(out, " %d", neighbor);
