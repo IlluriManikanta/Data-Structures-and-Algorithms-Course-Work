@@ -244,10 +244,12 @@ Graph transpose(Graph G){
     if(G){
         Graph g = newGraph(getOrder(G));  
         for(int i = 0; i <= getOrder(G); i++){
-            moveFront(G->neighbor[i]);
-            while(index(G->neighbor[i]) >= 0){
-                addArc(g, get(G->neighbor[i]), i);
-                moveNext(G->neighbor[i]);
+            if(length(G->neighbor[i]) != 0){ 
+                moveFront(G->neighbor[i]);
+                while(index(G->neighbor[i]) >= 0){
+                    addArc(g, get(G->neighbor[i]), i);
+                    moveNext(G->neighbor[i]);
+                }
             }
         }        
     return g;
