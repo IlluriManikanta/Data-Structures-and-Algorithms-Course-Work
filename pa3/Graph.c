@@ -213,14 +213,12 @@ void DFS(Graph G, List s){
             G->discover[i] = UNDEF;
             G->finish[i] = UNDEF;
             G->parent[i] = NIL;
-            G->color[i] = 0;
+            G->color[i] = WHITE;
         }
 
         List new = newList();
  
         int time = 0;
-        int temp = get(s);
-        G->color[temp] = GRAY;
         
         while(length(s) > 0){
             int x = front(s);
