@@ -209,7 +209,7 @@ void DFS(Graph G, List s){
             exit(1);
         }
 
-        for(int i = 1; i <= G->neighbor; i++) {
+        for(int i = 1; i <= getOrder(G); i++) {
             G->parent[i] = NIL;
             G->color[i] = WHITE;
         }
