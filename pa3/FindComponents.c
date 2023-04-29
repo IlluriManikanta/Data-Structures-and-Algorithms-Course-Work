@@ -104,7 +104,7 @@ int main(int argc, char * argv[]){
         freeList(&components);
         moveNext(graph);
     }
-
+    //oO0O0O0O0O0O0O0O0O0O0O0O0O0O0
     fclose(in_file);
     fclose(out_file);
 

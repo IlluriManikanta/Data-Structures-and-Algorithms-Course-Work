@@ -232,12 +232,15 @@ void DFS(Graph G, List s){
                 time = Visit(G, new, x, time);
             }
         }
-
-        moveFront(new);
-        while(index(new) >= 0){
+        for(moveFront(new); index(new) >= 0; moveNest(new)){
             append(s, get(new));
-            moveNext(new);
         }
+
+        // moveFront(new);
+        // while(index(new) >= 0){
+        //     append(s, get(new));
+        //     moveNext(new);
+        // }
         freeList(&new);
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
@@ -246,7 +249,7 @@ void DFS(Graph G, List s){
 }
 
 /*** Other operations ***/
-//TA Norton Choy helped me fix my original implementation was having a seg fault earlier
+//TA Norton Choy helped me fix my original implementation, was having a seg fault earlier
 Graph transpose(Graph G){
     if(G){
         Graph g = newGraph(getOrder(G));  
@@ -266,7 +269,6 @@ Graph transpose(Graph G){
     }
 }
 
-//CAUSING EMP
 Graph copyGraph(Graph G){
     if(G){
         Graph copyG = newGraph(getOrder(G));
