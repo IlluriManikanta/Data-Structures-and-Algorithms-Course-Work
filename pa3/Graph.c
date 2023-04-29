@@ -232,15 +232,11 @@ void DFS(Graph G, List s){
                 time = Visit(G, new, x, time);
             }
         }
+
         for(moveFront(new); index(new) >= 0; moveNext(new)){
             append(s, get(new));
         }
-
-        // moveFront(new);
-        // while(index(new) >= 0){
-        //     append(s, get(new));
-        //     moveNext(new);
-        // }
+        
         freeList(&new);
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
