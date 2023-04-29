@@ -184,28 +184,18 @@ void addArc(Graph G, int u, int v){
 
 //TA Norton Choy helped me fix my original implementation was having a seg fault earlier
 int Visit(Graph G, List S, int u, int time){
-    // int temp = time;
     time++;
     G->discover[u] = time;
     G->color[u] = GRAY;
 
     if(length(G->neighbor[u]) > 0){
-        // moveFront(G->neighbor[u]);
         for(moveFront(G->neighbor[u]); index(G->neighbor[u]) >= 0; moveNext(G->neighbor[u])){
             if(G->color[get(G->neighbor[u])] == WHITE){
                 G->parent[get(G->neighbor[u])] = u;
                 time = Visit(G, S, get(G->neighbor[u]), time);
             }
         }
-        // while(index(G->neighbor[u]) >= 0){
-        //     if(G->color[get(G->neighbor[u])] == WHITE){
-        //         G->parent[get(G->neighbor[u])] = u;
-        //         time = Visit(G, S, get(G->neighbor[u]), time);
-        //     }
-        //     moveNext(G->neighbor[u]);
-        // }
     }
-
     G->color[u] = BLACK;
     time++;
     // printf("%s%d\n", "G finish u: ", G->finish[u]);
