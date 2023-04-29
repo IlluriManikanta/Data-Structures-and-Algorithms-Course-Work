@@ -232,7 +232,7 @@ void DFS(Graph G, List s){
                 time = Visit(G, new, x, time);
             }
         }
-        for(moveFront(new); index(new) >= 0; moveNest(new)){
+        for(moveFront(new); index(new) >= 0; moveNext(new)){
             append(s, get(new));
         }
 
