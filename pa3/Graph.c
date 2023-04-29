@@ -190,14 +190,20 @@ int Visit(Graph G, List S, int u, int time){
     G->color[u] = GRAY;
 
     if(length(G->neighbor[u]) > 0){
-        moveFront(G->neighbor[u]);
-        while(index(G->neighbor[u]) >= 0){
+        // moveFront(G->neighbor[u]);
+        for(moveFront(G->neighbor[u]); index(G->neighbor[u]) >= 0; moveNext(G->neighbor[u])){
             if(G->color[get(G->neighbor[u])] == WHITE){
                 G->parent[get(G->neighbor[u])] = u;
                 time = Visit(G, S, get(G->neighbor[u]), time);
             }
-            moveNext(G->neighbor[u]);
         }
+        // while(index(G->neighbor[u]) >= 0){
+        //     if(G->color[get(G->neighbor[u])] == WHITE){
+        //         G->parent[get(G->neighbor[u])] = u;
+        //         time = Visit(G, S, get(G->neighbor[u]), time);
+        //     }
+        //     moveNext(G->neighbor[u]);
+        // }
     }
 
     G->color[u] = BLACK;
@@ -236,7 +242,7 @@ void DFS(Graph G, List s){
         for(moveFront(new); index(new) >= 0; moveNext(new)){
             append(s, get(new));
         }
-        
+
         freeList(&new);
     } else {
         fprintf(stderr, " Graph ADT; ERROR in getSource(): NULL pointer\n");
