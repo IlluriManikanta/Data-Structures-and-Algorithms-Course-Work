@@ -61,8 +61,7 @@ int main(int argc, char * argv[]){
     fprintf(out_file, "\n");
 
     List S = newList();
-    Graph tran = newGraph();
-    
+    Graph tran;
     tran = transpose(new);
     for(int i = 1; i<= count; i++){
         append(S, i);
