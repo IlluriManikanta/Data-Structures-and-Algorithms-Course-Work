@@ -85,10 +85,10 @@ int main(int argc, char * argv[]){
     List *C;
 
     C = malloc(comp * sizeof(List*));
-    int i = 0;
-    while(i < comp){
-        C[i] = newList();
-        i++;
+    int j = 0;
+    while(j < comp){
+        C[j] = newList();
+        j++;
     }
 
     x = comp;
@@ -102,13 +102,13 @@ int main(int argc, char * argv[]){
         moveNext(temp_list);
     }
 
-    int i = 0;
-    while(i < comp){
-        fprintf(out_file, "Component %d: ", i+1);
-        printList(out_file, C[i]);
+    int k = 0;
+    while(k < comp){
+        fprintf(out_file, "Component %d: ", k+1);
+        printList(out_file, C[k]);
         fprintf(out_file, "\n");
-        freeList(&C[i]);
-        i++
+        freeList(&C[k]);
+        k++;
     }
 
     free(C);
