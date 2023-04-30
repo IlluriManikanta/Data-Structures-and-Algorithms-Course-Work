@@ -48,9 +48,14 @@ int main(int argc, char * argv[]){
     Graph new = newGraph(count);
     fscanf(in_file, "%d%d\n", &x, &y);
 
-    while(x != 0 && y != 0){
+    // while(x != 0 && y != 0){
+    //     addArc(new, x, y);
+    //     fscanf(in_file, "%d %d\n", &x, &y);
+    // }
+
+    while(fscanf(in_file, "%d %d\n", &x, &y) == 2){
         addArc(new, x, y);
-        fscanf(in_file, "%d %d\n", &x, &y);
+        addArc(new, y, x);
     }
 
     //Printing Lable message
@@ -76,7 +81,7 @@ int main(int argc, char * argv[]){
     }
     fprintf(out_file, "G contains %d strongly connected components:\n", z);
 
-    List C = malloc(z * sizeof(List*));
+    List *C = malloc(z * sizeof(List*));
 
     for(int i = 0; i < z; i++){
         C[i] = newList();
