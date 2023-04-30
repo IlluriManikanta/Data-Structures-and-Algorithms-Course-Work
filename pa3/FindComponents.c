@@ -21,7 +21,7 @@ int main(int argc, char * argv[]){
     int y = 0;
     int comp = 0;
     int count = 0;
-    Graph tran;
+
 
 
     //Checking for correct number of arguments
@@ -61,7 +61,8 @@ int main(int argc, char * argv[]){
     fprintf(out_file, "\n");
 
     List S = newList();
-
+    Graph tran = newGraph();
+    
     tran = transpose(new);
     for(int i = 1; i<= count; i++){
         append(S, i);
