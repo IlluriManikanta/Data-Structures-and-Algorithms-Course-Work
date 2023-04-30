@@ -60,15 +60,16 @@ int main(int argc, char * argv[]){
     printGraph(out_file, new);
     fprintf(out_file, "\n");
 
-    List S = newList();
+    //Creating Lits and graph to transpose
+    List temp_list = newList();
     Graph tran;
     tran = transpose(new);
     for(int i = 1; i<= count; i++){
-        append(S, i);
+        append(temp_list, i);
     }
 
-    DFS(new, S);
-    DFS(tran, S);
+    DFS(new, temp_list);
+    DFS(tran, temp_list);
     for(int i = 1; i <= count; i++){
         if(getParent(tran, i) == NIL){
             comp++;
@@ -86,7 +87,7 @@ int main(int argc, char * argv[]){
     }
 
     x = comp;
-    for(moveFront(S); index(S) >= 0; moveNext(S)){
+    for(moveFront(temp_list); index(temp_list) >= 0; moveNext(temp_list)){
         int u = get(S);
         if(getParent(tran, u) == NIL){
             x--;
@@ -104,7 +105,7 @@ int main(int argc, char * argv[]){
     free(C);
     freeGraph(&new);
     freeGraph(&tran);
-    freeList(&S);
+    freeList(&temp_list);
     fclose(in_file);
     fclose(out_file);    
 }
