@@ -48,14 +48,9 @@ int main(int argc, char * argv[]){
     Graph new = newGraph(count);
     fscanf(in_file, "%d%d\n", &x, &y);
 
-    // while(x != 0 && y != 0){
-    //     addArc(new, x, y);
-    //     fscanf(in_file, "%d %d\n", &x, &y);
-    // }
-
-    while(fscanf(in_file, "%d %d\n", &x, &y) == 2){
+    while(x != 0 && y != 0){
         addArc(new, x, y);
-        addArc(new, y, x);
+        fscanf(in_file, "%d %d\n", &x, &y);
     }
 
     //Printing Lable message
