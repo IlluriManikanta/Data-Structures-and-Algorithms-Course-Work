@@ -62,8 +62,10 @@ int main(int argc, char * argv[]){
     List temp_list = newList();
     Graph tran;
     tran = transpose(new);
-    for(int i = 1; i<= count; i++){
+    int i = 1;
+    while(i<= count){
         append(temp_list, i);
+        i++;
     }
 
     //Calling DFS on graphs using temp_list
