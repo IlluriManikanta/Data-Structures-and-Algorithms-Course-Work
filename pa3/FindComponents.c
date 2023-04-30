@@ -88,7 +88,7 @@ int main(int argc, char * argv[]){
 
     x = z;
     moveFront(temp_list);
-    while(index(temp_list) >= 0){
+    while(index(temp_list) != -1){
         if(getParent(tran, get(temp_list)) == NIL){
             x--;
         }
