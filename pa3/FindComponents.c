@@ -85,12 +85,14 @@ int main(int argc, char * argv[]){
     }
 
     x = z;
-    for(moveFront(temp_list); index(temp_list) >= 0; moveNext(temp_list)){
+    moveFront(temp_list);
+    while(index(temp_list) >= 0){
         int u = get(temp_list);
         if(getParent(tran, u) == NIL){
             x--;
         }
         append(list[x], u);
+        moveNext(temp_list);
     }
 
     for(int i = 0; i < z; i++){
