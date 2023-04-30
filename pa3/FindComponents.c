@@ -87,10 +87,11 @@ int main(int argc, char * argv[]){
     }
 
     // x = z;
+    int val = z;
     moveFront(temp_list);
     while(index(temp_list) != -1){
         if(getParent(tran, get(temp_list)) == NIL){
-            z--;
+            val--;
         }
         append(list[x], get(temp_list));
         moveNext(temp_list);
