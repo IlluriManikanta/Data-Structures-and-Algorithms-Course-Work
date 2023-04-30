@@ -2,9 +2,10 @@
 #// Manikantanagasai H. Illuri //
 #// milluri@ucsc.edu           //
 #// 2023 Spring CSE101         //
-#// PA 2                       //
+#// PA 3                       //
 #// Makefile			       //
 #// ========================== //
+
 #------------------------------------------------------------------------------
 #  Makefile for CSE 101 Programming Assignment 3
 #

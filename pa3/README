@@ -2,6 +2,7 @@ Manikantanagasai Harshit Illuri
 milluri@ucsc.edu
 PA3 README
 Assignment: pa3 -> DFS
+
 About:
 Built a Graph module in C that implements the Depth First Search (DFS)
 algorithm.
