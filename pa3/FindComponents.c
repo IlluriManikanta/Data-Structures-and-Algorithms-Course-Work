@@ -95,11 +95,13 @@ int main(int argc, char * argv[]){
         moveNext(temp_list);
     }
 
-    for(int i = 0; i < z; i++){
+    int j = 0;
+    while(i < z){
         fprintf(out_file, "Component %d: ", i+1);
         printList(out_file, list[i]);
         fprintf(out_file, "\n");
         freeList(&list[i]);
+        j++;
     }
 
     free(list);
