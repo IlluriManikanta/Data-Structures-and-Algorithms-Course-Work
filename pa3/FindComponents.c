@@ -78,10 +78,11 @@ int main(int argc, char * argv[]){
     }
     fprintf(out_file, "G contains %d strongly connected components:\n", z);
 
-    List *C = malloc(z * sizeof(List*));
-
-    for(int i = 0; i < z; i++){
-        C[i] = newList();
+    List *list = malloc(z * sizeof(List*));
+    int i = 0;
+    while(i < z){
+        list[i] = newList();
+        i++;
     }
 
     x = z;
@@ -90,17 +91,17 @@ int main(int argc, char * argv[]){
         if(getParent(tran, u) == NIL){
             x--;
         }
-        append(C[x], u);
+        append(list[x], u);
     }
 
     for(int i = 0; i < z; i++){
         fprintf(out_file, "Component %d: ", i+1);
-        printList(out_file, C[i]);
+        printList(out_file, list[i]);
         fprintf(out_file, "\n");
-        freeList(&C[i]);
+        freeList(&list[i]);
     }
 
-    free(C);
+    free(list);
     freeGraph(&new);
     freeGraph(&tran);
     freeList(&temp_list);
