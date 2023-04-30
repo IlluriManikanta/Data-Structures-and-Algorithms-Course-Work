@@ -86,12 +86,11 @@ int main(int argc, char * argv[]){
         list[i] = newList();
     }
 
-    // x = z;
-    int val = z;
+    x = z;
     moveFront(temp_list);
     while(index(temp_list) != -1){
         if(getParent(tran, get(temp_list)) == NIL){
-            val--;
+            x--;
         }
         append(list[x], get(temp_list));
         moveNext(temp_list);
