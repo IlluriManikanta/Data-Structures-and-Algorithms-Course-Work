@@ -79,10 +79,10 @@ int main(int argc, char * argv[]){
     fprintf(out_file, "G contains %d strongly connected components:\n", z);
 
     List *list = malloc(z * sizeof(List*));
-    int i = 0;
-    while(i < z){
+    int j = 0;
+    while(j < z){
         list[i] = newList();
-        i++;
+        j++;
     }
 
     x = z;
