@@ -64,20 +64,16 @@ int main(int argc, char * argv[]){
     List temp_list = newList();
     Graph tran;
     tran = transpose(new);
-    int i = 1;
-    while(i<= count){
+    for(int i = 1; i<= count; i++){
         append(temp_list, i);
-        i++;
     }
 
     DFS(new, temp_list);
     DFS(tran, temp_list);
-    int a = 1;
-    while(a <= count){
+    for(int i = 1; i <= count; i++){
         if(getParent(tran, i) == NIL){
             comp++;
         }
-        a++;
     }
 
     fprintf(out_file, "G contains %d strongly connected components:\n", comp);
@@ -85,30 +81,25 @@ int main(int argc, char * argv[]){
     List *C;
 
     C = malloc(comp * sizeof(List*));
-    int j = 0;
-    while(j < comp){
-        C[j] = newList();
-        j++;
+
+    for(int i = 0; i < comp; i++){
+        C[i] = newList();
     }
 
     x = comp;
-    moveFront(temp_list);
-    while(index(temp_list) >= 0){
+    for(moveFront(temp_list); index(temp_list) >= 0; moveNext(temp_list)){
         int u = get(temp_list);
         if(getParent(tran, u) == NIL){
             x--;
         }
         append(C[x], u);
-        moveNext(temp_list);
     }
 
-    int k = 0;
-    while(k < comp){
-        fprintf(out_file, "Component %d: ", k+1);
-        printList(out_file, C[k]);
+    for(int i = 0; i < comp; i++){
+        fprintf(out_file, "Component %d: ", i+1);
+        printList(out_file, C[i]);
         fprintf(out_file, "\n");
-        freeList(&C[k]);
-        k++;
+        freeList(&C[i]);
     }
 
     free(C);
