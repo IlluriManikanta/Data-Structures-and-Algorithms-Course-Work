@@ -72,12 +72,12 @@ int main(int argc, char * argv[]){
 
     DFS(new, temp_list);
     DFS(tran, temp_list);
-    int i = 1;
-    while(i <= count){
+    int a = 1;
+    while(a <= count){
         if(getParent(tran, i) == NIL){
             comp++;
         }
-        i++;
+        a++;
     }
 
     fprintf(out_file, "G contains %d strongly connected components:\n", comp);
