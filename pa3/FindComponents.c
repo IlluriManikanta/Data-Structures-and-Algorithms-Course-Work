@@ -75,7 +75,7 @@ int main(int argc, char * argv[]){
         }
     }
 
-    fprintf(out_file, "G contains %d strongly connected components:\n", comp);
+    fprintf(out_file, "G contains %d strongly connected components:\n", z);
 
     List *C;
 
