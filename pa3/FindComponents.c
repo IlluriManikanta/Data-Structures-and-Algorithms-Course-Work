@@ -85,7 +85,7 @@ int main(int argc, char * argv[]){
         C[i] = newList();
     }
 
-    int x = comp;
+    x = comp;
     for(moveFront(S); index(S) >= 0; moveNext(S)){
         int u = get(S);
         if(getParent(tran, u) == NIL){
