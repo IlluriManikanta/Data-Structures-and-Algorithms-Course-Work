@@ -89,13 +89,11 @@ int main(int argc, char * argv[]){
     x = z;
     moveFront(temp_list);
     while(index(temp_list) >= 0){
-        int u = get(temp_list);
-        if(getParent(tran, u) != NIL){
-            append(list[x], u);
-            moveNext(temp_list);
+        if(getParent(tran, get(temp_list)) == NIL){
+            x--;
         }
-        x--;
-        
+        append(list[x], get(temp_list));
+        moveNext(temp_list);
     }
 
     //Printing the Components
