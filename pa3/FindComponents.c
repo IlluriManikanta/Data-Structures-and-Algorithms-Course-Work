@@ -90,11 +90,12 @@ int main(int argc, char * argv[]){
     moveFront(temp_list);
     while(index(temp_list) >= 0){
         int u = get(temp_list);
-        if(getParent(tran, u) == NIL){
-            x--;
+        if(getParent(tran, u) != NIL){
+            append(list[x], u);
+            moveNext(temp_list);
         }
-        append(list[x], u);
-        moveNext(temp_list);
+        x--;
+        
     }
 
     //Printing the Components
