@@ -74,12 +74,9 @@ int main(int argc, char * argv[]){
             z++;
         }
     }
-
     fprintf(out_file, "G contains %d strongly connected components:\n", z);
 
-    List *C;
-
-    C = malloc(z * sizeof(List*));
+    List C = malloc(z * sizeof(List*));
 
     for(int i = 0; i < z; i++){
         C[i] = newList();
