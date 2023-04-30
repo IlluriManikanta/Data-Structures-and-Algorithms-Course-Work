@@ -19,11 +19,9 @@ int main(int argc, char * argv[]){
     //Initiating temp variables to hold values of vertices, and adjacency pairs
     int x = 0;
     int y = 0;
-    int comp = 0;
+    int z = 0;
     int count = 0;
-
-
-
+    
     //Checking for correct number of arguments
     if(argc != 3){
         fprintf(stderr, " FindComponents: ERROR: Unexpected number of arguments\n");
@@ -68,11 +66,12 @@ int main(int argc, char * argv[]){
         append(temp_list, i);
     }
 
+    //Calling DFS on graphs using temp_list
     DFS(new, temp_list);
     DFS(tran, temp_list);
     for(int i = 1; i <= count; i++){
         if(getParent(tran, i) == NIL){
-            comp++;
+            z++;
         }
     }
 
@@ -80,13 +79,13 @@ int main(int argc, char * argv[]){
 
     List *C;
 
-    C = malloc(comp * sizeof(List*));
+    C = malloc(z * sizeof(List*));
 
-    for(int i = 0; i < comp; i++){
+    for(int i = 0; i < z; i++){
         C[i] = newList();
     }
 
-    x = comp;
+    x = z;
     for(moveFront(temp_list); index(temp_list) >= 0; moveNext(temp_list)){
         int u = get(temp_list);
         if(getParent(tran, u) == NIL){
@@ -95,7 +94,7 @@ int main(int argc, char * argv[]){
         append(C[x], u);
     }
 
-    for(int i = 0; i < comp; i++){
+    for(int i = 0; i < z; i++){
         fprintf(out_file, "Component %d: ", i+1);
         printList(out_file, C[i]);
         fprintf(out_file, "\n");
