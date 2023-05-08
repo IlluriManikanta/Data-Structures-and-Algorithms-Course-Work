@@ -140,33 +140,33 @@ int index(List L){
     }
 }
 
-bool equals(List A, List B){
-    if(A && B){
-        if(A->length != B->length){
-            return false;
-        }
-        Node val1;
-        Node val2;
-        val1 = A->front;
-        val2 = B->front;
+// bool equals(List A, List B){
+//     if(A && B){
+//         if(A->length != B->length){
+//             return false;
+//         }
+//         Node val1;
+//         Node val2;
+//         val1 = A->front;
+//         val2 = B->front;
 
-        while(val1 != NULL && val2 != NULL){
-            if (val1->data != val2->data)
-            {
-                return false;
-            }
-            else
-            {
-                val1 = val1->next;
-                val2 = val2->next;
-            }
-        }
-        return true;
-    } else {
-        fprintf(stderr, " List ADT; ERROR in equals(): NULL pointer\n");
-        exit(1);
-    }
-}
+//         while(val1 != NULL && val2 != NULL){
+//             if (val1->data != val2->data)
+//             {
+//                 return false;
+//             }
+//             else
+//             {
+//                 val1 = val1->next;
+//                 val2 = val2->next;
+//             }
+//         }
+//         return true;
+//     } else {
+//         fprintf(stderr, " List ADT; ERROR in equals(): NULL pointer\n");
+//         exit(1);
+//     }
+// }
 
 // Manipulation Functions
 // TA More helped me with wrtiting this function. 
@@ -491,7 +491,7 @@ void printList(FILE* output, List L){
         if(L->length != 0){
             moveFront(L);
             while(index(L) >= 0){
-                fprintf(output, "%d ", get(L));
+                fprintf(output, "%p ", get(L));
                 moveNext(L);
             }
         }
