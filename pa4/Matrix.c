@@ -140,10 +140,10 @@ int equals(Matrix A, Matrix B){
 void makeZero(Matrix M){
     if(M){
         M->NNZ = 0;
-        for(int i = 0; i < size(M); i++){
+        for(int i = 1; i <= size(M); i++){
             List row = M->rows[i];
             moveFront(row);
-            while(length(row) > 0){
+            while(length(row) >= 0){
                 deleteFront(row);
                 moveNext(row);
             }
