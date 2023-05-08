@@ -214,10 +214,10 @@ Matrix copy(Matrix A){
         Matrix copyA = newMatrix(size(A));
         copyA->NNZ = NNZ(A);
         for(int i = 0; i <= size(A); i++){
-            List row = A->rows[i];
-            for(moveFront(row); index(row) >= 0; moveNext(row)){
-                Entry E = get(row);
-                append(copyA->rows[i], newEntry(E->value, E->column));
+            List r = A->rows[i];
+            for(moveFront(r); index(r) >= 0; moveNext(r)){
+                Entry val = get(r);
+                append(copyA->rows[i], newEntry(val->value, val->column));
             }
         }
         return copyA;
