@@ -42,7 +42,6 @@ void deleteEntry(Entry *pE){
     if(pE != NULL && *pE != NULL){
         free(*pE);
         *pE = NULL;
-        pE = NULL;
     }
 }
 
