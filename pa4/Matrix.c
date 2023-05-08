@@ -292,6 +292,7 @@ Matrix sum(Matrix A, Matrix B){
             while(index(A->rows[i]) >= 0 || index(B->rows[i]) >= 0){
                 Entry matrix_a = NULL;
                 Entry matrix_b = NULL;
+
                 if(index(A->rows[i]) >= 0){
                     matrix_a = (Entry)get(A->rows[i]);
                 } else {
@@ -302,6 +303,7 @@ Matrix sum(Matrix A, Matrix B){
                 } else {
                     matrix_b = NULL;
                 }
+
                 if(matrix_a && matrix_b && matrix_a->column == matrix_b->column){
                     double val = matrix_a->value + matrix_b->value;
                     if(val != 0){
@@ -424,5 +426,11 @@ void printMatrix(FILE* out, Matrix M){
         exit(1);
     }
 }
+
+
+
+
+
+
 
 
