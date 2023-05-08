@@ -55,7 +55,7 @@ int main(int argc, char * argv[]){
     }
     
     //Calling each of the matrix functions on matrix_a and matrix_b
-    
+
     fprintf(out_file, "A has %d non-zero entries:\n", NNZ(matrix_a)); 
     printMatrix(out_file, matrix_a); 
     fprintf(out_file, "\n"); 
@@ -83,6 +83,13 @@ int main(int argc, char * argv[]){
     fprintf(out_file, "\n"); 
     makeZero(add2); 
     freeMatrix(&add2);
+
+    fprintf(out_file, "B-A =\n"); 
+    Matrix sub1 = diff(matrix_b, matrix_a); 
+    printMatrix(out_file, sub1); 
+    fprintf(out_file, "\n"); 
+    makeZero(sub1); 
+    freeMatrix(&sub1); 
 
     fprintf(out_file, "A-A =\n"); 
     Matrix sub2 = diff(matrix_a, matrix_a); 
