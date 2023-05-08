@@ -210,15 +210,12 @@ void set(List L, void* x){
 
 void moveFront(List L){
     if(L){
-        if(L->length <= 0){
-            fprintf(stderr, " List ADT; ERROR in moveFront(): Empty list\n");
-            exit(1);
-        } else {
+        if(length(L) > 0){
             L->cursor = L->front; 
             L->index = 0;
-            
         }
-    } else {
+        
+        } else {
         fprintf(stderr, " List ADT; ERROR in moveFront(): NULL pointer\n");
         exit(1);
     }
@@ -226,10 +223,7 @@ void moveFront(List L){
 
 void moveBack(List L){
    if(L){
-        if(L->length <= 0){
-            fprintf(stderr, " List ADT; ERROR in moveBack(): Empty list\n");
-            exit(1);
-        } else {
+        if(length(L) > 0){
             L->cursor = L->back; 
             L->index = L->length - 1;
         }
