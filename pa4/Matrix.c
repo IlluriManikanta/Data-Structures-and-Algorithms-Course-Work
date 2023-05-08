@@ -261,6 +261,7 @@ Matrix scalarMult(double x, Matrix A){
             while(index(list_of_ele) >= 0){
                 Entry E = (Entry)get(list_of_ele);
                 append((s_matrix->rows)[i], newEntry(x * E->value, E->column));
+                s_matrix->NNZ++;
                 moveNext(list_of_ele);
             }
         }
