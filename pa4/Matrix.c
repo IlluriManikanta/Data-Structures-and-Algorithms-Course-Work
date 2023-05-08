@@ -145,7 +145,7 @@ void makeZero(Matrix M){
             moveFront(row);
             while(length(row) >= 0){
                 Entry val = (Entry)get(row);
-                freeEntry(&val);
+                deleteEntry(&val);
                 moveNext(row);
             }
             clear(row);
