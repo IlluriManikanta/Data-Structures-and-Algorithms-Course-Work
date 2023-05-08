@@ -20,7 +20,7 @@ typedef struct Nodeobj* Node;
 
 //defining structure for Nodeobj
 typedef struct Nodeobj{
-    int data;
+    void* data;
     Node next;
     Node prev;
 } NodeObj;
@@ -35,7 +35,7 @@ typedef struct Listobj{
 } ListObj;
 
 // Node constructor
-Node makeNode (int data){
+Node makeNode (void* data){
     Node n = malloc(sizeof(NodeObj));
     assert(n != NULL);
     n->data = data;
@@ -85,7 +85,7 @@ int length(List L){
     }
 }
 
-int front(List L){
+void* front(List L){
     if(L){
         if(L->length <= 0){
             fprintf(stderr, " List ADT; ERROR in front(): Empty list\n");
@@ -98,7 +98,7 @@ int front(List L){
     }
 }
 
-int back(List L){
+void* back(List L){
     if(L){
         if(L->length <= 0){
             fprintf(stderr, " List ADT; ERROR in back(): Empty list\n");
@@ -111,7 +111,7 @@ int back(List L){
     } 
 }
 
-int get(List L){
+void* get(List L){
     if(L){
         if(L->index < 0){
             fprintf(stderr, " List ADT; ERROR in get(): Cursor is NULL\n");

@@ -156,7 +156,47 @@ void makeZero(Matrix M){
 // Pre: 1<=i<=size(M), 1<=j<=size(M)
 void changeEntry(Matrix M, int i, int j, double x){
     if(M){
+        if(i < 1 || i > size(M) || j < 1 || j > size(M)){
+            fprintf(stderr, " Matrix ADT; ERROR in changeEntry(): index out of range\n");
+            exit(1);
+        }
+        List l = M->rows[i];
+        Entry e = NULL;
 
+        if(length(l) == 0){
+            if(x != 0){
+                e = newEntry(j, x);
+                append(l, e);
+                M->NNZ++;
+            }
+        } else {
+            moveFront(l);
+            while(index(l) != -1 && ((Entry)get(l))->column < j){
+                moveNext(l);
+            }
+            if(index(l) == -1){
+                if(x != 0){
+                    e = newEntry(j, x);
+                    append(l, e);
+                    M->NNZ++;
+                }
+            } else {
+                if(((Entry)get(l))->column == j){
+                    if(x == 0){
+                        delete(l);
+                        M->NNZ--;
+                    } else {
+                        ((Entry)get(l))->value = x;
+                    }
+                } else {
+                    if(x != 0){
+                        e = newEntry(j, x);
+                        insertBefore(l, e);
+                        M->NNZ++;
+                    }
+                }
+            }
+        }
     } else {
         fprintf(stderr, " Matrix ADT; ERROR in changeEntry(): NULL pointer\n");
         exit(1);
@@ -166,9 +206,19 @@ void changeEntry(Matrix M, int i, int j, double x){
 // Matrix Arithmetic operations
 // copy()
 // Returns a reference to a new Matrix object having the same entries as A.
+//NEED TO CHECK
 Matrix copy(Matrix A){
     if(A){
-        
+        Matrix copyA = newMatrix(size(A));
+        copyA->NNZ = NNZ(A);
+        for(int i = 0; i <= size(A); i++){
+            List row = A->rows[i];
+            for(moveFront(row); index(row) >= 0; moveNext(row)){
+                Entry E = get(row);
+                append(copyA->rows[i], newEntry(E->value, E->column));
+            }
+        }
+        return copyA;
     } else {
         fprintf(stderr, " Matrix ADT; ERROR in copy(): NULL pointer\n");
         exit(1);
@@ -180,7 +230,18 @@ Matrix copy(Matrix A){
 // of A.
 Matrix transpose(Matrix A){
     if(A){
-
+        Matrix T = newMatrix(size(A));
+        T->NNZ = NNZ(A);
+        for(int i = 0; i <= size(A); i++){
+            List row = A->rows[i];
+            moveFront(row);
+            while(index(row) >= 0){
+                Entry E = get(row);
+                append(T->rows[E->column], newEntry(E->value, i));
+                moveNext(row);
+            }
+        }
+        return T;
     } else {
         fprintf(stderr, " Matrix ADT; ERROR in transpose(): NULL pointer\n");
         exit(1);
@@ -191,7 +252,18 @@ Matrix transpose(Matrix A){
 // Returns a reference to a new Matrix object representing xA.
 Matrix scalarMult(double x, Matrix A){
     if(A){
-
+        Matrix s_matrix = newMatrix(size(A));
+        for(int i = 1; i <= size(A); i++){
+            List list_of_ele = A->rows[i];
+            moveFront(list_of_ele);
+            while(index(list_of_ele) >= 0){
+                Entry E = (Entry)get(list_of_ele);
+                append((s_matrix->rows)[i], newEntry(x * E->value, E->column));
+                moveNext(list_of_ele);
+                moveFront(list_of_ele);
+            }
+        }
+        return s_matrix;
     } else {
         fprintf(stderr, " Matrix ADT; ERROR in scalarMult(): NULL pointer\n");
         exit(1);
@@ -203,7 +275,56 @@ Matrix scalarMult(double x, Matrix A){
 // pre: size(A)==size(B)
 Matrix sum(Matrix A, Matrix B){
     if(A != NULL || B != NULL){
+        if(siez(A) != size(B)){
+            fprintf(stderr, " Matrix ADT; ERROR in sum(): size(A) != size(B)\n");
+            exit(1);
+        }
+        if(equals(A, B)){
+            return scalarMult(2.0, A);
+        }
+        Matrix s_matrix = newMatrix(size(A));
+        for(int i = 1; i <= size(A); i++){
+            int count = 0;
+            moveFront(A->rows[i]);
+            moveFront(B->rows[i]);
+            while(index(A->rows[i]) >= 0 || index(B->rows[i]) >= 0){
+                Entry matrix_a = NULL;
+                Entry matrix_b = NULL;
+                if(index(A->rows[i]) >= 0){
+                    matrix_a = (Entry)get(A->rows[i]);
+                } else {
+                    matrix_a = NULL;
+                }
+                if(index(B->rows[i]) >= 0){
+                    matrix_b = (Entry)get(B->rows[i]);
+                } else {
+                    matrix_b = NULL;
+                }
+                if(matrix_a && matrix_b && matrix_a->column == matrix_b->column){
+                    double val = matrix_a->value + matrix_b->value;
+                    if(val != 0){
+                        Entry sum_val = newEntry(val, matrix_a->column);
+                        append((s_matrix->rows)[i], sum_val);
+                        count++;
+                    }
+                    moveNext(A->rows[i]);
+                    moveNext(B->rows[i]);
+                } else if((matrix_a && matrix_a->column < matrix_b->column) || matrix_b == NULL){
+                    Entry sum_val = newEntry(matrix_a->value, matrix_a->column);
+                    append((s_matrix->rows)[i], sum_val);
+                    count++;
+                    moveNext(A->rows[i]);
+                } else {
+                    Entry sum_val = newEntry(matrix_b->value, matrix_b->column);
+                    append((s_matrix->rows)[i], sum_val);
+                    count++;
+                    moveNext(B->rows[i]);
+                }
 
+            }
+            s_matrix->NNZ += count;
+        }
+        return s_matrix;
     } else {
         fprintf(stderr, " Matrix ADT; ERROR in sum(): NULL pointer\n");
         exit(1);
@@ -215,11 +336,38 @@ Matrix sum(Matrix A, Matrix B){
 // pre: size(A)==size(B)
 Matrix diff(Matrix A, Matrix B){
     if(A != NULL || B != NULL){
-
+        if(siez(A) != size(B)){
+            fprintf(stderr, " Matrix ADT; ERROR in sum(): size(A) != size(B)\n");
+            exit(1);
+        }
+        if(equals(A, B)){
+            return newMatrix(size(A));
+        }
+        return sum(A, scalarMult(-1.0, B));
     } else {
         fprintf(stderr, " Matrix ADT; ERROR in diff(): NULL pointer\n");
         exit(1);
     }
+}
+
+double vectorDot(List P, List Q){
+    double sum = 0;
+    moveFront(P);
+    moveFront(Q);
+    while (index(P) >= 0 && index(Q) >= 0){
+        Entry entry_p = (Entry)get(P);
+        Entry entry_q = (Entry)get(Q);
+        if (entry_p->column == entry_q->column){
+            sum += (entry_p->value * entry_q->value);
+            moveNext(P);
+            moveNext(Q);
+        } else if (entry_p->column < entry_q->column){
+            moveNext(P);
+        } else {
+            moveNext(Q);
+        }    
+    }
+    return sum;
 }
 
 // product()
@@ -227,7 +375,24 @@ Matrix diff(Matrix A, Matrix B){
 // pre: size(A)==size(B)
 Matrix product(Matrix A, Matrix B){
     if(A != NULL || B != NULL){
-
+        Matrix trans = transpose(B);
+        Matrix prod = newMatrix(size(A));
+        for(int i = 1; i <= size(prod); i++){
+            if(length(A->rows[i]) != 0){
+                for(int j = 1; j <= size(prod); j++){
+                    if(length(trans->rows[j]) != 0){
+                        double val = vectorDot(A->rows[i], trans->rows[j]);
+                        if(val != 0){
+                            Entry product_val = newEntry(val, j);
+                            append(prod->rows[i], product_val);
+                            prod->NNZ += j;
+                        }
+                    }
+                }
+            }
+        }
+        freeMatrix(&trans);
+        return prod;
     } else {
         fprintf(stderr, " Matrix ADT; ERROR in product(): NULL pointer\n");
         exit(1);
@@ -242,7 +407,16 @@ Matrix product(Matrix A, Matrix B){
 // in that row. The double val will be rounded to 1 decimal point.
 void printMatrix(FILE* out, Matrix M){
     if(M){
-
+        for (int i = 1; i <= size(M); i++){
+            if (length(M->rows[i]) != 0){
+                fprintf(out, "%i:", i);
+                for (moveFront((M->rows)[i]); index((M->rows)[i]) >= 0; moveNext((M->rows)[i])){
+                    Entry E = (Entry)get((M->rows)[i]);
+                    fprintf(out, " (%i, %.1lf)", E->column, E->value);
+                }
+                fprintf(out, "\n");
+            }
+        }
     } else {
         fprintf(stderr, " Matrix ADT; ERROR in printMatrix(): NULL pointer\n");
         exit(1);

@@ -28,11 +28,11 @@ void freeList(List* pL);
 
 int length(List L);
 
-int front(List L);
+void* front(List L);
 
-int back(List L); 
+void* back(List L); 
 
-int get(List L);
+void* get(List L);
 
 int index(List L);
 
@@ -68,8 +68,6 @@ void deleteBack(List L);
 void delete(List L);
 
 List copyList(List L);
-
-List concatList(List A, List B);
 
 void printList(FILE* output, List L);
 
