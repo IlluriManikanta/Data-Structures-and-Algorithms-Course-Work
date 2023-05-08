@@ -142,7 +142,7 @@ void makeZero(Matrix M){
         for(int i = 1; i <= size(M); i++){
             List row = M->rows[i];
             for(moveFront(row); index(row) >= 0; moveNext(row)){
-                Entry val = (Entry) get(row);
+                Entry val = (Entry)get(row);
                 deleteEntry(&val);
             }
             clear(row);
