@@ -141,9 +141,8 @@ void makeZero(Matrix M){
         M->NNZ = 0;
         for(int i = 1; i <= size(M); i++){
             List row = M->rows[i];
-
-            for(moveFront(row); length(row) >= 0; moveNext(row)){
-                Entry val = (Entry)get(row);
+            for(moveFront(row); index(row) >= 0; moveNext(row)){
+                Entry val = (Entry) get(row);
                 deleteEntry(&val);
             }
             clear(row);
