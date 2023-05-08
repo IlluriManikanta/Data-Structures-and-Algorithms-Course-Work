@@ -337,7 +337,7 @@ Matrix sum(Matrix A, Matrix B){
 // pre: size(A)==size(B)
 Matrix diff(Matrix A, Matrix B){
     if(A != NULL || B != NULL){
-        if(siez(A) != size(B)){
+        if(size(A) != size(B)){
             fprintf(stderr, " Matrix ADT; ERROR in sum(): size(A) != size(B)\n");
             exit(1);
         }
