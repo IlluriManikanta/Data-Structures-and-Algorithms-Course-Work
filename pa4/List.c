@@ -191,7 +191,7 @@ void clear(List L){
     }
 }
 
-void set(List L, int x){
+void set(List L, void* x){
     if(L){
         if(L->length <= 0){
             fprintf(stderr, " List ADT; ERROR in set(): Empty list\n");
@@ -269,7 +269,7 @@ void moveNext(List L){
     }
 }
 
-void prepend(List L, int x){
+void prepend(List L, void* x){
     if(L){
         Node new_pre = makeNode(x);
         //TA Arka helped me tackle the edge case where the List is empty. Will set front and back to new_prev.
@@ -289,7 +289,7 @@ void prepend(List L, int x){
     }
 }
 
-void append(List L, int x){
+void append(List L, void* x){
 
      if(L){
         
@@ -315,7 +315,7 @@ void append(List L, int x){
     }
 }
 
-void insertBefore(List L, int x){
+void insertBefore(List L, void* x){
     if(L){
         if(L->front == L->cursor){
             prepend(L, x);
@@ -341,7 +341,7 @@ void insertBefore(List L, int x){
     }
 }
 
-void insertAfter(List L, int x){
+void insertAfter(List L, void* x){
     if(L){
         if(L->back == L->cursor){
             append(L, x);
