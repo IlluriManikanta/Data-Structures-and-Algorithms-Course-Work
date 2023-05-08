@@ -142,9 +142,10 @@ void makeZero(Matrix M){
         M->NNZ = 0;
         for(int i = 0; i < size(M); i++){
             List row = M->rows[i];
+            moveFront(row);
             while(length(row) > 0){
                 deleteFront(row);
-                moveNext(row); // UNSURE
+                moveNext(row);
             }
         }
     } else {
@@ -262,7 +263,6 @@ Matrix scalarMult(double x, Matrix A){
                 Entry E = (Entry)get(list_of_ele);
                 append((s_matrix->rows)[i], newEntry(x * E->value, E->column));
                 moveNext(list_of_ele);
-                moveFront(list_of_ele);
             }
         }
         return s_matrix;
