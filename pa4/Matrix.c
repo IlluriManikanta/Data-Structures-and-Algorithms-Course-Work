@@ -144,9 +144,11 @@ void makeZero(Matrix M){
             List row = M->rows[i];
             moveFront(row);
             while(length(row) >= 0){
-                deleteFront(row);
+                Entry val = (Entry)get(row);
+                freeEntry(&val);
                 moveNext(row);
             }
+            clear(row);
         }
     } else {
         fprintf(stderr, " Matrix ADT; ERROR in makeZero(): NULL pointer\n");
