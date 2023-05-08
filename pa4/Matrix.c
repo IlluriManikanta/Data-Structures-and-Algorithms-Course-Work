@@ -104,7 +104,6 @@ int equals(Matrix A, Matrix B){
         if(A->NNZ != B->NNZ || A->size != B->size){
             return 0;
         } else {
-            Entry x, y;
             List c, d;
             int i;
             for(i = 1; i <= A->NNZ; i++){
@@ -114,8 +113,8 @@ int equals(Matrix A, Matrix B){
                 moveFront(c);
                 moveFront(d);
                 while(index(c) == index(d)){
-                    x = (Entry)get(A->rows[i]);
-                    y = (Entry)get(B->rows[i]);
+                    Entry x = (Entry)get(A->rows[i]);
+                    Entry y = (Entry)get(B->rows[i]);
                     if(index(c) != index(d)){
                         return false;
                     } else {
