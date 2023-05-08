@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <assert.h>
 
 #include "Matrix.h"
 #include "List.h"
@@ -62,7 +63,7 @@ Matrix newMatrix(int n){
 // freeMatrix()
 // Frees heap memory associated with *pM, sets *pM to NULL.
 void freeMatrix(Matrix* pM){
-    if (pM != NULL && pM != NULL) {
+    if (*pM != NULL && pM != NULL) {
         Matrix M =pM;
         for (int i = 1; i <= M->size; i++){
             freeList(&(M->rows[i]));
@@ -109,8 +110,8 @@ int equals(Matrix A, Matrix B){
             int i;
             for(i = 1; i <= A->NNZ; i++){
             //      set "c" and "d" to the rows of "A" and "B"
-                c = &(A->rows[i]);
-                d = &(B->rows[i]);
+                c = A->rows[i];
+                d = B->rows[i];
                 moveFront(c);
                 moveFront(d);
                 while(index(c) == index(d)){
@@ -275,7 +276,7 @@ Matrix scalarMult(double x, Matrix A){
 // pre: size(A)==size(B)
 Matrix sum(Matrix A, Matrix B){
     if(A != NULL || B != NULL){
-        if(siez(A) != size(B)){
+        if(size(A) != size(B)){
             fprintf(stderr, " Matrix ADT; ERROR in sum(): size(A) != size(B)\n");
             exit(1);
         }
