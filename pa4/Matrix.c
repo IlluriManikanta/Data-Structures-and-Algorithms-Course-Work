@@ -290,18 +290,18 @@ Matrix sum(Matrix A, Matrix B){
             moveFront(A->rows[i]);
             moveFront(B->rows[i]);
             while(index(A->rows[i]) >= 0 || index(B->rows[i]) >= 0){
-                Entry matrix_a = (index(A->rows[i]) >= 0) ? (Entry)get(A->rows[i]) : NULL;
-                Entry matrix_b = (index(B->rows[i]) >= 0) ? (Entry)get(B->rows[i]) : NULL;
-                // if(index(A->rows[i]) >= 0){
-                //     matrix_a = (Entry)get(A->rows[i]);
-                // } else {
-                //     matrix_a = NULL;
-                // }
-                // if(index(B->rows[i]) >= 0){
-                //     matrix_b = (Entry)get(B->rows[i]);
-                // } else {
-                //     matrix_b = NULL;
-                // }
+                Entry matrix_a = NULL;
+                Entry matrix_b = NULL;
+                if(index(A->rows[i]) >= 0){
+                    matrix_a = (Entry)get(A->rows[i]);
+                } else {
+                    matrix_a = NULL;
+                }
+                if(index(B->rows[i]) >= 0){
+                    matrix_b = (Entry)get(B->rows[i]);
+                } else {
+                    matrix_b = NULL;
+                }
                 if(matrix_a && matrix_b && matrix_a->column == matrix_b->column){
                     double val = matrix_a->value + matrix_b->value;
                     if(val != 0){
