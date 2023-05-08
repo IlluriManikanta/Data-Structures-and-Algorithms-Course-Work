@@ -64,12 +64,11 @@ Matrix newMatrix(int n){
 // Frees heap memory associated with *pM, sets *pM to NULL.
 void freeMatrix(Matrix* pM){
     if (*pM != NULL && pM != NULL) {
-        Matrix M =pM;
-        for (int i = 1; i <= M->size; i++){
-            freeList(&(M->rows[i]));
+        for (int i = 1; i <= (*pM)->size; i++){
+            freeList(&((*pM)->rows[i]));
         }
-        free(M->rows);
-        free(M);
+        free((*pM)->rows);
+        free((*pM));
         *pM = NULL;
     }
 }
