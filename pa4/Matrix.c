@@ -317,7 +317,7 @@ Matrix sum(Matrix A, Matrix B){
                     moveNext(A->rows[i]);
                 } else {
                     Entry sum_val = newEntry(matrix_b->value, matrix_b->column);
-                    append((s_matrix->rows)[i], sum_val);
+                    append(s_matrix->rows[i], sum_val);
                     count++;
                     moveNext(B->rows[i]);
                 }
