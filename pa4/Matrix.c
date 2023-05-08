@@ -115,6 +115,9 @@ int equals(Matrix A, Matrix B){
                 while(index(c) == index(d)){
                     Entry x = (Entry)get(A->rows[i]);
                     Entry y = (Entry)get(B->rows[i]);
+                    if(x->column != y->column || x->value != y->value){
+                        return 0;
+                    }
                     if(index(c) != index(d)){
                         return false;
                     } else {
