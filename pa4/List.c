@@ -251,8 +251,8 @@ void movePrev(List L){
 void moveNext(List L){
     if(L){ 
         if(L->cursor != NULL && L->cursor != L->back){
-            L->index += 1;
             L->cursor = L->cursor->next;
+            L->index += 1;
         } else if(L->cursor == L->back){
             L->cursor   = NULL;
             L->index = -1;
