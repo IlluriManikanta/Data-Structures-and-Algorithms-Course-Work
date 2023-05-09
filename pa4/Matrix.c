@@ -29,7 +29,7 @@ typedef struct MatrixObj{
 }MatrixObj;
 
 // newEntry()
-Entry newEntry(int col, double val){
+Entry newEntry(double val, int col){
     Entry E = malloc(sizeof(EntryObj));
     assert(E != NULL);
     E->column = col;
@@ -167,7 +167,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 
         if(length(l) == 0){
             if(x != 0){
-                e = newEntry(j, x);
+                e = newEntry(x, j);
                 append(l, e);
                 M->NNZ++;
             }
@@ -182,7 +182,7 @@ void changeEntry(Matrix M, int i, int j, double x){
             }
             if(index(l) == -1){
                 if(x != 0){
-                    e = newEntry(j, x);
+                    e = newEntry(x, j);
                     append(l, e);
                     M->NNZ++;
                 }
@@ -196,7 +196,7 @@ void changeEntry(Matrix M, int i, int j, double x){
                     }
                 } else {
                     if(x != 0){
-                        e = newEntry(j, x);
+                        e = newEntry(x, j);
                         insertBefore(l, e);
                         M->NNZ++;
                     }
@@ -221,7 +221,7 @@ Matrix copy(Matrix A){
             List r = A->rows[i];
             for(moveFront(r); index(r) >= 0; moveNext(r)){
                 Entry val = get(r);
-                append(copyA->rows[i], newEntry(val->column, val->value));
+                append(copyA->rows[i], newEntry(val->value, val->column));
             }
         }
         return copyA;
@@ -237,17 +237,6 @@ Matrix copy(Matrix A){
 Matrix transpose(Matrix A){
 
     if(A){
-        // Matrix T = newMatrix(size(A));
-        // T->NNZ = NNZ(A);
-        // for(int i = 1; i <= size(A); i++){
-        //     moveFront(A->rows[i]);
-        //     while(index(A->rows[i]) >= 0){
-        //         Entry E = get(A->rows[i]);
-        //         append(T->rows[E->column], newEntry(E->value, i));
-        //         moveNext(A->rows[i]);
-        //     }
-        // }
-        // return T;
         Matrix T = newMatrix(size(A));
         Entry E;
         int i;
@@ -262,7 +251,7 @@ Matrix transpose(Matrix A){
                 E = get(A->rows[i]);
                 col = E->column;
                 val = E->value;
-                append(T->rows[col], newEntry(i, val)); 
+                append(T->rows[col], newEntry(val, i)); 
                 T->NNZ += 1;
             }
 
@@ -363,7 +352,7 @@ Matrix sum(Matrix A, Matrix B){
 
                 if(a->column == b->column){
                     if((a->value + b->value) != 0){
-                        Entry temp = newEntry(a->column, a->value + b->value); 
+                        Entry temp = newEntry( a->value + b->value, a->column); 
                         
                         append(sum_list, temp);
                         s_matrix->NNZ++;
@@ -375,13 +364,13 @@ Matrix sum(Matrix A, Matrix B){
                         moveNext(b_row);  
                     }
                 } else if(a->column < b->column){
-                    Entry temp = newEntry(a->column, a->value); 
+                    Entry temp = newEntry(a->value, a->column); 
                     append(sum_list, temp);
                     s_matrix->NNZ++;
                     //changeEntry(s_matrix, i, a->column, a->value);
                     moveNext(a_row);
                 } else {
-                    Entry temp = newEntry(b->column, b->value); 
+                    Entry temp = newEntry(b->value, b->column); 
                     append(sum_list, temp);
                     s_matrix->NNZ++;
                     moveNext(b_row);
@@ -391,7 +380,7 @@ Matrix sum(Matrix A, Matrix B){
             while(index(a_row) >= 0){
 
                 Entry a = (Entry)get(a_row);
-                Entry temp = newEntry(a->column, a->value); 
+                Entry temp = newEntry(a->value, a->column); 
                 append(sum_list, temp);
                 s_matrix->NNZ++;
                 //changeEntry(s_matrix, i, a->column, a->value);
@@ -401,7 +390,7 @@ Matrix sum(Matrix A, Matrix B){
             while(index(b_row) >= 0){
 
                 Entry b = (Entry)get(b_row);
-                Entry temp = newEntry(b->column, b->value); 
+                Entry temp = newEntry(b->value, b->column); 
                 append(sum_list, temp);
                 s_matrix->NNZ++;
                 //changeEntry(s_matrix, i, b->column, b->value);
@@ -440,7 +429,7 @@ Matrix diff(Matrix A, Matrix B){
 
                 if(a->column == b->column){  
                     if((a->value - b->value) != 0){
-                        Entry temp = newEntry(a->column, a->value - b->value); 
+                        Entry temp = newEntry(a->value - b->value, a->column); 
                         
                         append(sum_list, temp);
                         s_matrix->NNZ++;
@@ -452,13 +441,13 @@ Matrix diff(Matrix A, Matrix B){
                         moveNext(b_row);  
                     }
                 } else if(a->column < b->column){
-                    Entry temp = newEntry(a->column, a->value); 
+                    Entry temp = newEntry(a->value, a->column); 
                     append(sum_list, temp);
                     s_matrix->NNZ++;
                     //changeEntry(s_matrix, i, a->column, a->value);
                     moveNext(a_row);
                 } else {
-                    Entry temp = newEntry(b->column, b->value); 
+                    Entry temp = newEntry(b->value, b->column); 
                     append(sum_list, temp);
                     s_matrix->NNZ++;
                     moveNext(b_row);
@@ -468,7 +457,7 @@ Matrix diff(Matrix A, Matrix B){
             while(index(a_row) >= 0){
 
                 Entry a = (Entry)get(a_row);
-                Entry temp = newEntry(a->column, a->value); 
+                Entry temp = newEntry(a->value, a->column); 
                 append(sum_list, temp);
                 s_matrix->NNZ++;
                 //changeEntry(s_matrix, i, a->column, a->value);
@@ -478,7 +467,7 @@ Matrix diff(Matrix A, Matrix B){
             while(index(b_row) >= 0){
 
                 Entry b = (Entry)get(b_row);
-                Entry temp = newEntry(b->column, b->value); 
+                Entry temp = newEntry(b->value, b->column); 
                 append(sum_list, temp);
                 s_matrix->NNZ++;
                 //changeEntry(s_matrix, i, b->column, b->value);
@@ -502,7 +491,7 @@ Matrix scalarMult(double x, Matrix A){
             moveFront(list_of_ele);
             while(index(list_of_ele) >= 0){
                 Entry E = (Entry)get(list_of_ele);
-                append((s_matrix->rows)[i], newEntry(E->column, x * E->value));
+                append((s_matrix->rows)[i], newEntry( x * E->value, E->column));
                 s_matrix->NNZ++;
                 moveNext(list_of_ele);
             }
@@ -547,7 +536,7 @@ Matrix product(Matrix A, Matrix B){
                     if(length(trans->rows[j]) != 0){
                         double val = vectorDot(A->rows[i], trans->rows[j]);
                         if(val != 0){
-                            Entry product_val = newEntry(val, j);
+                            Entry product_val = newEntry(j, val);
                             append(prod->rows[i], product_val);
                             prod->NNZ += j;
                         }
