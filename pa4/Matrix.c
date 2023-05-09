@@ -101,12 +101,16 @@ int NNZ(Matrix M){
 int equals(Matrix A, Matrix B){
     if(A != NULL || B != NULL){
         if(size(A) == 0 && size(B) == 0){
-            return 1;
+                return 1;
         }
         Entry x, y;
         List c, d;
 
         for(int i = 1; i <= size(A); i++) {
+            if(length(A->rows[i]) != length(B->rows[i])){
+                return 0;
+            }
+            
             c = A->rows[i];
             d = B->rows[i];
             moveFront(c);
