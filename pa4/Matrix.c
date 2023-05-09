@@ -175,7 +175,7 @@ void changeEntry(Matrix M, int i, int j, double x)
             {
                 delete (row);
                 M->NNZ--;
-                freeEntry(&E);
+                deleteEntry(&E);
             }
             else
             {
