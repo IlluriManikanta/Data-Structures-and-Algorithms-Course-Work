@@ -217,7 +217,7 @@ Matrix copy(Matrix A){
             List r = A->rows[i];
             for(moveFront(r); index(r) >= 0; moveNext(r)){
                 Entry val = get(r);
-                append(copyA->rows[i], newEntry(val->value, val->column));
+                append(copyA->rows[i], newEntry(val->column, val->value));
             }
         }
         return copyA;
