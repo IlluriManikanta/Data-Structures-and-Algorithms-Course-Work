@@ -559,7 +559,7 @@ void printMatrix(FILE* out, Matrix M){
                 fprintf(out, "%i:", i);
                 for (moveFront((M->rows)[i]); index((M->rows)[i]) >= 0; moveNext((M->rows)[i])){
                     Entry E = (Entry)get((M->rows)[i]);
-                    fprintf(out, " (%i, %.1lf)", E->column, E->value);
+                    fprintf(out, " (%i, %.1lf)", E->value, E->column);
                 }
                 fprintf(out, "\n");
             }
