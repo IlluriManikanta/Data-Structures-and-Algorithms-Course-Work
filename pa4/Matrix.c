@@ -437,24 +437,89 @@ Matrix sum(Matrix A, Matrix B)
 }
 
 
-// diff()
-// Returns a reference to a new Matrix object representing A-B.
-// pre: size(A)==size(B)
-Matrix diff(Matrix A, Matrix B){
-    if(A != NULL || B != NULL){
-        if(size(A) != size(B)){
-            fprintf(stderr, " Matrix ADT; ERROR in sum(): size(A) != size(B)\n");
-            exit(1);
+// // diff()
+// // Returns a reference to a new Matrix object representing A-B.
+// // pre: size(A)==size(B)
+// Matrix diff(Matrix A, Matrix B){
+//     if(A != NULL || B != NULL){
+//         if(size(A) != size(B)){
+//             fprintf(stderr, " Matrix ADT; ERROR in sum(): size(A) != size(B)\n");
+//             exit(1);
+//         }
+//         if(equals(A, B)){
+//             return newMatrix(size(A));
+//         }
+//         return sum(A, scalarMult(-1.0, B));
+//     } else {
+//         fprintf(stderr, " Matrix ADT; ERROR in diff(): NULL pointer\n");
+//         exit(1);
+//     }
+// }
+
+Matrix sum(Matrix A, Matrix B)
+{
+    if (A && B)
+    {
+        if (size(A) != size(B))
+        {
+            fprintf(stderr, "1. Matrix Error.\n2. Matrix sum(Matrix A, Matrix B).\n3. Error matrices are not equal.\n");
+            exit(EXIT_FAILURE);
         }
-        if(equals(A, B)){
-            return newMatrix(size(A));
+
+        if (equals(A, B))
+        {
+            return scalarMult(2, A);
         }
-        return sum(A, scalarMult(-1.0, B));
-    } else {
-        fprintf(stderr, " Matrix ADT; ERROR in diff(): NULL pointer\n");
-        exit(1);
+
+        Matrix sum_matrix = newMatrix(size(A));
+        for (int i = 1; i <= size(A); i++)
+        {
+            int j = 0;
+            for (moveFront(A->rows[i]), moveFront(B->rows[i]);
+                 index(A->rows[i]) >= 0 || index(B->rows[i]) >= 0;)
+            {
+                Entry a = (index(A->rows[i]) >= 0) ? (Entry)get(A->rows[i]) : NULL;
+                Entry b = (index(B->rows[i]) >= 0) ? (Entry)get(B->rows[i]) : NULL;
+                if (A == NULL && B == NULL)
+                    break;
+                if (a != NULL && b != NULL && a->column == b->column)
+                {
+                    double sum = a->value - b->value;
+                    if (sum != 0)
+                    {
+                        Entry e = newEntry(sum, a->column);
+                        append(sum_matrix->rows[i], e);
+                        j++;
+                    }
+                    moveNext(A->rows[i]);
+                    moveNext(B->rows[i]);
+                }
+                else if (b == NULL || (a != NULL && a->column < b->column))
+                {
+                    Entry e = newEntry(a->value, a->column);
+                    append(sum_matrix->rows[i], e);
+                    j++;
+                    moveNext(A->rows[i]);
+                }
+                else
+                {
+                    Entry e = newEntry(b->value, b->column);
+                    append(sum_matrix->rows[i], e);
+                    j++;
+                    moveNext(B->rows[i]);
+                }
+            }
+            sum_matrix->NNZ += j;
+        }
+        return sum_matrix;
+    }
+    else
+    {
+        fprintf(stderr, "1. Matrix Error.\n2. Matrix sum(Matrix A, Matrix B).\n3. Error calling function on NULL pointer.\n");
+        exit(EXIT_FAILURE);
     }
 }
+
 
 double vectorDot(List P, List Q){
     double sum = 0;
