@@ -124,10 +124,10 @@ int equals(Matrix A, Matrix B){
                 if(x->value != y->value || x->column != y->column){
                     return 0;
                 }
-                //  else {
-                //     moveNext(c);
-                //     moveNext(d);
-                // }
+                 else {
+                    moveNext(c);
+                    moveNext(d);
+                }
                 moveNext(c);
                 moveNext(d);
             }
