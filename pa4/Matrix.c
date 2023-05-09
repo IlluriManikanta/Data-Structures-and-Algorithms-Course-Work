@@ -146,6 +146,9 @@ int equals(Matrix A, Matrix B){
                 y = (Entry)get(d); 
                 if(x->value != y->value){
                     return 0;
+                } else {
+                    moveNext(c);
+                    moveNext(d);
                 }
             }
         }
