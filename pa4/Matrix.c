@@ -100,39 +100,37 @@ int NNZ(Matrix M){
 // Return true (1) if matrices A and B are equal, false (0) otherwise.
 int equals(Matrix A, Matrix B){
     if(A != NULL || B != NULL){
-        if(size(A) == 0 && size(B)){
-                return 1;
-        }
-        Entry x, y;
-        List c, d;
+        // if(size(A) == 0 && size(B)){
+        //         return 1;
+        // }
+        // Entry x, y;
+        // List c, d;
 
-        for(int i = 1; i <= size(A); i++) {
-            if(length(A->rows[i]) != length(B->rows[i])){
-                return 0;
-            }
+        // for(int i = 1; i <= size(A); i++) {
+        //     if(length(A->rows[i]) != length(B->rows[i])){
+        //         return 0;
+        //     }
             
-            c = A->rows[i];
-            d = B->rows[i];
-            moveFront(c);
-            moveFront(d);
-            while((index(c) >= 0 && index(d) >= 0)){
-                if (length(A->rows[i]) != length(B->rows[i])){
-                    return 0;
-                }
-                x = (Entry)get(c);
-                y = (Entry)get(d); 
-                if(x->value != y->value || x->column != y->column){
-                    return 0;
-                }
-                 else {
-                    moveNext(c);
-                    moveNext(d);
-                }
-                moveNext(c);
-                moveNext(d);
-            }
-        }
-        return 1;
+        //     c = A->rows[i];
+        //     d = B->rows[i];
+        //     moveFront(c);
+        //     moveFront(d);
+        //     while((index(c) >= 0 && index(d) >= 0)){
+        //         if (length(A->rows[i]) != length(B->rows[i])){
+        //             return 0;
+        //         }
+        //         x = (Entry)get(c);
+        //         y = (Entry)get(d); 
+        //         if(x->value != y->value || x->column != y->column){
+        //             return 0;
+        //         }
+        //          else {
+        //             moveNext(c);
+        //             moveNext(d);
+        //         }
+        //     }
+        // }
+        // return 1;
         // //
         // if (A->size != B->size || A->NNZ != B->NNZ)
         // {
@@ -156,6 +154,16 @@ int equals(Matrix A, Matrix B){
         // }
         // return 1;
         // //
+
+        if(A->size != B->size || A->NNZ != B->NNZ){
+        return 0;
+    }
+    for(int i = 0; i <= size(A); i++){
+        if(!equalsRow(A->rows[i], A->rows[i])){
+            return 0;
+        }
+    }
+    return 1;
     } else {
         fprintf(stderr, " Matrix ADT; ERROR in equal(): NULL pointer\n");
         exit(1);
