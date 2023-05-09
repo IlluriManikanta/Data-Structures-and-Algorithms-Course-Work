@@ -372,48 +372,68 @@ Matrix scalarMult(double x, Matrix A){
 //     }
 // }
 
-//Used sudo code from TA's Mike's google drive to implement this function
-Matrix sum(Matrix A, Matrix B){
-    B = copy(B);
-    Matrix sumAB = newMatrix(size(A));
-    for(int i = 0; i <= size(A); i++){
-        List rowA = A->rows[i];
-        List rowB = B->rows[i];
-        for(moveFront(rowA), moveFront(rowB); index(rowA) >= 0 && index(rowB) >= 0; ){
-            Entry E_A = get(rowA);
-            Entry E_B = get(rowB);
-            if(E_A->column == E_B->column){
-                append(sumAB->rows[i], newEntry(E_A->value + E_B->value, E_A->column));
-                if(E_A->value + E_B->value == 0){
-                    deleteBack(sumAB->rows[i]);
-                    sumAB->NNZ -= 1;
+Matrix sum(Matrix A, Matrix B)
+{
+    if (A && B)
+    {
+        if (size(A) != size(B))
+        {
+            fprintf(stderr, "1. Matrix Error.\n2. Matrix sum(Matrix A, Matrix B).\n3. Error matrices are not equal.\n");
+            exit(EXIT_FAILURE);
+        }
+
+        if (equals(A, B))
+        {
+            return scalarMult(2, A);
+        }
+
+        Matrix sum_matrix = newMatrix(size(A));
+        for (int i = 1; i <= size(A); i++)
+        {
+            int j = 0;
+            for (moveFront(A->rows[i]), moveFront(B->rows[i]);
+                 index(A->rows[i]) >= 0 || index(B->rows[i]) >= 0;)
+            {
+                Entry a = (index(A->rows[i]) >= 0) ? (Entry)get(A->rows[i]) : NULL;
+                Entry b = (index(B->rows[i]) >= 0) ? (Entry)get(B->rows[i]) : NULL;
+                if (A == NULL && B == NULL)
+                    break;
+                if (a != NULL && b != NULL && a->column == b->column)
+                {
+                    double sum = a->value + b->value;
+                    if (sum != 0)
+                    {
+                        Entry e = newEntry(sum, a->column);
+                        append(sum_matrix->rows[i], e);
+                        j++;
+                    }
+                    moveNext(A->rows[i]);
+                    moveNext(B->rows[i]);
                 }
-                moveNext(rowA);
-                moveNext(rowB);
-            }else if (E_A->column < E_B->column){
-                append(sumAB->rows[i], newEntry(E_A->value, E_A->column));
-                moveNext(rowA);
-            }else if (E_A->column > E_B->column){
-                append(sumAB->rows[i], newEntry(E_B->value, E_B->column));
-                moveNext(rowB);
+                else if (b == NULL || (a != NULL && a->column < b->column))
+                {
+                    Entry e = newEntry(a->value, a->column);
+                    append(sum_matrix->rows[i], e);
+                    j++;
+                    moveNext(A->rows[i]);
+                }
+                else
+                {
+                    Entry e = newEntry(b->value, b->column);
+                    append(sum_matrix->rows[i], e);
+                    j++;
+                    moveNext(B->rows[i]);
+                }
             }
-            sumAB->NNZ += 1;
+            sum_matrix->NNZ += j;
         }
-        while (index(rowA) >= 0){
-            Entry E_A = get(rowA);
-            append(sumAB->rows[i], newEntry(E_A->value, E_A->column));
-            sumAB->NNZ += 1;
-            moveNext(rowA);
-        }
-        while (index(rowB) >= 0){
-            Entry E_B = get(rowB);
-            append(sumAB->rows[i], newEntry(E_B->value, E_B->column));
-            sumAB->NNZ += 1;
-            moveNext(rowB);
-        }
+        return sum_matrix;
     }
-    freeMatrix(&B);
-    return sumAB;
+    else
+    {
+        fprintf(stderr, "1. Matrix Error.\n2. Matrix sum(Matrix A, Matrix B).\n3. Error calling function on NULL pointer.\n");
+        exit(EXIT_FAILURE);
+    }
 }
 
 
