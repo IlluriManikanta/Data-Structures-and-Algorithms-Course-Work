@@ -456,7 +456,7 @@ Matrix sum(Matrix A, Matrix B)
 //     }
 // }
 
-Matrix sum(Matrix A, Matrix B)
+Matrix diff(Matrix A, Matrix B)
 {
     if (A && B)
     {
