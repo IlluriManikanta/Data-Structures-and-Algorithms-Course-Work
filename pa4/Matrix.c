@@ -355,10 +355,9 @@ Matrix sum(Matrix A, Matrix B){
            moveFront(a_row);
            moveFront(b_row);
             while((index(a_row) && index(b_row)) > 0){
-                Entry a, b;
-
-                a = (Entry)get(a_row);
-                b = (Entry)get(b_row);
+                
+                Entry a = (Entry)get(a_row);
+                Entry b = (Entry)get(b_row);
                 if(a->column == b->column){   
                     changeEntry(s_matrix, i, a->column, a->value + b->value);
                     moveNext(a_row);
