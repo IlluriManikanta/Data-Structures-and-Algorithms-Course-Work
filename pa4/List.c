@@ -163,7 +163,7 @@ void clear(List L){
     }
 }
 
-void set(List L, int x){
+void set(List L, void* x){
     if(L){
         if(L->length <= 0){
             fprintf(stderr, " List ADT; ERROR in set(): Empty list\n");
@@ -463,7 +463,7 @@ void printList(FILE* output, List L){
         if(L->length != 0){
             moveFront(L);
             while(index(L) >= 0){
-                fprintf(output, "%d ", get(L));
+                fprintf(output, "%p ", get(L));
                 moveNext(L);
             }
         }
