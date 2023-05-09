@@ -292,7 +292,8 @@ Matrix sum(Matrix A, Matrix B){
                     }
                     moveNext(A->rows[i]);
                     moveNext(B->rows[i]);
-                } else if((matrix_a->column < matrix_b->column) || matrix_b == NULL){
+                }
+                if((matrix_a->column < matrix_b->column) || matrix_b == NULL){
                     Entry sum_val = newEntry(matrix_a->value, matrix_a->column);
                     append((s_matrix->rows)[i], sum_val);
                     nnz_count++;
