@@ -336,29 +336,34 @@ Matrix sum(Matrix A, Matrix B){
     if(A != NULL && B != NULL){
         
         Matrix s_matrix = newMatrix(size(A));
-
+        Entry a, b;
         for(int i = 1; i <= size(A); i++){
+            moveFront(A->rows[i]);
+            moveFront(B->rows[i]);
+            while(index(A->rows[i]) >= 0 || index(B->rows[i]) >= 0){
 
-           moveFront(A->rows[i]);
-           moveFront(B->rows[i]);
-            while(index(A->rows[i]) >= 0 && index(B->rows[i]) >= 0){
-                
-                Entry a = (Entry)get(A->rows[i]);
-                Entry b = (Entry)get(B->rows[i]);
+                if(index(A->rows[i]) >= 0){
+                    a = (Entry)get(A->rows[i]);
+                } else {
+                    a = NULL;
+                }
+                if(index(B->rows[i]) >= 0){
+                    b = (Entry)get(B->rows[i]);
+                } else {
+                    b = NULL;
+                }
+
 
                 if(a->column == b->column){
                     if((a->value + b->value) != 0){
-                        Entry temp = newEntry( a->value + b->value, a->column); 
+                        Entry temp = newEntry(a->value + b->value, a->column); 
                         
                         append(s_matrix->rows[i], temp);
                         s_matrix->NNZ++;
                         //changeEntry(s_matrix, i, a->column, a->value + b->value);
-                        moveNext(A->rows[i]);
-                        moveNext(B->rows[i]);
-                    } else {
-                        moveNext(A->rows[i]);
-                        moveNext(B->rows[i]);  
                     }
+                    moveNext(A->rows[i]);
+                    moveNext(B->rows[i]);
                 } else if(a->column < b->column){
                     Entry temp = newEntry(a->value, a->column); 
                     append(s_matrix->rows[i], temp);
@@ -373,25 +378,26 @@ Matrix sum(Matrix A, Matrix B){
                 }
             }
 
-            while(index(A->rows[i]) >= 0){
+            // while(index(A->rows[i]) >= 0){
 
-                Entry a = (Entry)get(A->rows[i]);
-                Entry temp = newEntry(a->value, a->column); 
-                append(s_matrix->rows[i], temp);
-                s_matrix->NNZ++;
-                //changeEntry(s_matrix, i, a->column, a->value);
-                moveNext(A->rows[i]);
-            }
+            //     Entry a = (Entry)get(A->rows[i]);
+            //     Entry temp = newEntry(a->value, a->column); 
+            //     append(s_matrix->rows[i], temp);
+            //     s_matrix->NNZ++;
+            //     //changeEntry(s_matrix, i, a->column, a->value);
+            //     moveNext(A->rows[i]);
+            // }
 
-            while(index(B->rows[i]) >= 0){
+            // while(index(B->rows[i]) >= 0){
 
-                Entry b = (Entry)get(B->rows[i]);
-                Entry temp = newEntry(b->value, b->column); 
-                append(s_matrix->rows[i], temp);
-                s_matrix->NNZ++;
-                //changeEntry(s_matrix, i, b->column, b->value);
-                moveNext(B->rows[i]);
-            }
+            //     Entry b = (Entry)get(B->rows[i]);
+            //     Entry temp = newEntry(b->value, b->column); 
+            //     append(s_matrix->rows[i], temp);
+            //     s_matrix->NNZ++;
+            //     //changeEntry(s_matrix, i, b->column, b->value);
+            //     moveNext(B->rows[i]);
+            // }
+            s_matrix->NNZ += 1;
         }
         return s_matrix;
     } else {
