@@ -420,7 +420,7 @@ Matrix diff(Matrix A, Matrix B){
                 Entry b = (Entry)get(b_row);
 
                 if(a->column == b->column){  
-                    if((a->value + b->value) != 0){
+                    if((a->value - b->value) != 0){
                         Entry temp = newEntry(i, a->value - b->value); 
                         
                         append(sum_list, temp);
