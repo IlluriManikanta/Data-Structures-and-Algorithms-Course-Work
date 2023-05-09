@@ -340,16 +340,16 @@ Matrix sum(Matrix A, Matrix B){
                 Entry a = (Entry)get(a_row);
                 Entry b = (Entry)get(b_row);
                 if(a->column == b->column){  
-                    // Entry temp = newEntry(i, a->value + b->value); 
-                    // append(a_row, temp);
-                    changeEntry(s_matrix, i, a->column, a->value + b->value);
+                    Entry temp = newEntry(i, a->value + b->value); 
+                    append(a_row, temp);
+                    //changeEntry(s_matrix, i, a->column, a->value + b->value);
                     moveNext(a_row);
 
                     moveNext(b_row);
                 } else if(a->column < b->column){
-                    // Entry temp = newEntry(i, a->value); 
-                    // append(a_row, temp);
-                    changeEntry(s_matrix, i, a->column, a->value);
+                    Entry temp = newEntry(i, a->value); 
+                    append(a_row, temp);
+                    //changeEntry(s_matrix, i, a->column, a->value);
                     moveNext(a_row);
                 } else {
                     Entry temp = newEntry(i, b->value); 
@@ -360,18 +360,18 @@ Matrix sum(Matrix A, Matrix B){
             while(index(a_row) >= 0){
 
                 Entry a = (Entry)get(a_row);
-                // Entry temp = newEntry(i, a->value); 
-                // append(a_row, temp);
-                changeEntry(s_matrix, i, a->column, a->value);
+                Entry temp = newEntry(i, a->value); 
+                append(a_row, temp);
+                //changeEntry(s_matrix, i, a->column, a->value);
                 moveNext(a_row);
             }
 
             while(index(b_row) >= 0){
 
                 Entry b = (Entry)get(b_row);
-                // Entry temp = newEntry(i, b->value); 
-                // append(b_row, temp);
-                changeEntry(s_matrix, i, b->column, b->value);
+                Entry temp = newEntry(i, b->value); 
+                append(b_row, temp);
+                //changeEntry(s_matrix, i, b->column, b->value);
                 moveNext(b_row);
             }
         }
