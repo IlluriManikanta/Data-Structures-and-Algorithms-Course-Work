@@ -344,7 +344,7 @@ Matrix sum(Matrix A, Matrix B){
 
                 if(a->column == b->column){
                     if((a->value + b->value) != 0){
-                        Entry temp = newEntry(i, a->value + b->value); 
+                        Entry temp = newEntry(a->column, a->value + b->value); 
                         
                         append(sum_list, temp);
                         s_matrix->NNZ++;
@@ -356,13 +356,13 @@ Matrix sum(Matrix A, Matrix B){
                         moveNext(b_row);  
                     }
                 } else if(a->column < b->column){
-                    Entry temp = newEntry(i, a->value); 
+                    Entry temp = newEntry(a->column, a->value); 
                     append(sum_list, temp);
                     s_matrix->NNZ++;
                     //changeEntry(s_matrix, i, a->column, a->value);
                     moveNext(a_row);
                 } else {
-                    Entry temp = newEntry(i, b->value); 
+                    Entry temp = newEntry(b->column, b->value); 
                     append(sum_list, temp);
                     s_matrix->NNZ++;
                     moveNext(b_row);
@@ -421,7 +421,7 @@ Matrix diff(Matrix A, Matrix B){
 
                 if(a->column == b->column){  
                     if((a->value - b->value) != 0){
-                        Entry temp = newEntry(i, a->value - b->value); 
+                        Entry temp = newEntry(a->column, a->value - b->value); 
                         
                         append(sum_list, temp);
                         s_matrix->NNZ++;
@@ -433,13 +433,13 @@ Matrix diff(Matrix A, Matrix B){
                         moveNext(b_row);  
                     }
                 } else if(a->column < b->column){
-                    Entry temp = newEntry(i, a->value); 
+                    Entry temp = newEntry(a->column, a->value); 
                     append(sum_list, temp);
                     s_matrix->NNZ++;
                     //changeEntry(s_matrix, i, a->column, a->value);
                     moveNext(a_row);
                 } else {
-                    Entry temp = newEntry(i, b->value); 
+                    Entry temp = newEntry(b->column, b->value); 
                     append(sum_list, temp);
                     s_matrix->NNZ++;
                     moveNext(b_row);
