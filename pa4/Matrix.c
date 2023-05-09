@@ -96,68 +96,41 @@ int NNZ(Matrix M){
 
 }
 
-// // equals()
-// // Return true (1) if matrices A and B are equal, false (0) otherwise.
-// int equals(Matrix A, Matrix B){
-//     if(A != NULL || B != NULL){
-//         if(A->NNZ != B->NNZ || A->size != B->size){
-//             return 0;
-//         } else {
-//             List c, d;
-//             int i;
-//             for(i = 1; i <= A->NNZ; i++){
-//             //      set "c" and "d" to the rows of "A" and "B"
-//                 c = A->rows[i];
-//                 d = B->rows[i];
-//                 moveFront(c);
-//                 moveFront(d);
-//                 while(index(c) == index(d)){
-//                     Entry x = (Entry)get(A->rows[i]);
-//                     Entry y = (Entry)get(B->rows[i]);
-//                     if(x->column != y->column || x->value != y->value){
-//                         return 0;
-//                     }
-//                     if(index(c) != index(d)){
-//                         return false;
-//                     } else {
-//                         moveNext(c);
-//                         moveNext(d);
-//                     }
-//                 }
-//             }
-//             return 1;
-//         } 
-//     } else {
-//         fprintf(stderr, " Matrix ADT; ERROR in equal(): NULL pointer\n");
-//         exit(1);
-//     }  
-// }
-
-bool equalsEntry(Entry A, Entry B){
-    return A->value == B->value && A->value == B->value;
-}
-
-bool equalsRow(List A, List B){
-    for(moveFront(A), moveFront(B); index(A) >=0 && index(B) >= 0; moveNext(A), moveNext(B)){
-        Entry a = get(A);
-        Entry b = get(B);
-        if(!equalsEntry(a, b)){
-            return false;
-        }
-    }
-    return true;
-}
-
+// equals()
+// Return true (1) if matrices A and B are equal, false (0) otherwise.
 int equals(Matrix A, Matrix B){
-    if(A->size != B->size || A->NNZ != B->NNZ){
-        return 0;
-    }
-    for(int i = 0; i <= size(A); i++){
-        if(!equalsRow(A->rows[i], A->rows[i])){
+    if(A != NULL || B != NULL){
+        if(A->NNZ != B->NNZ || A->size != B->size){
             return 0;
-        }
-    }
-    return 1;
+        } else {
+            List c, d;
+            int i;
+            for(i = 1; i <= A->NNZ; i++){
+            //      set "c" and "d" to the rows of "A" and "B"
+                c = A->rows[i];
+                d = B->rows[i];
+                moveFront(c);
+                moveFront(d);
+                while(index(c) == index(d)){
+                    Entry x = (Entry)get(A->rows[i]);
+                    Entry y = (Entry)get(B->rows[i]);
+                    if(x->column != y->column || x->value != y->value){
+                        return 0;
+                    }
+                    if(index(c) != index(d)){
+                        return false;
+                    } else {
+                        moveNext(c);
+                        moveNext(d);
+                    }
+                }
+            }
+            return 1;
+        } 
+    } else {
+        fprintf(stderr, " Matrix ADT; ERROR in equal(): NULL pointer\n");
+        exit(1);
+    }  
 }
 
 // Manipulation procedures
