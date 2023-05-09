@@ -205,64 +205,64 @@ void changeEntry(Matrix M, int i, int j, double x){
     }
 }
 
-// // Matrix Arithmetic operations
-// // copy()
-// // Returns a reference to a new Matrix object having the same entries as A.
-// //NEED TO CHECK
-// Matrix copy(Matrix A){
+// Matrix Arithmetic operations
+// copy()
+// Returns a reference to a new Matrix object having the same entries as A.
+//NEED TO CHECK
+Matrix copy(Matrix A){
+    if(A){
+        Matrix copyA = newMatrix(size(A));
+        copyA->NNZ = NNZ(A);
+        for(int i = 1; i <= size(A); i++){
+            List r = A->rows[i];
+            for(moveFront(r); index(r) >= 0; moveNext(r)){
+                Entry val = get(r);
+                append(copyA->rows[i], newEntry(val->column, val->value));
+            }
+        }
+        return copyA;
+    } else {
+        fprintf(stderr, " Matrix ADT; ERROR in copy(): NULL pointer\n");
+        exit(1);
+    }
+}
+
+// // transpose()
+// // Returns a reference to a new Matrix object representing the transpose
+// // of A.
+// Matrix transpose(Matrix A){
 //     if(A){
-//         Matrix copyA = newMatrix(size(A));
-//         copyA->NNZ = NNZ(A);
+//         Matrix T = newMatrix(size(A));
+//         T->NNZ = NNZ(A);
 //         for(int i = 1; i <= size(A); i++){
-//             List r = A->rows[i];
-//             for(moveFront(r); index(r) >= 0; moveNext(r)){
-//                 Entry val = get(r);
-//                 append(copyA->rows[i], newEntry(val->column, val->value));
+//             List row = A->rows[i];
+//             moveFront(row);
+//             while(index(row) >= 0){
+//                 Entry E = get(row);
+//                 append(T->rows[E->column], newEntry(E->value, i));
+//                 moveNext(row);
 //             }
 //         }
-//         return copyA;
+//         return T;
 //     } else {
-//         fprintf(stderr, " Matrix ADT; ERROR in copy(): NULL pointer\n");
+//         fprintf(stderr, " Matrix ADT; ERROR in transpose(): NULL pointer\n");
 //         exit(1);
 //     }
 // }
 
-Matrix copy(Matrix A){
-    Matrix copyA = newMatrix(size(A));
-    copyA->NNZ = NNZ(A);
+Matrix transpose(Matrix A){
+    Matrix T = newMatrix(size(A));
+    T->NNZ = NNZ(A);
     for(int i = 0; i <= size(A); i++){
         List row = A->rows[i];
         for(moveFront(row); index(row) >= 0; moveNext(row)){
             Entry E = get(row);
-            append(copyA->rows[i], newEntry(E->value, E->value));
+            append(T->rows[E->column], newEntry(E->value, i));
         }
     }
-    return copyA;
+    return T;
 }
 
-
-// transpose()
-// Returns a reference to a new Matrix object representing the transpose
-// of A.
-Matrix transpose(Matrix A){
-    if(A){
-        Matrix T = newMatrix(size(A));
-        T->NNZ = NNZ(A);
-        for(int i = 1; i <= size(A); i++){
-            List row = A->rows[i];
-            moveFront(row);
-            while(index(row) >= 0){
-                Entry E = get(row);
-                append(T->rows[E->column], newEntry(E->value, i));
-                moveNext(row);
-            }
-        }
-        return T;
-    } else {
-        fprintf(stderr, " Matrix ADT; ERROR in transpose(): NULL pointer\n");
-        exit(1);
-    }
-}
 
 // scalarMult()
 // Returns a reference to a new Matrix object representing xA.
