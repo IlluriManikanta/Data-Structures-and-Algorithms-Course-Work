@@ -100,7 +100,7 @@ int NNZ(Matrix M){
 // Return true (1) if matrices A and B are equal, false (0) otherwise.
 int equals(Matrix A, Matrix B){
     if(A != NULL || B != NULL){
-        if(size(A) == 0 && size(B) == 0){
+        if(size(A) == 0 && size(B)){
                 return 1;
         }
         Entry x, y;
@@ -116,6 +116,9 @@ int equals(Matrix A, Matrix B){
             moveFront(c);
             moveFront(d);
             while((index(c) >= 0 && index(d) >= 0)){
+                if (length(A->rows[i]) != length(B->rows[i])){
+                    return 0;
+                }
                 x = (Entry)get(c);
                 y = (Entry)get(d); 
                 if(x->value != y->value || x->column != y->column){
