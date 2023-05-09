@@ -234,7 +234,7 @@ Matrix transpose(Matrix A){
     if(A){
         Matrix T = newMatrix(size(A));
         T->NNZ = NNZ(A);
-        for(int i = 0; i <= size(A); i++){
+        for(int i = 1; i <= size(A); i++){
             List row = A->rows[i];
             moveFront(row);
             while(index(row) >= 0){
