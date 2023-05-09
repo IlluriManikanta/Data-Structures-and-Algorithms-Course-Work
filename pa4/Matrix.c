@@ -231,35 +231,60 @@ Matrix copy(Matrix A){
     }
 }
 
-// transpose()
-// Returns a reference to a new Matrix object representing the transpose
-// of A.
-Matrix transpose(Matrix A){
+// // transpose()
+// // Returns a reference to a new Matrix object representing the transpose
+// // of A.
+// Matrix transpose(Matrix A){
+//     if(A){
+//         Matrix T = newMatrix(size(A));
+//         Entry E;
+//         int i;
+//         double val;
+//         int col;
+//         double val;
 
-    if(A){
-        Matrix T = newMatrix(size(A));
-        Entry E;
-        int i;
-        double val;
-        int col;
-        double val;
+//         T->NNZ = NNZ(A);
+//         for(i = 1; i <= size(A); i++){
+//             moveFront(A->rows[i]);
+//             while(index(A->rows[i]) >= 0){
+//                 E = get(A->rows[i]);
+//                 col = E->column;
+//                 val = E->value;
+//                 append(T->rows[col], newEntry(val, i)); 
+//                 T->NNZ += 1;
+//             }
 
-        T->NNZ = NNZ(A);
-        for(i = 1; i <= size(A); i++){
-            moveFront(A->rows[i]);
-            while(index(A->rows[i]) >= 0){
-                E = get(A->rows[i]);
-                col = E->column;
-                val = E->value;
-                append(T->rows[col], newEntry(val, i)); 
-                T->NNZ += 1;
+//         }
+//         return T;
+//     } else {
+//         fprintf(stderr, " Matrix ADT; ERROR in transpose(): NULL pointer\n");
+//         exit(1);
+//     }
+// }
+
+Matrix transpose(Matrix A)
+{
+    if (A) // checking if the pointer is not equal to NULL
+    {
+        Matrix transpose_matrix = newMatrix(size(A));
+
+        for (int i = 1; i <= size(A); i++)
+        {
+            List element = A->rows[i];
+            for (moveFront(element); index(element) >= 0; moveNext(element))
+            {
+                Entry E = (Entry)get((A->rows)[i]);
+                append((transpose_matrix->rows)[E->column], newEntry(E->value, i));
+                transpose_matrix->NNZ++;
             }
-
         }
-        return T;
-    } else {
-        fprintf(stderr, " Matrix ADT; ERROR in transpose(): NULL pointer\n");
-        exit(1);
+        transpose_matrix->NNZ = A->NNZ;
+        return transpose_matrix;
+    }
+    else
+    {
+        fprintf(stderr, "1. Matrix Error.\n2. transpose(Matrix A).\n3. Calling function on Null pointer.\n"); // Error Message
+        exit(EXIT_FAILURE); // exiting in failure
     }
 }
 
@@ -536,9 +561,9 @@ Matrix product(Matrix A, Matrix B){
                     if(length(trans->rows[j]) != 0){
                         double val = vectorDot(A->rows[i], trans->rows[j]);
                         if(val != 0){
-                            Entry product_val = newEntry(j, val);
+                            Entry product_val = newEntry(val, j);
                             append(prod->rows[i], product_val);
-                            prod->NNZ += j;
+                            prod->NNZ += 1;
                         }
                     }
                 }
