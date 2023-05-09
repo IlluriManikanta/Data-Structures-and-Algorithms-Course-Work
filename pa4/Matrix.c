@@ -372,15 +372,15 @@ Matrix sum(Matrix A, Matrix B){
             }
 
             while(index(a_row) >= 0){
-                Entry a, b;
-                a = (Entry)get(a_row);
+
+                Entry a = (Entry)get(a_row);
                 changeEntry(s_matrix, i, a->column, a->value);
                 moveNext(a_row);
             }
 
             while(index(b_row) >= 0){
-                Entry a, b;
-                b = (Entry)get(b_row);
+
+                Entry b = (Entry)get(b_row);
                 changeEntry(s_matrix, i, b->column, b->value);
                 moveNext(b_row);
             }
