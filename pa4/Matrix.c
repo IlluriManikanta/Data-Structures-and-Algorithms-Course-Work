@@ -305,9 +305,8 @@ Matrix sum(Matrix A, Matrix B){
                 }
 
                 if(matrix_a && matrix_b && matrix_a->column == matrix_b->column){
-                    double val = matrix_a->value + matrix_b->value;
-                    if(val != 0){
-                        Entry sum_val = newEntry(val, matrix_a->column);
+                    if(matrix_a->value + matrix_b->value != 0){
+                        Entry sum_val = newEntry(matrix_a->value + matrix_b->value, matrix_a->column);
                         append((s_matrix->rows)[i], sum_val);
                         count++;
                     }
