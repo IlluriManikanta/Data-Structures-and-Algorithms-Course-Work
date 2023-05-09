@@ -336,15 +336,15 @@ Matrix sum(Matrix A, Matrix B){
 
 // }
 
-Matrix sum(Matrix A, Matrix B){
-    if(A != NULL && B != NULL){
+// Matrix sum(Matrix A, Matrix B){
+//     if(A != NULL && B != NULL){
 
 
-    } else {
-        fprintf(stderr, " Matrix ADT; ERROR in sum(): NULL pointer\n");
-        exit(1);
-    }
-}
+//     } else {
+//         fprintf(stderr, " Matrix ADT; ERROR in sum(): NULL pointer\n");
+//         exit(1);
+//     }
+// }
 
 
 // diff()
