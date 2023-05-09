@@ -133,35 +133,25 @@ int equals(Matrix A, Matrix B){
     }  
 }
 
-// // Manipulation procedures
-// // makeZero()
-// // Re-sets M to the zero Matrix state.
-// void makeZero(Matrix M){
-//     if(M){
-//         M->NNZ = 0;
-//         for(int i = 1; i <= size(M); i++){
-//             List row = M->rows[i];
-//             for(moveFront(row); index(row) >= 0; moveNext(row)){
-//                 Entry val = (Entry)get(row);
-//                 deleteEntry(&val);
-//             }
-//             clear(row);
-//         }
-//     } else {
-//         fprintf(stderr, " Matrix ADT; ERROR in makeZero(): NULL pointer\n");
-//         exit(1);
-//     }
-// }
+// Manipulation procedures
+// makeZero()
+// Re-sets M to the zero Matrix state.
 void makeZero(Matrix M){
-    for(int i = 0; i < size(M); i++){
-        List row = M->rows[i];
-        while(length(row) > 0){
-            deleteFront(row);
+    if(M){
+        M->NNZ = 0;
+        for(int i = 1; i <= size(M); i++){
+            List row = M->rows[i];
+            for(moveFront(row); index(row) >= 0; moveNext(row)){
+                Entry val = (Entry)get(row);
+                deleteEntry(&val);
+            }
+            clear(row);
         }
+    } else {
+        fprintf(stderr, " Matrix ADT; ERROR in makeZero(): NULL pointer\n");
+        exit(1);
     }
-    M->NNZ = 0;
 }
-
 
 // changeEntry()
 // Changes the ith row, jth column of M to the value x.
