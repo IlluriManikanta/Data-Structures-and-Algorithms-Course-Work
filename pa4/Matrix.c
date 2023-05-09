@@ -209,7 +209,6 @@ void changeEntry(Matrix M, int i, int j, double x){
     }
 }
 
-
 // Matrix Arithmetic operations
 // copy()
 // Returns a reference to a new Matrix object having the same entries as A.
@@ -236,18 +235,30 @@ Matrix copy(Matrix A){
 // Returns a reference to a new Matrix object representing the transpose
 // of A.
 Matrix transpose(Matrix A){
+
     if(A){
-        Matrix T = newMatrix(size(A));
-        T->NNZ = NNZ(A);
+        // Matrix T = newMatrix(size(A));
+        // T->NNZ = NNZ(A);
+        // for(int i = 1; i <= size(A); i++){
+        //     moveFront(A->rows[i]);
+        //     while(index(A->rows[i]) >= 0){
+        //         Entry E = get(A->rows[i]);
+        //         append(T->rows[E->column], newEntry(E->value, i));
+        //         moveNext(A->rows[i]);
+        //     }
+        // }
+        // return T;
+
+        Matrix copyA = newMatrix(size(A));
+        copyA->NNZ = NNZ(A);
         for(int i = 1; i <= size(A); i++){
-            moveFront(A->rows[i]);
-            while(index(A->rows[i]) >= 0){
-                Entry E = get(A->rows[i]);
-                append(T->rows[E->column], newEntry(E->value, i));
-                moveNext(A->rows[i]);
+            List r = A->rows[i];
+            for(moveFront(r); index(r) >= 0; moveNext(r)){
+                Entry val = get(r);
+                append(copyA->rows[val->column], newEntry(i, val->value));
             }
         }
-        return T;
+        return copyA;
     } else {
         fprintf(stderr, " Matrix ADT; ERROR in transpose(): NULL pointer\n");
         exit(1);
@@ -559,7 +570,7 @@ void printMatrix(FILE* out, Matrix M){
                 fprintf(out, "%i:", i);
                 for (moveFront((M->rows)[i]); index((M->rows)[i]) >= 0; moveNext((M->rows)[i])){
                     Entry E = (Entry)get((M->rows)[i]);
-                    fprintf(out, " (%i, %.1lf)", E->value, E->column);
+                    fprintf(out, " (%i, %.1lf)", E->column, E->value);
                 }
                 fprintf(out, "\n");
             }
