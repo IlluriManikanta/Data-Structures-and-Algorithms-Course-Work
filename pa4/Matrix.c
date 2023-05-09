@@ -315,6 +315,37 @@ Matrix sum(Matrix A, Matrix B){
     }
 }
 
+// void vecsum(List A, List B, List C, int sign){
+//     double x, y, z;
+//     Entry a, b;
+//     moveFront(A);
+//     moveFront(B);
+
+//     while((index(A) && index(B)) > 0){
+//         a = (Entry)get(A);
+//         b = (Entry)get(B);
+//         x = a->value;
+//         y = b->value;
+//         if(a->column == b->column){
+//             z = x + y;
+//             if(z != 0){
+//                 append()
+//             }
+//         }
+//     }
+
+// }
+
+Matrix sum(Matrix A, Matrix B){
+    if(A != NULL && B != NULL){
+
+
+    } else {
+        fprintf(stderr, " Matrix ADT; ERROR in sum(): NULL pointer\n");
+        exit(1);
+    }
+}
+
 
 // diff()
 // Returns a reference to a new Matrix object representing A-B.
