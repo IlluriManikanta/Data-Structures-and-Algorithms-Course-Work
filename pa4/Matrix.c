@@ -240,12 +240,11 @@ Matrix transpose(Matrix A){
         Matrix T = newMatrix(size(A));
         T->NNZ = NNZ(A);
         for(int i = 1; i <= size(A); i++){
-            List row = A->rows[i];
-            moveFront(row);
-            while(index(row) >= 0){
-                Entry E = get(row);
+            moveFront(A->rows[i]);
+            while(index(A->rows[i]) >= 0){
+                Entry E = get(A->rows[i]);
                 append(T->rows[E->column], newEntry(E->value, i));
-                moveNext(row);
+                moveNext(A->rows[i]);
             }
         }
         return T;
