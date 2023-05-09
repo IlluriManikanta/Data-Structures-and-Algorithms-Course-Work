@@ -254,70 +254,70 @@ Matrix transpose(Matrix A){
     }
 }
 
-// sum()
-// Returns a reference to a new Matrix object representing A+B.
-// pre: size(A)==size(B)
-Matrix sum(Matrix A, Matrix B){
-    if(A != NULL || B != NULL){
-        printf("Before size");
-        if(size(A) != size(B)){
-            fprintf(stderr, " Matrix ADT; ERROR in sum(): size(A) != size(B)\n");
-            exit(1);
-        }
-        printf("Before equals");
-        if(equals(A, B)){
-            return scalarMult(2.0, A);
-        }
-        Matrix s_matrix = newMatrix(size(A));
-        for(int i = 1; i <= size(A); i++){
-            int nnz_count = 0;
-            moveFront(A->rows[i]);
-            moveFront(B->rows[i]);
-            while(index(A->rows[i]) >= 0 || index(B->rows[i]) >= 0){
-                Entry matrix_a = NULL;
-                Entry matrix_b = NULL;
+// // sum()
+// // Returns a reference to a new Matrix object representing A+B.
+// // pre: size(A)==size(B)
+// Matrix sum(Matrix A, Matrix B){
+//     if(A != NULL || B != NULL){
+//         // printf("Before size");
+//         if(size(A) != size(B)){
+//             fprintf(stderr, " Matrix ADT; ERROR in sum(): size(A) != size(B)\n");
+//             exit(1);
+//         }
+//         // printf("Before equals");
+//         if(equals(A, B)){
+//             return scalarMult(2.0, A);
+//         }
+//         Matrix s_matrix = newMatrix(size(A));
+//         for(int i = 1; i <= size(A); i++){
+//             int nnz_count = 0;
+//             moveFront(A->rows[i]);
+//             moveFront(B->rows[i]);
+//             while(index(A->rows[i]) >= 0 || index(B->rows[i]) >= 0){
+//                 Entry matrix_a = NULL;
+//                 Entry matrix_b = NULL;
 
-                if(index(A->rows[i]) >= 0){
-                    matrix_a = (Entry)get(A->rows[i]);
-                } else {
-                    matrix_a = NULL;
-                }
-                if(index(B->rows[i]) >= 0){
-                    matrix_b = (Entry)get(B->rows[i]);
-                } else {
-                    matrix_b = NULL;
-                }
+//                 if(index(A->rows[i]) >= 0){
+//                     matrix_a = (Entry)get(A->rows[i]);
+//                 } else {
+//                     matrix_a = NULL;
+//                 }
+//                 if(index(B->rows[i]) >= 0){
+//                     matrix_b = (Entry)get(B->rows[i]);
+//                 } else {
+//                     matrix_b = NULL;
+//                 }
 
-                if(matrix_a->column == matrix_b->column){
-                    if((matrix_a->value + matrix_b->value) != 0){
-                        Entry sum_val = newEntry(matrix_a->value + matrix_b->value, matrix_a->column);
-                        append(s_matrix->rows[i], sum_val);
-                        nnz_count += 1;
-                    }
-                    moveNext(A->rows[i]);
-                    moveNext(B->rows[i]);
-                }
-                if((matrix_a->column < matrix_b->column) || matrix_b == NULL){
-                    Entry sum_val = newEntry(matrix_a->value, matrix_a->column);
-                    append((s_matrix->rows)[i], sum_val);
-                    nnz_count++;
-                    moveNext(A->rows[i]);
-                } else {
-                    Entry sum_val = newEntry(matrix_b->value, matrix_b->column);
-                    append(s_matrix->rows[i], sum_val);
-                    nnz_count++;
-                    moveNext(B->rows[i]);
-                }
+//                 if(matrix_a->column == matrix_b->column){
+//                     if((matrix_a->value + matrix_b->value) != 0){
+//                         Entry sum_val = newEntry(matrix_a->value + matrix_b->value, matrix_a->column);
+//                         append(s_matrix->rows[i], sum_val);
+//                         nnz_count += 1;
+//                     }
+//                     moveNext(A->rows[i]);
+//                     moveNext(B->rows[i]);
+//                 }
+//                 if((matrix_a->column < matrix_b->column) || matrix_b == NULL){
+//                     Entry sum_val = newEntry(matrix_a->value, matrix_a->column);
+//                     append((s_matrix->rows)[i], sum_val);
+//                     nnz_count++;
+//                     moveNext(A->rows[i]);
+//                 } else {
+//                     Entry sum_val = newEntry(matrix_b->value, matrix_b->column);
+//                     append(s_matrix->rows[i], sum_val);
+//                     nnz_count++;
+//                     moveNext(B->rows[i]);
+//                 }
 
-            }
-            s_matrix->NNZ += nnz_count;
-        }
-        return s_matrix;
-    } else {
-        fprintf(stderr, " Matrix ADT; ERROR in sum(): NULL pointer\n");
-        exit(1);
-    }
-}
+//             }
+//             s_matrix->NNZ += nnz_count;
+//         }
+//         return s_matrix;
+//     } else {
+//         fprintf(stderr, " Matrix ADT; ERROR in sum(): NULL pointer\n");
+//         exit(1);
+//     }
+// }
 
 // void vecsum(List A, List B, List C, int sign){
 //     double x, y, z;
@@ -340,15 +340,58 @@ Matrix sum(Matrix A, Matrix B){
 
 // }
 
-// Matrix sum(Matrix A, Matrix B){
-//     if(A != NULL && B != NULL){
+Matrix sum(Matrix A, Matrix B){
+    if(A != NULL && B != NULL){
+        
+        Matrix s_matrix = newMatrix(size(A));
 
+        for(int i = 1; i <= size(A); i++){
+           List a_row;
+           List b_row;
 
-//     } else {
-//         fprintf(stderr, " Matrix ADT; ERROR in sum(): NULL pointer\n");
-//         exit(1);
-//     }
-// }
+           a_row = A->rows[i];
+           b_row = B->rows[i];
+
+           moveFront(a_row);
+           moveFront(b_row);
+            while((index(a_row) && index(b_row)) > 0){
+                Entry a, b;
+
+                a = (Entry)get(a_row);
+                b = (Entry)get(b_row);
+                if(a->column == b->column){   
+                    changeEntry(s_matrix, i, a->column, a->value + b->value);
+                    moveNext(a_row);
+                    moveNext(b_row);
+                } else if(a->column < b->column){
+                    changeEntry(s_matrix, i, a->column, a->value);
+                    moveNext(a_row);
+                } else {
+                    changeEntry(s_matrix, i, b->column, b->value);
+                    moveNext(b_row);
+                }
+            }
+
+            while(index(a_row) >= 0){
+                Entry a, b;
+                a = (Entry)get(a_row);
+                changeEntry(s_matrix, i, a->column, a->value);
+                moveNext(a_row);
+            }
+
+            while(index(b_row) >= 0){
+                Entry a, b;
+                b = (Entry)get(b_row);
+                changeEntry(s_matrix, i, b->column, b->value);
+                moveNext(b_row);
+            }
+        }
+        return s_matrix;
+    } else {
+        fprintf(stderr, " Matrix ADT; ERROR in sum(): NULL pointer\n");
+        exit(1);
+    }
+}
 
 
 // diff()
