@@ -352,9 +352,8 @@ Matrix sum(Matrix A, Matrix B){
                 } else {
                     b = NULL;
                 }
-
-
-                if(a->column == b->column){
+                
+                if(a != NULL && b != NULL && a->column == b->column){
                     if((a->value + b->value) != 0){
                         Entry temp = newEntry(a->value + b->value, a->column); 
                         
@@ -364,7 +363,7 @@ Matrix sum(Matrix A, Matrix B){
                     }
                     moveNext(A->rows[i]);
                     moveNext(B->rows[i]);
-                } else if(a->column < b->column){
+                } else if(b == NULL || (a != NULL && a->column < b->column)){
                     Entry temp = newEntry(a->value, a->column); 
                     append(s_matrix->rows[i], temp);
                     s_matrix->NNZ++;
