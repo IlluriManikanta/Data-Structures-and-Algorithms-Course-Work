@@ -132,25 +132,28 @@ int equals(Matrix A, Matrix B){
     //     exit(1);
     // }
 
+    if(A != NULL || B != NULL){
+        Entry x, y;
+        List c, d;
 
-    Entry x, y;
-    List c, d;
-    int i;
-
-    for(int i = 1; i <= size(A); i++) {
-        c = A->rows[i];
-        d = B->rows[i];
-        moveFront(c);
-        moveFront(d);
-        while((index(c) >= 0 && index(d) >= 0) && (size(A) == size(B))){
-            x = (Entry)get(c);
-            y = (Entry)get(d); 
-            if(x->value != y->value){
-                return 0;
+        for(int i = 1; i <= size(A); i++) {
+            c = A->rows[i];
+            d = B->rows[i];
+            moveFront(c);
+            moveFront(d);
+            while((index(c) >= 0 && index(d) >= 0) && (size(A) == size(B))){
+                x = (Entry)get(c);
+                y = (Entry)get(d); 
+                if(x->value != y->value){
+                    return 0;
+                }
             }
         }
+        return 1;
+    } else {
+        fprintf(stderr, " Matrix ADT; ERROR in equal(): NULL pointer\n");
+        exit(1);
     }
-    return 1;
 }
 
 // Manipulation procedures
