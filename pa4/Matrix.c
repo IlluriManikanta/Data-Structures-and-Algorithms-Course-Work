@@ -213,7 +213,7 @@ Matrix copy(Matrix A){
     if(A){
         Matrix copyA = newMatrix(size(A));
         copyA->NNZ = NNZ(A);
-        for(int i = 0; i <= size(A); i++){
+        for(int i = 1; i <= size(A); i++){
             List r = A->rows[i];
             for(moveFront(r); index(r) >= 0; moveNext(r)){
                 Entry val = get(r);
