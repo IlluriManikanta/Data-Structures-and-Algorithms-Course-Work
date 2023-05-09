@@ -562,24 +562,25 @@ double vectorDot(List P, List Q){
 // pre: size(A)==size(B)
 Matrix product(Matrix A, Matrix B){
     if(A != NULL || B != NULL){
-        Matrix trans = transpose(B);
-        Matrix prod = newMatrix(size(A));
-        for(int i = 1; i <= size(prod); i++){
-            if(length(A->rows[i]) != 0){
-                for(int j = 1; j <= size(prod); j++){
-                    if(length(trans->rows[j]) != 0){
-                        double val = vectorDot(A->rows[i], trans->rows[j]);
-                        if(val != 0){
-                            Entry product_val = newEntry(val, j);
-                            append(prod->rows[i], product_val);
-                            prod->NNZ += j;
-                        }
-                    }
-                }
-            }
-        }
-        freeMatrix(&trans);
-        return prod;
+    //     Matrix trans = transpose(B);
+    //     Matrix prod = newMatrix(size(A));
+    //     for(int i = 1; i <= size(prod); i++){
+    //         if(length(A->rows[i]) != 0){
+    //             for(int j = 1; j <= size(prod); j++){
+    //                 if(length(trans->rows[j]) != 0){
+    //                     double val = vectorDot(A->rows[i], trans->rows[j]);
+    //                     if(val != 0){
+    //                         Entry product_val = newEntry(val, j);
+    //                         append(prod->rows[i], product_val);
+    //                         prod->NNZ += j;
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     freeMatrix(&trans);
+    //     return prod;
+    return NULL;
     } else {
         fprintf(stderr, " Matrix ADT; ERROR in product(): NULL pointer\n");
         exit(1);
