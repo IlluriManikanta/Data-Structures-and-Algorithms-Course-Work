@@ -342,13 +342,19 @@ Matrix sum(Matrix A, Matrix B){
                 Entry a = (Entry)get(a_row);
                 Entry b = (Entry)get(b_row);
 
-                if(a->column == b->column){  
-                    Entry temp = newEntry(i, a->value + b->value); 
-                    append(sum_list, temp);
-                    s_matrix->NNZ++;
-                    //changeEntry(s_matrix, i, a->column, a->value + b->value);
-                    moveNext(a_row);
-                    moveNext(b_row);
+                if(a->column == b->column){
+                    if((a->value + b->value) != 0){
+                        Entry temp = newEntry(i, a->value + b->value); 
+                        
+                        append(sum_list, temp);
+                        s_matrix->NNZ++;
+                        //changeEntry(s_matrix, i, a->column, a->value + b->value);
+                        moveNext(a_row);
+                        moveNext(b_row);
+                    } else {
+                        moveNext(a_row);
+                        moveNext(b_row);  
+                    }
                 } else if(a->column < b->column){
                     Entry temp = newEntry(i, a->value); 
                     append(sum_list, temp);
@@ -414,12 +420,18 @@ Matrix diff(Matrix A, Matrix B){
                 Entry b = (Entry)get(b_row);
 
                 if(a->column == b->column){  
-                    Entry temp = newEntry(i, a->value - b->value); 
-                    append(sum_list, temp);
-                    s_matrix->NNZ++;
-                    //changeEntry(s_matrix, i, a->column, a->value + b->value);
-                    moveNext(a_row);
-                    moveNext(b_row);
+                    if((a->value + b->value) != 0){
+                        Entry temp = newEntry(i, a->value - b->value); 
+                        
+                        append(sum_list, temp);
+                        s_matrix->NNZ++;
+                        //changeEntry(s_matrix, i, a->column, a->value + b->value);
+                        moveNext(a_row);
+                        moveNext(b_row);
+                    } else {
+                        moveNext(a_row);
+                        moveNext(b_row);  
+                    }
                 } else if(a->column < b->column){
                     Entry temp = newEntry(i, a->value); 
                     append(sum_list, temp);
