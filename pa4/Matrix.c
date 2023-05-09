@@ -99,40 +99,10 @@ int NNZ(Matrix M){
 // equals()
 // Return true (1) if matrices A and B are equal, false (0) otherwise.
 int equals(Matrix A, Matrix B){
-    // if(A != NULL || B != NULL){
-    //     if(A->NNZ != B->NNZ || A->size != B->size){
-    //         return 0;
-    //     } else {
-    //         List c, d;
-    //         int i;
-    //         for(i = 1; i <= A->NNZ; i++){
-    //         //      set "c" and "d" to the rows of "A" and "B"
-    //             c = A->rows[i];
-    //             d = B->rows[i];
-    //             moveFront(c);
-    //             moveFront(d);
-    //             while(index(c) == index(d)){
-    //                 Entry x = (Entry)get(A->rows[i]);
-    //                 Entry y = (Entry)get(B->rows[i]);
-    //                 if(x->column != y->column || x->value != y->value){
-    //                     return 0;
-    //                 }
-    //                 if(index(c) != index(d)){
-    //                     return false;
-    //                 } else {
-    //                     moveNext(c);
-    //                     moveNext(d);
-    //                 }
-    //             }
-    //         }
-    //         return 1;
-    //     } 
-    // } else {
-    //     fprintf(stderr, " Matrix ADT; ERROR in equal(): NULL pointer\n");
-    //     exit(1);
-    // }
-
     if(A != NULL || B != NULL){
+        if(size(A) == 0 && size(B) == 0){
+            return 1;
+        }
         Entry x, y;
         List c, d;
 
