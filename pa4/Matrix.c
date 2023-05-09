@@ -159,9 +159,14 @@ int equals(Matrix A, Matrix B){
         return 0;
     }
     for(int i = 0; i <= size(A); i++){
-        if(!equalsRow(A->rows[i], A->rows[i])){
-            return 0;
+        for(moveFront(A), moveFront(B); index(A) >=0 && index(B) >= 0; moveNext(A), moveNext(B)){
+            Entry a = get(A);
+            Entry b = get(B);
+            if(a->value == b->value && a->column == b->column){
+                return false;
+            }
         }
+        return true;
     }
     return 1;
     } else {
