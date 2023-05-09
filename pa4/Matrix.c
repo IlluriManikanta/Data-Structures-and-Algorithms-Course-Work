@@ -395,14 +395,66 @@ Matrix sum(Matrix A, Matrix B){
 // pre: size(A)==size(B)
 Matrix diff(Matrix A, Matrix B){
     if(A != NULL || B != NULL){
-        if(size(A) != size(B)){
-            fprintf(stderr, " Matrix ADT; ERROR in sum(): size(A) != size(B)\n");
-            exit(1);
+        Matrix s_matrix = newMatrix(size(A));
+
+        for(int i = 1; i <= size(A); i++){
+           List a_row;
+           List b_row;
+           List sum_list;
+
+           a_row = A->rows[i];
+           b_row = B->rows[i];
+           sum_list = s_matrix->rows[i];
+
+           moveFront(a_row);
+           moveFront(b_row);
+            while(index(a_row) >= 0 && index(b_row) >= 0){
+                
+                Entry a = (Entry)get(a_row);
+                Entry b = (Entry)get(b_row);
+
+                if(a->column == b->column){  
+                    Entry temp = newEntry(i, a->value - b->value); 
+                    append(sum_list, temp);
+                    s_matrix->NNZ++;
+                    //changeEntry(s_matrix, i, a->column, a->value + b->value);
+                    moveNext(a_row);
+                    moveNext(b_row);
+                } else if(a->column < b->column){
+                    Entry temp = newEntry(i, a->value); 
+                    append(sum_list, temp);
+                    s_matrix->NNZ++;
+                    //changeEntry(s_matrix, i, a->column, a->value);
+                    moveNext(a_row);
+                } else {
+                    Entry temp = newEntry(i, b->value); 
+                    append(sum_list, temp);
+                    s_matrix->NNZ++;
+                    moveNext(b_row);
+                }
+            }
+
+            while(index(a_row) >= 0){
+
+                Entry a = (Entry)get(a_row);
+                Entry temp = newEntry(a->column, a->value); 
+                append(sum_list, temp);
+                s_matrix->NNZ++;
+                //changeEntry(s_matrix, i, a->column, a->value);
+                moveNext(a_row);
+            }
+
+            while(index(b_row) >= 0){
+
+                Entry b = (Entry)get(b_row);
+                Entry temp = newEntry(b->column, b->value); 
+                append(sum_list, temp);
+                s_matrix->NNZ++;
+                //changeEntry(s_matrix, i, b->column, b->value);
+                moveNext(b_row);
+            }
         }
-        if(equals(A, B)){
-            return newMatrix(size(A));
-        }
-        return sum(A, scalarMult(-1.0, B));
+        return s_matrix;
     } else {
         fprintf(stderr, " Matrix ADT; ERROR in diff(): NULL pointer\n");
         exit(1);
