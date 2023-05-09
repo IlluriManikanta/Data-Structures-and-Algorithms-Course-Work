@@ -205,6 +205,7 @@ void makeZero(Matrix M){
 //     }
 // }
 
+//Used sudo code from TA's Mike's google drive to implement this function
 void changeEntry(Matrix M, int i, int j, double x){
     if (M){
         if (i < 1 || i > size(M) || j < 1 || j > size(M)){
@@ -222,7 +223,7 @@ void changeEntry(Matrix M, int i, int j, double x){
             if (x == 0){
                 delete (row);
                 M->NNZ--;
-                freeEntry(&E);
+                deleteEntry(&E);
             }else{
                 E->value = x;
             }
