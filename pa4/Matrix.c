@@ -114,7 +114,7 @@ int equals(Matrix A, Matrix B){
             while((index(c) >= 0 && index(d) >= 0) && (size(A) == size(B))){
                 x = (Entry)get(c);
                 y = (Entry)get(d); 
-                if(x->value != y->value){
+                if(x->value != y->value || x->column != y->column){
                     return 0;
                 } else {
                     moveNext(c);
