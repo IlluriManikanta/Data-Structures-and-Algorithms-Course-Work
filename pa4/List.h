@@ -36,8 +36,6 @@ void* get(List L);
 
 int index(List L);
 
-//bool equals(List A, List B);
-
 
 // Manipulation Functions
 

@@ -140,40 +140,17 @@ int index(List L){
     }
 }
 
-// bool equals(List A, List B){
-//     if(A && B){
-//         if(A->length != B->length){
-//             return false;
-//         }
-//         Node val1;
-//         Node val2;
-//         val1 = A->front;
-//         val2 = B->front;
-
-//         while(val1 != NULL && val2 != NULL){
-//             if (val1->data != val2->data)
-//             {
-//                 return false;
-//             }
-//             else
-//             {
-//                 val1 = val1->next;
-//                 val2 = val2->next;
-//             }
-//         }
-//         return true;
-//     } else {
-//         fprintf(stderr, " List ADT; ERROR in equals(): NULL pointer\n");
-//         exit(1);
-//     }
-// }
-
 // Manipulation Functions
 // TA More helped me with wrtiting this function. 
 void clear(List L){	
     if(L){
+        Node t = L->front;
+    	Node temp = t;
     	while (L->length > 0) {
+            temp = t->next;
             deleteFront(L);
+        	// freeNode(&t);
+        	t = temp;
    	    }
     	L->front = NULL;
    	    L->back = NULL;
@@ -186,7 +163,7 @@ void clear(List L){
     }
 }
 
-void set(List L, void* x){
+void set(List L, int x){
     if(L){
         if(L->length <= 0){
             fprintf(stderr, " List ADT; ERROR in set(): Empty list\n");
@@ -205,12 +182,15 @@ void set(List L, void* x){
 
 void moveFront(List L){
     if(L){
-        if(length(L) > 0){
+        if(L->length <= 0){
+            fprintf(stderr, " List ADT; ERROR in moveFront(): Empty list\n");
+            exit(1);
+        } else {
             L->cursor = L->front; 
             L->index = 0;
+            
         }
-        
-        } else {
+    } else {
         fprintf(stderr, " List ADT; ERROR in moveFront(): NULL pointer\n");
         exit(1);
     }
@@ -218,7 +198,10 @@ void moveFront(List L){
 
 void moveBack(List L){
    if(L){
-        if(length(L) > 0){
+        if(L->length <= 0){
+            fprintf(stderr, " List ADT; ERROR in moveBack(): Empty list\n");
+            exit(1);
+        } else {
             L->cursor = L->back; 
             L->index = L->length - 1;
         }
@@ -246,10 +229,10 @@ void movePrev(List L){
 void moveNext(List L){
     if(L){ 
         if(L->cursor != NULL && L->cursor != L->back){
-            L->cursor = L->cursor->next;
             L->index += 1;
+            L->cursor = L->cursor->next;
         } else if(L->cursor == L->back){
-            L->cursor = NULL;
+            L->cursor   = NULL;
             L->index = -1;
         }
     } else {
@@ -265,13 +248,11 @@ void prepend(List L, void* x){
         if(L->length == 0){
             L->front = L->back = new_pre;
             L->length += 1;
-        } else if(L->length >= 1){
-            new_pre->next = L->front;
+        } else {
             L->front->prev = new_pre;
+            new_pre->next = L->front;
             L->front = new_pre;
-            if(L->cursor != NULL){
-                L->index += 1;
-            }
+            L->index += 1;
             L->length += 1;
         } 
     } else {
@@ -292,10 +273,12 @@ void append(List L, void* x){
             L->front = new_app;
             L->back = new_app;
             L->length += 1;
-        } else if(L->length >= 1){ 
-            new_app->prev = L->back;
+        } else { 
+           
             L->back->next = new_app;
+            new_app->prev = L->back;
             L->back = new_app;
+
             L->length += 1;
         } 
     } else {
@@ -306,29 +289,24 @@ void append(List L, void* x){
 
 void insertBefore(List L, void* x){
     if(L){
-        if(length(L) == 0){
-            fprintf(stderr, " List ADT; ERROR in insertBefore(): List is empty\n");
-            exit(1);
-        }
-        if(index(L) < 0){
-            fprintf(stderr, " List ADT; ERROR in insertBefore(): Index out of bounds\n");
-            exit(1);
-        }
-
-        if(L->cursor != NULL){
+        if(L->front == L->cursor){
+            prepend(L, x);
+            return;
+        } else {
             Node new_insertB = makeNode(x);
-            new_insertB->prev = L->cursor->prev;
-            L->cursor->prev = new_insertB;
-            new_insertB->next = L->cursor;
-            if(L->front == L->cursor){
-                L->front = new_insertB;
-            } else if(new_insertB->prev != NULL && L->cursor != L->front){
-                new_insertB->prev->next = new_insertB;
-            }
-            L->length += 1;
-            L->index += 1;
+            Node node_bc = L->cursor->prev;
 
-        } 
+            if(L->index >= 0){
+                
+                node_bc->next = new_insertB;
+                new_insertB->prev = node_bc;
+                L->cursor->prev = new_insertB;
+                new_insertB->next = L->cursor;
+
+                L->length += 1;
+                L->index += 1;
+            }
+        }  
     } else {
         fprintf(stderr, " List ADT; ERROR in insertBefore(): NULL pointer\n");
         exit(1);  
@@ -337,28 +315,20 @@ void insertBefore(List L, void* x){
 
 void insertAfter(List L, void* x){
     if(L){
-        if(length(L) == 0){
-            fprintf(stderr, " List ADT; ERROR in insertAfter(): List is empty\n");
-            exit(1);
-        }
-        if(index(L) < 0){
-            fprintf(stderr, " List ADT; ERROR in insertAfter(): Index out of bounds\n");
-            exit(1);
-        }
-
-        if(L->cursor != NULL){
-            Node new_insertB = makeNode(x);
-            if(L->back == L->cursor){
-                new_insertB->prev = L->back;
-                L->back->next = new_insertB;
-                L->back = new_insertB;
-            } else {
-                new_insertB->next = L->cursor->next;
-                new_insertB->prev = L->cursor;
-                L->cursor->next = new_insertB;
+        if(L->back == L->cursor){
+            append(L, x);
+            return;
+        } else {
+            Node new_insertA = makeNode(x);
+            Node node_after_cursor = L->cursor->next;
+            if(L->index >= 0){
+                node_after_cursor->prev = new_insertA;
+                new_insertA->next = node_after_cursor;
+                L->cursor->next = new_insertA;
+                new_insertA->prev = L->cursor;
+                L->length += 1;
             }
-            L->length += 1;
-        } 
+        }
     } else {
         fprintf(stderr, " List ADT; ERROR in insertAfter(): NULL pointer\n");
         exit(1);  
@@ -432,29 +402,30 @@ void deleteBack(List L){
 
 void delete(List L){
     if(L){
-        if(index(L) < 0){ 
-            fprintf(stderr, "List ADT; ERROR in delete(): Index < 0\n");
-            exit(1);
-        }
-        if(length(L) <= 0){
-            fprintf(stderr, "List ADT; ERROR in delete(): Empty List\n");
-            exit(1);
-        }
-        if(L->front == L->cursor){ 
-            deleteFront(L); 
-            return; 
-        }
-        if(L->length - 1 == L->index){ 
-            deleteBack(L); 
+        if(L->back == L->cursor){
+            deleteBack(L);
+            return;
+        }       
+        if(L->front == L->cursor){
+            deleteFront(L);
             return;
         }
 
-        Node temp = L->cursor; 
-        L->cursor->prev->next = L->cursor->next; 
-        L->cursor->next->prev = L->cursor->prev; 
-        freeNode(&temp);
-        L->length -= 1; 
-        L->index -= 1;
+        Node node_bc = L->cursor->prev;
+        Node node_ac = L->cursor->next;
+        
+        if(node_bc){
+            node_bc->next = node_ac;
+        }
+        if(node_ac){
+            node_ac->prev = node_bc;
+        }
+
+        L->cursor = NULL;
+        L->index = -1;
+        freeNode(&L->cursor);
+        L->length -= 1;
+ 
     } else {
         fprintf(stderr, " List ADT; ERROR in delete(): NULL pointer\n");
         exit(1); 
@@ -492,7 +463,7 @@ void printList(FILE* output, List L){
         if(L->length != 0){
             moveFront(L);
             while(index(L) >= 0){
-                fprintf(output, "%p ", get(L));
+                fprintf(output, "%d ", get(L));
                 moveNext(L);
             }
         }
