@@ -123,13 +123,17 @@ int equals(Matrix A, Matrix B){
                 y = (Entry)get(d); 
                 if(x->value != y->value || x->column != y->column){
                     return 0;
-                } else {
-                    moveNext(c);
-                    moveNext(d);
                 }
+                //  else {
+                //     moveNext(c);
+                //     moveNext(d);
+                // }
+                moveNext(c);
+                moveNext(d);
             }
         }
         return 1;
+        // //
         // if (A->size != B->size || A->NNZ != B->NNZ)
         // {
         //     return 0;
@@ -151,6 +155,7 @@ int equals(Matrix A, Matrix B){
         //     }
         // }
         // return 1;
+        // //
     } else {
         fprintf(stderr, " Matrix ADT; ERROR in equal(): NULL pointer\n");
         exit(1);
