@@ -448,11 +448,11 @@ void delete(List L){
             deleteBack(L); 
             return;
         }
-        
+
         Node temp = L->cursor; 
         L->cursor->prev->next = L->cursor->next; 
         L->cursor->next->prev = L->cursor->prev; 
-        freenode(&temp);
+        freeNode(&temp);
         L->length -= 1; 
         L->index -= 1;
     } else {
