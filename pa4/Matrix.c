@@ -266,7 +266,7 @@ Matrix sum(Matrix A, Matrix B){
         }
         Matrix s_matrix = newMatrix(size(A));
         for(int i = 1; i <= size(A); i++){
-            int count = 0;
+            int nnz_count = 0;
             moveFront(A->rows[i]);
             moveFront(B->rows[i]);
             while(index(A->rows[i]) >= 0 || index(B->rows[i]) >= 0){
@@ -285,27 +285,27 @@ Matrix sum(Matrix A, Matrix B){
                 }
 
                 if(matrix_a->column == matrix_b->column){
-                    if(matrix_a->value + matrix_b->value != 0){
+                    if((matrix_a->value + matrix_b->value) != 0){
                         Entry sum_val = newEntry(matrix_a->value + matrix_b->value, matrix_a->column);
                         append(s_matrix->rows[i], sum_val);
-                        count++;
+                        nnz_count += 1;
                     }
                     moveNext(A->rows[i]);
                     moveNext(B->rows[i]);
                 } else if((matrix_a->column < matrix_b->column) || matrix_b == NULL){
                     Entry sum_val = newEntry(matrix_a->value, matrix_a->column);
                     append((s_matrix->rows)[i], sum_val);
-                    count++;
+                    nnz_count++;
                     moveNext(A->rows[i]);
                 } else {
                     Entry sum_val = newEntry(matrix_b->value, matrix_b->column);
                     append(s_matrix->rows[i], sum_val);
-                    count++;
+                    nnz_count++;
                     moveNext(B->rows[i]);
                 }
 
             }
-            s_matrix->NNZ += count;
+            s_matrix->NNZ += nnz_count;
         }
         return s_matrix;
     } else {
