@@ -160,8 +160,8 @@ int equals(Matrix A, Matrix B){
     }
     for(int i = 0; i <= size(A); i++){
         for(moveFront(A->rows[i]), moveFront(B->rows[i]); index(A->rows[i]) >=0 && index(B->rows[i]) >= 0; moveNext(A->rows[i]), moveNext(B->rows[i])){
-            Entry a = get(A);
-            Entry b = get(B);
+            Entry a = get(A->rows[i]);
+            Entry b = get(B->rows[i]);
             if(a->value == b->value && a->column == b->column){
                 return false;
             }
