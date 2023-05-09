@@ -384,7 +384,7 @@ Matrix sum(Matrix A, Matrix B){
 
            moveFront(a_row);
            moveFront(b_row);
-            while((index(a_row) && index(b_row)) >= 0){
+            while(index(a_row) >= 0 && index(b_row) >= 0){
                 
                 Entry a = (Entry)get(a_row);
                 Entry b = (Entry)get(b_row);
@@ -393,6 +393,7 @@ Matrix sum(Matrix A, Matrix B){
                     // append(a_row, temp);
                     changeEntry(s_matrix, i, a->column, a->value + b->value);
                     moveNext(a_row);
+
                     moveNext(b_row);
                 } else if(a->column < b->column){
                     // Entry temp = newEntry(i, a->value); 
