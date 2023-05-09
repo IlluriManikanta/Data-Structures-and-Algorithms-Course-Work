@@ -100,29 +100,50 @@ int NNZ(Matrix M){
 // Return true (1) if matrices A and B are equal, false (0) otherwise.
 int equals(Matrix A, Matrix B){
     if(A != NULL || B != NULL){
-        if(size(A) == 0 && size(B) == 0){
-                return 1;
-        }
-        Entry x, y;
-        List c, d;
+        // if(size(A) == 0 && size(B) == 0){
+        //         return 1;
+        // }
+        // Entry x, y;
+        // List c, d;
 
-        for(int i = 1; i <= size(A); i++) {
-            if(length(A->rows[i]) != length(B->rows[i])){
+        // for(int i = 1; i <= size(A); i++) {
+        //     if(length(A->rows[i]) != length(B->rows[i])){
+        //         return 0;
+        //     }
+            
+        //     c = A->rows[i];
+        //     d = B->rows[i];
+        //     moveFront(c);
+        //     moveFront(d);
+        //     while((index(c) >= 0 && index(d) >= 0) && (size(A) == size(B))){
+        //         x = (Entry)get(c);
+        //         y = (Entry)get(d); 
+        //         if(x->value != y->value || x->column != y->column){
+        //             return 0;
+        //         } else {
+        //             moveNext(c);
+        //             moveNext(d);
+        //         }
+        //     }
+        // }
+        // return 1;
+        if (A->size != B->size || A->NNZ != B->NNZ)
+        {
+            return 0;
+        }
+        for (int i = 1; i <= size(A); i++)
+        {
+            if (length(A->rows[i]) != length(B->rows[i]))
+            {
                 return 0;
             }
-            
-            c = A->rows[i];
-            d = B->rows[i];
-            moveFront(c);
-            moveFront(d);
-            while((index(c) >= 0 && index(d) >= 0) && (size(A) == size(B))){
-                x = (Entry)get(c);
-                y = (Entry)get(d); 
-                if(x->value != y->value || x->column != y->column){
+            for (moveFront(A->rows[i]), moveFront(B->rows[i]); index(A->rows[i]) >= 0 && index(B->rows[i]) >= 0; moveNext(A->rows[i]), moveNext(B->rows[i]))
+            {
+                Entry Ae = get(A->rows[i]);
+                Entry Be = get(B->rows[i]);
+                if (Ae->column != Be->column || Ae->value != Be->value)
+                {
                     return 0;
-                } else {
-                    moveNext(c);
-                    moveNext(d);
                 }
             }
         }
