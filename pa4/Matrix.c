@@ -243,7 +243,7 @@ Matrix transpose(Matrix A){
             moveFront(A->rows[i]);
             while(index(A->rows[i]) >= 0){
                 Entry E = get(A->rows[i]);
-                append(newEntry(E->value, i), T->rows[E->column]);
+                append(T->rows[E->column], newEntry(E->value, i));
                 moveNext(A->rows[i]);
             }
         }
