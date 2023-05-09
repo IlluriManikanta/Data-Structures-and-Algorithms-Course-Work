@@ -173,7 +173,11 @@ void changeEntry(Matrix M, int i, int j, double x){
             }
         } else {
             moveFront(l);
-            while(index(l) != -1 && ((Entry)get(l))->column < j){
+            while(index(l) >= 0){
+                e = (Entry)get(l);
+                if(e->column >= j){
+                    break;
+                }
                 moveNext(l);
             }
             if(index(l) == -1){
