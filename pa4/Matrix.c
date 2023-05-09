@@ -239,7 +239,6 @@ Matrix transpose(Matrix A){
         Matrix T = newMatrix(size(A));
         Entry E;
         int i;
-        double val;
         int col;
         double val;
 
