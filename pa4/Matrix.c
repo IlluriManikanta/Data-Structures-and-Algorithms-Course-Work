@@ -248,17 +248,26 @@ Matrix transpose(Matrix A){
         //     }
         // }
         // return T;
+        Matrix T = newMatrix(size(A));
+        Entry E;
+        int i;
+        double val;
+        int col;
+        double val;
 
-        Matrix copyA = newMatrix(size(A));
-        copyA->NNZ = NNZ(A);
-        for(int i = 1; i <= size(A); i++){
-            List r = A->rows[i];
-            for(moveFront(r); index(r) >= 0; moveNext(r)){
-                Entry val = get(r);
-                append(copyA->rows[val->column], newEntry(i, val->value));
+        T->NNZ = NNZ(A);
+        for(i = 1; i <= size(A); i++){
+            moveFront(A->rows[i]);
+            while(index(A->rows[i]) >= 0){
+                E = get(A->rows[i]);
+                col = E->column;
+                val = E->value;
+                append(T->rows[col], newEntry(i, val)); 
+                T->NNZ += 1;
             }
+
         }
-        return copyA;
+        return T;
     } else {
         fprintf(stderr, " Matrix ADT; ERROR in transpose(): NULL pointer\n");
         exit(1);
