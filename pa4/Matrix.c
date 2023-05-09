@@ -250,26 +250,42 @@ Matrix transpose(Matrix A){
     }
 }
 
-// scalarMult()
-// Returns a reference to a new Matrix object representing xA.
+// // scalarMult()
+// // Returns a reference to a new Matrix object representing xA.
+// Matrix scalarMult(double x, Matrix A){
+//     if(A){
+//         Matrix s_matrix = newMatrix(size(A));
+//         for(int i = 1; i <= size(A); i++){
+//             List list_of_ele = A->rows[i];
+//             moveFront(list_of_ele);
+//             while(index(list_of_ele) >= 0){
+//                 Entry E = (Entry)get(list_of_ele);
+//                 append((s_matrix->rows)[i], newEntry(x * E->value, E->column));
+//                 s_matrix->NNZ++;
+//                 moveNext(list_of_ele);
+//             }
+//         }
+//         return s_matrix;
+//     } else {
+//         fprintf(stderr, " Matrix ADT; ERROR in scalarMult(): NULL pointer\n");
+//         exit(1);
+//     }
+// }
+
 Matrix scalarMult(double x, Matrix A){
-    if(A){
-        Matrix s_matrix = newMatrix(size(A));
-        for(int i = 1; i <= size(A); i++){
-            List list_of_ele = A->rows[i];
-            moveFront(list_of_ele);
-            while(index(list_of_ele) >= 0){
-                Entry E = (Entry)get(list_of_ele);
-                append((s_matrix->rows)[i], newEntry(x * E->value, E->column));
-                s_matrix->NNZ++;
-                moveNext(list_of_ele);
+    Matrix scalarA = newMatrix(size(A));
+    scalarA->NNZ = NNZ(A);
+    for(int i = 0; i <= size(A); i++){
+        List row = A->rows[i];
+        for(moveFront(row); index(row) >= 0; moveNext(row)){
+            Entry E = get(row);
+            append(scalarA->rows[i], newEntry(x * E->value, E->column));
+            if(x == 0){
+                scalarA->NNZ -= 1;
             }
         }
-        return s_matrix;
-    } else {
-        fprintf(stderr, " Matrix ADT; ERROR in scalarMult(): NULL pointer\n");
-        exit(1);
     }
+    return scalarA;
 }
 
 // sum()
