@@ -159,7 +159,7 @@ int equals(Matrix A, Matrix B){
         return 0;
     }
     for(int i = 0; i <= size(A); i++){
-        for(moveFront(A), moveFront(B); index(A) >=0 && index(B) >= 0; moveNext(A), moveNext(B)){
+        for(moveFront(A->rows[i]), moveFront(B->rows[i]); index(A->rows[i]) >=0 && index(B->rows[i]) >= 0; moveNext(A->rows[i]), moveNext(B->rows[i])){
             Entry a = get(A);
             Entry b = get(B);
             if(a->value == b->value && a->column == b->column){
