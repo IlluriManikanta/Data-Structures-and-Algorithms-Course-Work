@@ -251,6 +251,7 @@ Matrix transpose(Matrix A){
                 val = E->value;
                 append(T->rows[col], newEntry(val, i)); 
                 T->NNZ += 1;
+                moveNext(A->rows[i]);
             }
 
         }
