@@ -336,7 +336,7 @@ Matrix sum(Matrix A, Matrix B){
     if(A != NULL && B != NULL){
         
         Matrix s_matrix = newMatrix(size(A));
-        Entry a, b;
+        // Entry a, b;
         for(int i = 1; i <= size(A); i++){
             moveFront(A->rows[i]);
             moveFront(B->rows[i]);
