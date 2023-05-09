@@ -96,41 +96,68 @@ int NNZ(Matrix M){
 
 }
 
-// equals()
-// Return true (1) if matrices A and B are equal, false (0) otherwise.
+// // equals()
+// // Return true (1) if matrices A and B are equal, false (0) otherwise.
+// int equals(Matrix A, Matrix B){
+//     if(A != NULL || B != NULL){
+//         if(A->NNZ != B->NNZ || A->size != B->size){
+//             return 0;
+//         } else {
+//             List c, d;
+//             int i;
+//             for(i = 1; i <= A->NNZ; i++){
+//             //      set "c" and "d" to the rows of "A" and "B"
+//                 c = A->rows[i];
+//                 d = B->rows[i];
+//                 moveFront(c);
+//                 moveFront(d);
+//                 while(index(c) == index(d)){
+//                     Entry x = (Entry)get(A->rows[i]);
+//                     Entry y = (Entry)get(B->rows[i]);
+//                     if(x->column != y->column || x->value != y->value){
+//                         return 0;
+//                     }
+//                     if(index(c) != index(d)){
+//                         return false;
+//                     } else {
+//                         moveNext(c);
+//                         moveNext(d);
+//                     }
+//                 }
+//             }
+//             return 1;
+//         } 
+//     } else {
+//         fprintf(stderr, " Matrix ADT; ERROR in equal(): NULL pointer\n");
+//         exit(1);
+//     }  
+// }
+
+bool equalsEntry(Entry A, Entry B){
+    return A->value == B->value && A->value == B->value;
+}
+
+bool equalsRow(List A, List B){
+    for(moveFront(A), moveFront(B); index(A) >=0 && index(B) >= 0; moveNext(A), moveNext(B)){
+        Entry a = get(A);
+        Entry b = get(B);
+        if(!equalsEntry(a, b)){
+            return false;
+        }
+    }
+    return true;
+}
+
 int equals(Matrix A, Matrix B){
-    if(A != NULL || B != NULL){
-        if(A->NNZ != B->NNZ || A->size != B->size){
+    if(A->size != B->size || A->NNZ != B->NNZ){
+        return 0;
+    }
+    for(int i = 0; i <= size(A); i++){
+        if(!equalsRow(A->rows[i], A->rows[i])){
             return 0;
-        } else {
-            List c, d;
-            int i;
-            for(i = 1; i <= A->NNZ; i++){
-            //      set "c" and "d" to the rows of "A" and "B"
-                c = A->rows[i];
-                d = B->rows[i];
-                moveFront(c);
-                moveFront(d);
-                while(index(c) == index(d)){
-                    Entry x = (Entry)get(A->rows[i]);
-                    Entry y = (Entry)get(B->rows[i]);
-                    if(x->column != y->column || x->value != y->value){
-                        return 0;
-                    }
-                    if(index(c) != index(d)){
-                        return false;
-                    } else {
-                        moveNext(c);
-                        moveNext(d);
-                    }
-                }
-            }
-            return 1;
-        } 
-    } else {
-        fprintf(stderr, " Matrix ADT; ERROR in equal(): NULL pointer\n");
-        exit(1);
-    }  
+        }
+    }
+    return 1;
 }
 
 // Manipulation procedures
@@ -156,86 +183,48 @@ void makeZero(Matrix M){
 // changeEntry()
 // Changes the ith row, jth column of M to the value x.
 // Pre: 1<=i<=size(M), 1<=j<=size(M)
-// void changeEntry(Matrix M, int i, int j, double x){
-//     if(M){
-//         if(i < 1 || i > size(M) || j < 1 || j > size(M)){
-//             fprintf(stderr, " Matrix ADT; ERROR in changeEntry(): index out of range\n");
-//             exit(1);
-//         }
-//         List l = M->rows[i];
-//         Entry e = NULL;
-
-//         if(length(l) == 0){
-//             if(x != 0){
-//                 e = newEntry(j, x);
-//                 append(l, e);
-//                 M->NNZ++;
-//             }
-//         } else {
-//             moveFront(l);
-//             while(index(l) != -1 && ((Entry)get(l))->column < j){
-//                 moveNext(l);
-//             }
-//             if(index(l) == -1){
-//                 if(x != 0){
-//                     e = newEntry(j, x);
-//                     append(l, e);
-//                     M->NNZ++;
-//                 }
-//             } else {
-//                 if(((Entry)get(l))->column == j){
-//                     if(x == 0){
-//                         delete(l);
-//                         M->NNZ--;
-//                     } else {
-//                         ((Entry)get(l))->value = x;
-//                     }
-//                 } else {
-//                     if(x != 0){
-//                         e = newEntry(j, x);
-//                         insertBefore(l, e);
-//                         M->NNZ++;
-//                     }
-//                 }
-//             }
-//         }
-//     } else {
-//         fprintf(stderr, " Matrix ADT; ERROR in changeEntry(): NULL pointer\n");
-//         exit(1);
-//     }
-// }
-
-//Used sudo code from TA's Mike's google drive to implement this function
 void changeEntry(Matrix M, int i, int j, double x){
-    if (M){
-        if (i < 1 || i > size(M) || j < 1 || j > size(M)){
+    if(M){
+        if(i < 1 || i > size(M) || j < 1 || j > size(M)){
             fprintf(stderr, " Matrix ADT; ERROR in changeEntry(): index out of range\n");
             exit(1);
         }
-        List row = M->rows[i];
-        moveFront(row);
-        Entry E = NULL;
-        while (index(row) >= 0 && ((Entry)get(row))->column < j){
-            moveNext(row);
-        }
-        if (index(row) >= 0 && ((Entry)get(row))->column == j){
-            E = (Entry)get(row);
-            if (x == 0){
-                delete (row);
-                M->NNZ--;
-                deleteEntry(&E);
-            }else{
-                E->value = x;
+        List l = M->rows[i];
+        Entry e = NULL;
+
+        if(length(l) == 0){
+            if(x != 0){
+                e = newEntry(j, x);
+                append(l, e);
+                M->NNZ++;
             }
-        }else if (x != 0){
-            E = malloc(sizeof(EntryObj));
-            E->column = j;
-            E->value = x;
-            if (index(row) < 0)
-                append(row, E);
-            else
-                insertBefore(row, E);
-            M->NNZ += 1;
+        } else {
+            moveFront(l);
+            while(index(l) != -1 && ((Entry)get(l))->column < j){
+                moveNext(l);
+            }
+            if(index(l) == -1){
+                if(x != 0){
+                    e = newEntry(j, x);
+                    append(l, e);
+                    M->NNZ++;
+                }
+            } else {
+                if(((Entry)get(l))->column == j){
+                    if(x == 0){
+                        delete(l);
+                        M->NNZ--;
+                    } else {
+                        ((Entry)get(l))->value = x;
+                    }
+                } else {
+                    if(x != 0){
+                        e = newEntry(j, x);
+                        insertBefore(l, e);
+                        M->NNZ++;
+                    }
+                }
+            }
         }
     } else {
         fprintf(stderr, " Matrix ADT; ERROR in changeEntry(): NULL pointer\n");
