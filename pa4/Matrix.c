@@ -159,7 +159,7 @@ void makeZero(Matrix M){
             deleteFront(row);
         }
     }
-    M->nnz = 0;
+    M->NNZ = 0;
 }
 
 
