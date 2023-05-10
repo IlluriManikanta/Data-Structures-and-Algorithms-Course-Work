@@ -409,6 +409,7 @@ Matrix sum(Matrix A, Matrix B){
     }
 }
 
+
 // diff()
 // Returns a reference to a new Matrix object representing A-B.
 // pre: size(A)==size(B)
