@@ -22,17 +22,17 @@ int main(){
     changeEntry(A, 2, 3, 0);
     changeEntry(A, 3, 3, 5);
    
-    changeEntry(A, 1, 3, 0);
-    changeEntry(A, 3, 1, 0);
-    changeEntry(A, 3, 3, 0);
+   //  changeEntry(A, 1, 3, 0);
+   //  changeEntry(A, 3, 1, 0);
+   //  changeEntry(A, 3, 3, 0);
     
-    changeEntry(A, 7, 6, 42);
-    changeEntry(A, 10, 1, 24);
+   //  changeEntry(A, 7, 6, 42);
+   //  changeEntry(A, 10, 1, 24);
     
-    changeEntry(A, 7, 6, 0);
+   //  changeEntry(A, 7, 6, 0);
    
-    makeZero(A);
-    changeEntry(A, 5, 5, 5);
+   //  makeZero(A);
+   //  changeEntry(A, 5, 5, 5);
    
    freeMatrix(&A);
    freeMatrix(&B);
