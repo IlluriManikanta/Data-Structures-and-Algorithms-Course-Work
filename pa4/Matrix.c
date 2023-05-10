@@ -64,16 +64,12 @@ Matrix newMatrix(int n){
 void freeMatrix(Matrix* pM){
     if (*pM != NULL && pM != NULL) {
         for (int i = 1; i <= (*pM)->size; i++){
-            freeList(&((*pM)->rows[i]));
             List l = (*pM)->rows[i];
             for (moveFront(l); index(l) >= 0; moveNext(l)){
                     Entry E = get(l);
-                    Entry temp = E;
-                    deleteEntry(&temp);
-
-                    set(l, NULL);
-                    E = NULL;
+                    deleteEntry(&E);
                 }
+            freeList(&l);
         }
         free((*pM)->rows);
         free((*pM));
