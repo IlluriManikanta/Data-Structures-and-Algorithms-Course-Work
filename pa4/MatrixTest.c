@@ -47,10 +47,10 @@ int main(){
    printMatrix(stdout, E);
    printf("\n");
 
-   // F = transpose(B);
-   // printf("%d\n", NNZ(F));
-   // printMatrix(stdout, F);
-   // printf("\n");
+   F = transpose(B);
+   printf("%d\n", NNZ(F));
+   printMatrix(stdout, F);
+   printf("\n");
 
    // G = product(B, B);
    // printf("%d\n", NNZ(G));
@@ -76,7 +76,7 @@ int main(){
    freeMatrix(&C);
    freeMatrix(&D);
    freeMatrix(&E);
-   // freeMatrix(&F);
+   freeMatrix(&F);
    // freeMatrix(&G);
    // freeMatrix(&H);
 
