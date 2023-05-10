@@ -336,27 +336,22 @@ Matrix sum(Matrix A, Matrix B){
     if(A != NULL && B != NULL){
         
         Matrix s_matrix = newMatrix(size(A));
-        // Entry a, b;
+        Entry a, b;
         for(int i = 1; i <= size(A); i++){
             moveFront(A->rows[i]);
             moveFront(B->rows[i]);
             while(index(A->rows[i]) >= 0 || index(B->rows[i]) >= 0){
 
-                // if(index(A->rows[i]) >= 0){
-                //     a = (Entry)get(A->rows[i]);
-                // } else {
-                //     a = NULL;
-                // }
-                // if(index(B->rows[i]) >= 0){
-                //     b = (Entry)get(B->rows[i]);
-                // } else {
-                //     b = NULL;
-                // }
-                Entry a = (index(A->rows[i]) >= 0) ? (Entry)get(A->rows[i]) : NULL;
-                Entry b = (index(B->rows[i]) >= 0) ? (Entry)get(B->rows[i]) : NULL;
-                if (A == NULL && B == NULL)
-                    break;
-
+                if(index(A->rows[i]) >= 0){
+                    a = (Entry)get(A->rows[i]);
+                } else {
+                    a = NULL;
+                }
+                if(index(B->rows[i]) >= 0){
+                    b = (Entry)get(B->rows[i]);
+                } else {
+                    b = NULL;
+                }
 
                 if(a != NULL && b != NULL && a->column == b->column){
                     if((a->value + b->value) != 0){
