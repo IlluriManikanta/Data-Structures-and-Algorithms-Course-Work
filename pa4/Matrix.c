@@ -6,7 +6,7 @@
 // Matrix ADT                 //
 // ========================== //
 
-
+//Got code checked by TA's in session and used TA Mike's sudo code form google drive to implement some functions
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
