@@ -42,10 +42,10 @@ int main(){
    printMatrix(stdout, D);
    printf("\n");
 
-   // E = diff(A, A);
-   // printf("%d\n", NNZ(E));
-   // printMatrix(stdout, E);
-   // printf("\n");
+   E = diff(A, A);
+   printf("%d\n", NNZ(E));
+   printMatrix(stdout, E);
+   printf("\n");
 
    // F = transpose(B);
    // printf("%d\n", NNZ(F));
@@ -75,7 +75,7 @@ int main(){
    freeMatrix(&B);
    freeMatrix(&C);
    freeMatrix(&D);
-   // freeMatrix(&E);
+   freeMatrix(&E);
    // freeMatrix(&F);
    // freeMatrix(&G);
    // freeMatrix(&H);
