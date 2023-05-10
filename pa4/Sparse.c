@@ -1,3 +1,11 @@
+// ========== Name ========== //
+// Manikantanagasai H. Illuri //
+// milluri@ucsc.edu           //
+// 2023 Spring CSE101         //
+// PA 3                       //
+// Running Matric.c here      //
+// ========================== //
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
