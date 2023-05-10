@@ -122,9 +122,6 @@ int equals(Matrix A, Matrix B){
             moveFront(c);
             moveFront(d);
             while((index(c) >= 0 && index(d) >= 0)){
-                if (length(A->rows[i]) != length(B->rows[i])){
-                    return 0;
-                }
                 x = (Entry)get(c);
                 y = (Entry)get(d); 
                 if(x->value != y->value || x->column != y->column){
