@@ -11,75 +11,92 @@ int main(){
    int n=10;
    Matrix A = newMatrix(n);
    Matrix B = newMatrix(n);
-   
-   changeEntry(A, 2, 1, 2);
-    changeEntry(A, 3, 1, 5);
-    changeEntry(A, 1, 2, 2);
-    changeEntry(A, 1, 3, 5);
-    changeEntry(A, 1, 1, 4);
-    changeEntry(A, 2, 2, 2);
+   Matrix C, D, E, F, G, H;
+   printf("%s\n", "ChangeENtry test");
+   changeEntry(A, 4, 1, 4);
+    changeEntry(A, 2, 1, 5);
+    changeEntry(A, 1, 6, 2);
+    changeEntry(A, 1, 7, 5);
+    changeEntry(A, 8, 1, 4);
+    changeEntry(A, 2, 2, 9);
     changeEntry(A, 2, 5, 0);
+    changeEntry(A, 24, 3, 1);
     changeEntry(A, 2, 3, 0);
-    changeEntry(A, 3, 3, 5);
    
-    changeEntry(A, 1, 3, 0);
-    changeEntry(A, 3, 1, 0);
-    changeEntry(A, 3, 3, 0);
+    changeEntry(A, 5, 3, 0);
+    changeEntry(A, 3, 1, 4);
+    changeEntry(A, 3, 2, 0);
     
-    changeEntry(A, 7, 6, 42);
-    changeEntry(A, 10, 1, 24);
+    changeEntry(A, 7, 0, 222);
+    changeEntry(A, 80, 1, 2434);
     
-    changeEntry(A, 7, 6, 0);
-   
-   //  makeZero(A);
-   //  changeEntry(A, 5, 5, 5);
+    changeEntry(A, 7, 0, 0);
+
+   printf("%s\n", "makezero test");
+    makeZero(A);
+    changeEntry(A, 3, 5, 5);
+
+   printf("%d\n", NNZ(A));
+   printMatrix(stdout, A);
+   printf("\n");
+
+   printf("%d\n", NNZ(B));
+   printMatrix(stdout, B);
+   printf("\n");
+   printf("%s\n", "ScalarMut test");
+   C = scalarMult(1.9, A);
+   printf("%d\n", NNZ(C));
+   printMatrix(stdout, C);
+   printf("\n");
+   printf("%s\n", "sum test");
+   D = sum(A, B);
+   printf("%d\n", NNZ(D));
+   printMatrix(stdout, D);
+   printf("\n");
+   printf("%s\n", "diff test");
+   E = diff(A, A);
+   printf("%d\n", NNZ(E));
+   printMatrix(stdout, E);
+   printf("\n");
+   printf("%s\n", "transpose test");
+   F = transpose(B);
+   printf("%d\n", NNZ(F));
+   printMatrix(stdout, F);
+   printf("\n");
+   printf("%s\n", "product test");
+   G = product(B, B);
+   printf("%d\n", NNZ(G));
+   printMatrix(stdout, G);
+   printf("\n");
+   printf("%s\n", "copy test");
+   H = copy(A);
+   printf("%d\n", NNZ(H));
+   printMatrix(stdout, H);
+   printf("\n");
+
+   printf("%s\n", "equals test");
+   printf("%s\n", equals(H, A)?"true":"false" );
+   printf("%s\n", equals(A, H)?"true":"false" );
+   printf("%s\n", equals(A, B)?"true":"false" );
+   printf("%s\n", equals(A, A)?"true":"false" );
+   printf("%s\n", equals(B, A)?"true":"false" );
+   printf("%s\n", equals(C, A)?"true":"false" );
+   printf("%s\n", "make zero test");
+   makeZero(A);
+   printf("%d\n", NNZ(A));
+   printMatrix(stdout, A);
+   printf("%s\n", "freeing test");
+   freeMatrix(&A);
+   freeMatrix(&B);
+   freeMatrix(&C);
+   freeMatrix(&D);
+   freeMatrix(&E);
+   freeMatrix(&F);
+   freeMatrix(&G);
+   freeMatrix(&H);
    
    freeMatrix(&A);
    freeMatrix(&B);
    return EXIT_SUCCESS;
 }
 
-/*
-Output of this program:
-9
-1: (1, 1.0) (2, 2.0) (3, 3.0)
-2: (1, 4.0) (2, 5.0) (3, 6.0)
-3: (1, 7.0) (2, 8.0) (3, 9.0)
-
-6
-1: (1, 1.0) (3, 1.0)
-2: (2, 1.0)
-3: (1, 1.0) (2, 1.0) (3, 1.0)
-
-9
-1: (1, 1.5) (2, 3.0) (3, 4.5)
-2: (1, 6.0) (2, 7.5) (3, 9.0)
-3: (1, 10.5) (2, 12.0) (3, 13.5)
-
-9
-1: (1, 2.0) (2, 2.0) (3, 4.0)
-2: (1, 4.0) (2, 6.0) (3, 6.0)
-3: (1, 8.0) (2, 9.0) (3, 10.0)
-
-0
-
-6
-1: (1, 1.0) (3, 1.0)
-2: (2, 1.0) (3, 1.0)
-3: (1, 1.0) (3, 1.0)
-
-7
-1: (1, 2.0) (2, 1.0) (3, 2.0)
-2: (2, 1.0)
-3: (1, 2.0) (2, 2.0) (3, 2.0)
-
-9
-1: (1, 1.0) (2, 2.0) (3, 3.0)
-2: (1, 4.0) (2, 5.0) (3, 6.0)
-3: (1, 7.0) (2, 8.0) (3, 9.0)
-
-true
-false
-true
-0
-*/
