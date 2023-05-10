@@ -56,6 +56,7 @@ int main(int argc, char * argv[]){
     
     //Calling each of the matrix functions on matrix_a and matrix_b
 
+    //Printing as per sudo code
     fprintf(out_file, "A has %d non-zero entries:\n", NNZ(matrix_a)); 
     printMatrix(out_file, matrix_a); 
     fprintf(out_file, "\n"); 
