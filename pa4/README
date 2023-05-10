@@ -1,0 +1,28 @@
+Manikantanagasai Harshit Illuri
+milluri@ucsc.edu
+PA4 README
+Assignment: pa4 -> Matrix ADT
+
+About:
+Building a Matrix ADT that will preform various operations on Matrics
+
+
+***Files Included***
+Sparse.c - tests matrics using matric.c
+Matrix.c - matrix ADT
+Matrix.h 
+MatrixTest.c - Matirx Test file
+List.c - list ADT
+List.h
+ListTest.c - List Test file
+README 
+Makefile - compiles files
+
+***BUILD***
+Enter correct directory then run:
+make clean
+make
+
+***Run***
+./MatrixTest
+./Sparce <in_file_name> <out_file_name>
