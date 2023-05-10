@@ -100,11 +100,17 @@ int NNZ(Matrix M){
 // Return true (1) if matrices A and B are equal, false (0) otherwise.
 int equals(Matrix A, Matrix B){
     if(A != NULL || B != NULL){
-        if(size(A) == 0 && size(B)){
+        if(size(A) == 0 && size(B) == 0){
                 return 1;
         }
         Entry x, y;
         List c, d;
+        if(size(A) != size(B)){
+            return 0;
+        }
+        if(A->NNZ != B->NNZ){
+            return 0;
+        }
 
         for(int i = 1; i <= size(A); i++) {
             if(length(A->rows[i]) != length(B->rows[i])){
