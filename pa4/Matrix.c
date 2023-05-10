@@ -325,7 +325,6 @@ Matrix sum(Matrix A, Matrix B){
                 }
 
             }
-            s_matrix->NNZ += nnz_count;
         }
         return s_matrix;
     } else {
