@@ -334,7 +334,9 @@ Matrix transpose(Matrix A){
 //new sum mine
 Matrix sum(Matrix A, Matrix B){
     if(A != NULL && B != NULL){
-        
+        if(A == B){
+            return scalarMult(2.0, A);
+        }
         Matrix s_matrix = newMatrix(size(A));
         Entry a, b;
         for(int i = 1; i <= size(A); i++){
@@ -409,6 +411,7 @@ Matrix sum(Matrix A, Matrix B){
 // pre: size(A)==size(B)
 Matrix diff(Matrix A, Matrix B){
     if(A != NULL || B != NULL){
+        
         Matrix s_matrix = newMatrix(size(A));
 
         for(int i = 1; i <= size(A); i++){
