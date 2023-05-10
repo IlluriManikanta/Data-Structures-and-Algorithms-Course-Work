@@ -57,18 +57,18 @@ int main(){
    printMatrix(stdout, G);
    printf("\n");
 
-   // H = copy(A);
-   // printf("%d\n", NNZ(H));
-   // printMatrix(stdout, H);
-   // printf("\n");
+   H = copy(A);
+   printf("%d\n", NNZ(H));
+   printMatrix(stdout, H);
+   printf("\n");
 
-   // printf("%s\n", equals(A, H)?"true":"false" );
-   // printf("%s\n", equals(A, B)?"true":"false" );
-   // printf("%s\n", equals(A, A)?"true":"false" );
+   printf("%s\n", equals(A, H)?"true":"false" );
+   printf("%s\n", equals(A, B)?"true":"false" );
+   printf("%s\n", equals(A, A)?"true":"false" );
 
-   // makeZero(A);
-   // printf("%d\n", NNZ(A));
-   // printMatrix(stdout, A);
+   makeZero(A);
+   printf("%d\n", NNZ(A));
+   printMatrix(stdout, A);
 
 
    freeMatrix(&A);
@@ -78,7 +78,7 @@ int main(){
    freeMatrix(&E);
    freeMatrix(&F);
    freeMatrix(&G);
-   // freeMatrix(&H);
+   freeMatrix(&H);
 
    return EXIT_SUCCESS;
 }
