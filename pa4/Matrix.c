@@ -61,6 +61,7 @@ Matrix newMatrix(int n){
 
 // freeMatrix()
 // Frees heap memory associated with *pM, sets *pM to NULL.
+//TA Sheel helped me with corner case handling and memory leak correction
 void freeMatrix(Matrix* pM){
     if (*pM != NULL && pM != NULL) {
         for (int i = 1; i <= (*pM)->size; i++){
@@ -103,6 +104,8 @@ int NNZ(Matrix M){
 
 // equals()
 // Return true (1) if matrices A and B are equal, false (0) otherwise.
+//Done as per sudo code
+//TA Sheel helped me with corner case handling and memory leak correction
 int equals(Matrix A, Matrix B){
     if(A != NULL || B != NULL){
         if(size(A) == 0 && size(B) == 0){
@@ -147,6 +150,7 @@ int equals(Matrix A, Matrix B){
 // Manipulation procedures
 // makeZero()
 // Re-sets M to the zero Matrix state.
+//Done as per sudo code
 void makeZero(Matrix M){
     if(M){
         M->NNZ = 0;
@@ -167,6 +171,7 @@ void makeZero(Matrix M){
 // changeEntry()
 // Changes the ith row, jth column of M to the value x.
 // Pre: 1<=i<=size(M), 1<=j<=size(M)
+//TA Sheel helped me with corner case handling and memory leak correction
 void changeEntry(Matrix M, int i, int j, double x){
     if(M){
         if(i < 1 || i > size(M) || j < 1 || j > size(M)){
@@ -225,7 +230,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 // Matrix Arithmetic operations
 // copy()
 // Returns a reference to a new Matrix object having the same entries as A.
-//NEED TO CHECK
+//Done as per sudo code
 Matrix copy(Matrix A){
     if(A){
         Matrix copyA = newMatrix(size(A));
@@ -247,6 +252,8 @@ Matrix copy(Matrix A){
 // transpose()
 // Returns a reference to a new Matrix object representing the transpose
 // of A.
+//Done as per sudo code
+//TA Sheel helped me with corner case handling and memory leak correction
 Matrix transpose(Matrix A){
     if(A){
         Matrix T = newMatrix(size(A));
@@ -273,7 +280,6 @@ Matrix transpose(Matrix A){
         exit(1);
     }
 }
-
 
 // // sum()
 // // OLD SUM: was seg faulting
@@ -341,6 +347,8 @@ Matrix transpose(Matrix A){
 // }
 
 //new sum mine
+//Done as per sudo code
+//TA Sheel helped me with corner case handling, memory leak correction, and logic checking
 Matrix sum(Matrix A, Matrix B){
     if(A != NULL && B != NULL){
         if(A == B){
@@ -419,6 +427,8 @@ Matrix sum(Matrix A, Matrix B){
 // diff()
 // Returns a reference to a new Matrix object representing A-B.
 // pre: size(A)==size(B)
+//Done as per sudo code
+//TA Sheel helped me with corner case handling and simplification 
 Matrix diff(Matrix A, Matrix B){
     if(A != NULL || B != NULL){
         if(A == B){
@@ -504,6 +514,8 @@ Matrix diff(Matrix A, Matrix B){
 
 // scalarMult()
 // Returns a reference to a new Matrix object representing xA.
+//Done as per sudo code
+//TA Sheel helped me with corner case handling, memory leak correction, and logical checking
 Matrix scalarMult(double x, Matrix A){
     if(A){
         Matrix s_matrix = newMatrix(size(A));
@@ -524,6 +536,7 @@ Matrix scalarMult(double x, Matrix A){
     }
 }
 
+//Done as per sudo code
 double vectorDot(List P, List Q){
     double sum = 0;
     moveFront(P);
@@ -547,6 +560,8 @@ double vectorDot(List P, List Q){
 // product()
 // Returns a reference to a new Matrix object representing AB
 // pre: size(A)==size(B)
+//Done as per sudo code
+//TA Sheel helped me with corner case handling, memory leak correction, logical correction, and simplification of logic
 Matrix product(Matrix A, Matrix B){
     if(A != NULL || B != NULL){
         Matrix trans = transpose(B);
@@ -582,6 +597,7 @@ Matrix product(Matrix A, Matrix B){
 // of the row number, followed by a colon, a space, then a space separated
 // list of pairs "(col, val)" giving the column numbers and non-zero values
 // in that row. The double val will be rounded to 1 decimal point.
+//Done as per sudo code
 void printMatrix(FILE* out, Matrix M){
     if(M){
         for (int i = 1; i <= size(M); i++){
