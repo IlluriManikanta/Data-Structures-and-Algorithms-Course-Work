@@ -354,8 +354,9 @@ Matrix sum(Matrix A, Matrix B){
                 }
 
                 if(a != NULL && b != NULL && a->column == b->column){
-                    if((a->value + b->value) != 0){
-                        Entry temp = newEntry(a->value + b->value, a->column); 
+                    double fnl = a->value + b->value;
+                    if((fnl) != 0){
+                        Entry temp = newEntry(fnl, a->column); 
                         
                         append(s_matrix->rows[i], temp);
                         s_matrix->NNZ++;
