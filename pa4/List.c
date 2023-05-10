@@ -6,8 +6,6 @@
 // Implementing List ADT      //
 // ========================== //
 
-
-
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
