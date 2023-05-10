@@ -200,6 +200,7 @@ void changeEntry(Matrix M, int i, int j, double x){
             } else {
                 if(((Entry)get(l))->column == j){
                     if(x == 0){
+                        deleteEntry(&e);
                         delete(l);
                         M->NNZ--;
                     } else {
