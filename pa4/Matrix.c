@@ -65,6 +65,10 @@ void freeMatrix(Matrix* pM){
     if (*pM != NULL && pM != NULL) {
         for (int i = 1; i <= (*pM)->size; i++){
             freeList(&((*pM)->rows[i]));
+            for(moveFront((*pM)->rows[i]); index((*pM)->rows[i]) >= 0; moveNext((*pM)->rows[i])){
+                Entry X = get((*pM)->rows[i]);
+                freeEntry(&X);
+            }
         }
         free((*pM)->rows);
         free((*pM));
