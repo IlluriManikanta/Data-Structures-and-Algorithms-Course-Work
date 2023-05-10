@@ -68,7 +68,7 @@ void freeMatrix(Matrix* pM){
             for (moveFront((*pM)->rows[i]); index((*pM)->rows[i]) >= 0; moveNext((*pM)->rows[i])){
                     Entry E = get((*pM)->rows[i]);
                     Entry temp = E;
-                    freeEntry(&temp);
+                    deleteEntry(&temp);
 
                     set((*pM)->rows[i], NULL);
                     E = NULL;
