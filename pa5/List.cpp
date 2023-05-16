@@ -18,37 +18,29 @@ List::Node::Node(int x) {
 
 List::List() {
     frontDummy = new Node(-100);
-    frontDummy->next = backDummy;
-    beforeCursor = frontDummy;
-
-    backDummy = new Node(-100);
-    backDummy->prev = frontDummy;
-    afterCursor = backDummy;
-
-
+	backDummy = new Node(-100);
+	frontDummy->next = backDummy;
+	backDummy->prev = frontDummy;
+	beforeCursor = frontDummy;
+	afterCursor = backDummy;
 	cursorPosition = 0;
 	number_ele = 0;
 }
 
 List::List(const List& L) {
 	frontDummy = new Node(-100);
-        frontDummy->next = backDummy;
-        beforeCursor = frontDummy;
-
         backDummy = new Node(-100);
+        frontDummy->next = backDummy;
         backDummy->prev = frontDummy;
+        beforeCursor = frontDummy;
         afterCursor = backDummy;
-        
         cursorPosition = 0;
         number_ele = 0;
-
-	Node *temp = L.frontDummy->next;
-
-	while(temp != L.backDummy) {
-		this->insertBefore(temp->data);
-		temp = temp->next;
-	}
-			
+	Node *t = L.frontDummy->next;
+	while(t != L.backDummy) {
+		this->insertBefore(t->data);
+		t = t->next;
+	}		
 }
 
 List::~List() {
@@ -56,7 +48,6 @@ List::~List() {
 	delete frontDummy;
 	delete backDummy;
 }
-
 
 
    // Access functions --------------------------------------------------------
@@ -80,7 +71,7 @@ List::~List() {
    // back()
    // Returns the back element in this List.
    // pre: length()>0
-   ListElement back() const{
+   ListElement List::back() const{
     if(length() < -1){
         throw std::length_error("List ADT: ERROR in back(): Calling back on Empty List");
     }
@@ -90,7 +81,7 @@ List::~List() {
    // position()
    // Returns the position of cursor in this List: 0 <= position() <= length().
    int List::position() const{
-    if(lenth() < -1){
+    if(length() < -1){
         throw std::length_error("List ADT: ERROR in position(): Calling position on Empty List");
     }
     if(cursorPosition > length()){
@@ -112,9 +103,9 @@ List::~List() {
    // peekPrev()
    // Returns the element before the cursor.
    // pre: position()>0
-   ListElement peekPrev() const{
+   ListElement List::peekPrev() const{
     if(cursorPosition <= 0){
-        throw std::range_error("List ADT: ERROR in peekNext(): Cursor position out of range");
+        throw std::range_error("List ADT: ERROR in peekPrev(): Cursor position out of range");
     }
     return beforeCursor->data;
    }
@@ -137,7 +128,7 @@ List::~List() {
    void List::moveFront(){
     cursorPosition = 0;
     beforeCursor = frontDummy;
-    afterCursor = frontDummy->data;
+    afterCursor = beforeCursor->next;
    }
 
    // moveBack()
@@ -157,6 +148,12 @@ List::~List() {
         throw std::range_error("List ADT: ERROR in moveNext(): Cursor position out of range");
     }
 
+    beforeCursor = afterCursor;
+    afterCursor = beforeCursor->next;
+    cursorPosition++;
+
+    return afterCursor->data;
+    
    }
 
    // movePrev()
@@ -164,13 +161,21 @@ List::~List() {
    // was passed over. 
    // pre: position()>0
    ListElement List::movePrev(){
+    if(cursorPosition <= 0){
+        throw std::range_error("List ADT: ERROR in movePrev(): Cursor position out of range");
+    }
 
+    afterCursor = beforeCursor;
+    beforeCursor = afterCursor->prev;
+    cursorPosition--;
+
+    return beforeCursor->data;
    }
 
    // insertAfter()
    // Inserts x after cursor.
    void List::insertAfter(ListElement x){
-
+    
    }
 
    // insertBefore()
@@ -183,14 +188,20 @@ List::~List() {
    // Overwrites the List element after the cursor with x.
    // pre: position()<length()
    void List::setAfter(ListElement x){
-
+    if(cursorPosition > length()){
+        throw std::("List ADT: ERROR in setAfter(): Cursor position out of range");
+    }
+    afterCursor->data = x;
    }
 
    // setBefore()
    // Overwrites the List element before the cursor with x.
    // pre: position()>0
    void List::setBefore(ListElement x){
-
+    if(cursorPosition < 0){
+        throw std::("List ADT: ERROR in setAfter(): Cursor position out of range");
+    }
+    beforeCursor->data = x;
    }
 
    // eraseAfter()
@@ -217,7 +228,12 @@ List::~List() {
    // returns the final cursor position. If x is not found, places the cursor 
    // at position length(), and returns -1. 
    int List::findNext(ListElement x){
-
+    while(cursorPosition < length()){
+        if(moveNext() == x){
+            return cursorPosition;
+        }
+    }
+    return -1;
    }
 
    // findPrev()
@@ -227,7 +243,12 @@ List::~List() {
    // returns the final cursor position. If x is not found, places the cursor 
    // at position 0, and returns -1. 
    int findPrev(ListElement x){
-
+    while(cursorPosition > 0){
+        if(movePrev() == x){
+            return cursorPosition;
+        }
+    }
+    return -1;
    }
 
    // cleanup()
@@ -267,14 +288,14 @@ List::~List() {
    // operator<<()
    // Inserts string representation of L into stream.
    friend std::ostream& operator<<( std::ostream& stream, const List& L ){
-
+    return stream << L.List::to_string();
    }
 
    // operator==()
    // Returns true if and only if A is the same integer sequence as B. The 
    // cursors in both Lists are unchanged.
    friend bool operator==( const List& A, const List& B ){
-
+    return A.List::equals(B);
    }
 
    // operator=()
