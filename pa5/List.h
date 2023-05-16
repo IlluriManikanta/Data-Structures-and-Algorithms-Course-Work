@@ -33,8 +33,8 @@ private:
    Node* backDummy;
    Node* beforeCursor;
    Node* afterCursor;
-   int pos_cursor;
-   int num_elements;
+   int cursorPosition;
+   int number_ele;
 
 public:
 
