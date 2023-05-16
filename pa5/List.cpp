@@ -175,13 +175,26 @@ List::~List() {
    // insertAfter()
    // Inserts x after cursor.
    void List::insertAfter(ListElement x){
-    
+        Node *temp = new Node(x);
+        temp->prev = beforeCursor;
+        temp->next = afterCursor;
+        beforeCursor->next = temp;
+        afterCursor->prev = temp;
+        afterCursor = temp;
+        num_elements++;
    }
 
    // insertBefore()
    // Inserts x before cursor.
    void List::insertBefore(ListElement x){
-
+        Node *n = new Node(x);
+        n->prev = beforeCursor;
+        n->next = afterCursor;
+        beforeCursor->next = n;
+        afterCursor->prev = n;
+        beforeCursor = n;
+        num_elements++;
+        pos_cursor++;
    }
 
    // setAfter()
@@ -208,14 +221,31 @@ List::~List() {
    // Deletes element after cursor.
    // pre: position()<length()
    void List::eraseAfter(){
-
+    if (position() >= length()) {
+        throw std::range_error("List ADT: ERROR in setAfter(): Cursor position out of range"); 
+    }
+    Node *N = afterCursor;
+    beforeCursor->next = N->next; 
+    afterCursor->next->prev = beforeCursor; 
+    afterCursor = N->next; 
+    delete N; 
+    num_elements--; 
    }
 
    // eraseBefore()
    // Deletes element before cursor.
    // pre: position()>0
    void List::eraseBefore(){
-
+    if (position() <= 0) {
+        throw std::range_error("List ADT: ERROR in setAfter(): Cursor position out of range"); 
+    }
+    Node *n = beforeCursor;
+    beforeCursor = beforeCursor->prev;
+    beforeCursor->next = afterCursor;
+    afterCursor->prev = beforeCursor;
+    delete n;
+    pos_cursor--;
+    num_elements--;
    }
 
 
@@ -251,36 +281,74 @@ List::~List() {
     return -1;
    }
 
-//    // cleanup()
-//    // Removes any repeated elements in this List, leaving only unique elements.
-//    // The order of the remaining elements is obtained by retaining the frontmost 
-//    // occurrance of each element, and removing all other occurances. The cursor 
-//    // is not moved with respect to the retained elements, i.e. it lies between 
-//    // the same two retained elements that it did before cleanup() was called.
-//    void List::cleanup(){
+   // cleanup()
+   // Removes any repeated elements in this List, leaving only unique elements.
+   // The order of the remaining elements is obtained by retaining the frontmost 
+   // occurrance of each element, and removing all other occurances. The cursor 
+   // is not moved with respect to the retained elements, i.e. it lies between 
+   // the same two retained elements that it did before cleanup() was called.
+   void List::cleanup(){
 
-//    }
+   }
  
-//    // concat()
-//    // Returns a new List consisting of the elements of this List, followed by
-//    // the elements of L. The cursor in the returned List will be at postion 0.
-//    List List::concat(const List& L) const{
+   // concat()
+   // Returns a new List consisting of the elements of this List, followed by
+   // the elements of L. The cursor in the returned List will be at postion 0.
+   List List::concat(const List& L) const{
+        List K;
+        Node* N = this->frontDummy->next;
 
-//    }
+        while (N != this->backDummy) {
+            K.insertBefore(N->data);
+            N = N->next;
+        }
 
-//    // to_string()
-//    // Returns a string representation of this List consisting of a comma 
-//    // separated sequence of elements, surrounded by parentheses.
-//    std::string List::to_string() const{
+        Node* M = L.frontDummy->next;
 
-//    }
+        while (M != L.backDummy) {
+            K.insertBefore(M->data);
+            M = M->next;
+        }
 
-//    // equals()
-//    // Returns true if and only if this List is the same integer sequence as R.
-//    // The cursors in this List and in R are unchanged.
-//    bool List::equals(const List& R) const{
+        return K;
+   }
 
-//    }
+   // to_string()
+   // Returns a string representation of this List consisting of a comma 
+   // separated sequence of elements, surrounded by parentheses.
+   std::string List::to_string() const{
+        std::string str = "(";
+
+        for (Node* N = frontDummy; N != nullptr; N = N->next) {
+            str += std::to_string(N->data);
+            str += (N->next != nullptr) ? ", " : "";
+        }
+
+        str += ")";
+        return str;
+   }
+
+   // equals()
+   // Returns true if and only if this List is the same integer sequence as R.
+   // The cursors in this List and in R are unchanged.
+   bool List::equals(const List& R) const{
+    if (num_elements != R.num_elements) {
+        return false;
+    }
+
+    Node* N = frontDummy;
+    Node* M = R.frontDummy;
+
+    while (N != nullptr) {
+        if (N->data != M->data) {
+            return false;
+        }
+        N = N->next;
+        M = M->next;
+    }
+
+    return true;
+   }
 
 
    // Overriden Operators -----------------------------------------------------
@@ -291,16 +359,16 @@ List::~List() {
     return stream << L.List::to_string();
    }
 
-//    // operator==()
-//    // Returns true if and only if A is the same integer sequence as B. The 
-//    // cursors in both Lists are unchanged.
-//    bool operator==( const List& A, const List& B ){
-//     return A.List::equals(B);
-//    }
+   // operator==()
+   // Returns true if and only if A is the same integer sequence as B. The 
+   // cursors in both Lists are unchanged.
+   bool operator==( const List& A, const List& B ){
+    return A.List::equals(B);
+   }
 
-//    // operator=()
-//    // Overwrites the state of this List with state of L.
-//    List& List::operator=( const List& L ){
+   // operator=()
+   // Overwrites the state of this List with state of L.
+   List& List::operator=( const List& L ){
 
-//    }
+   }
 
