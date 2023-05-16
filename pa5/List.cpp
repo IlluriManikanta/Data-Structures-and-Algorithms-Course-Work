@@ -251,36 +251,36 @@ List::~List() {
     return -1;
    }
 
-   // cleanup()
-   // Removes any repeated elements in this List, leaving only unique elements.
-   // The order of the remaining elements is obtained by retaining the frontmost 
-   // occurrance of each element, and removing all other occurances. The cursor 
-   // is not moved with respect to the retained elements, i.e. it lies between 
-   // the same two retained elements that it did before cleanup() was called.
-   void List::cleanup(){
+//    // cleanup()
+//    // Removes any repeated elements in this List, leaving only unique elements.
+//    // The order of the remaining elements is obtained by retaining the frontmost 
+//    // occurrance of each element, and removing all other occurances. The cursor 
+//    // is not moved with respect to the retained elements, i.e. it lies between 
+//    // the same two retained elements that it did before cleanup() was called.
+//    void List::cleanup(){
 
-   }
+//    }
  
-   // concat()
-   // Returns a new List consisting of the elements of this List, followed by
-   // the elements of L. The cursor in the returned List will be at postion 0.
-   List List::concat(const List& L) const{
+//    // concat()
+//    // Returns a new List consisting of the elements of this List, followed by
+//    // the elements of L. The cursor in the returned List will be at postion 0.
+//    List List::concat(const List& L) const{
 
-   }
+//    }
 
-   // to_string()
-   // Returns a string representation of this List consisting of a comma 
-   // separated sequence of elements, surrounded by parentheses.
-   std::string List::to_string() const{
+//    // to_string()
+//    // Returns a string representation of this List consisting of a comma 
+//    // separated sequence of elements, surrounded by parentheses.
+//    std::string List::to_string() const{
 
-   }
+//    }
 
-   // equals()
-   // Returns true if and only if this List is the same integer sequence as R.
-   // The cursors in this List and in R are unchanged.
-   bool List::equals(const List& R) const{
+//    // equals()
+//    // Returns true if and only if this List is the same integer sequence as R.
+//    // The cursors in this List and in R are unchanged.
+//    bool List::equals(const List& R) const{
 
-   }
+//    }
 
 
    // Overriden Operators -----------------------------------------------------
@@ -291,16 +291,16 @@ List::~List() {
     return stream << L.List::to_string();
    }
 
-   // operator==()
-   // Returns true if and only if A is the same integer sequence as B. The 
-   // cursors in both Lists are unchanged.
-   bool operator==( const List& A, const List& B ){
-    return A.List::equals(B);
-   }
+//    // operator==()
+//    // Returns true if and only if A is the same integer sequence as B. The 
+//    // cursors in both Lists are unchanged.
+//    bool operator==( const List& A, const List& B ){
+//     return A.List::equals(B);
+//    }
 
-   // operator=()
-   // Overwrites the state of this List with state of L.
-   List& List::operator=( const List& L ){
+//    // operator=()
+//    // Overwrites the state of this List with state of L.
+//    List& List::operator=( const List& L ){
 
-   }
+//    }
 
