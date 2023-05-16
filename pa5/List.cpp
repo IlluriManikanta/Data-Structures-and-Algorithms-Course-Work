@@ -126,26 +126,36 @@ List::~List() {
    // clear()
    // Deletes all elements in this List, setting it to the empty state.
    void List::clear(){
-    
+    moveFront();
+    while(length() != 0){
+        eraseAfter();
+    }
    }
 
    // moveFront()
    // Moves cursor to position 0 in this List.
-   void moveFront(){
-
+   void List::moveFront(){
+    cursorPosition = 0;
+    beforeCursor = frontDummy;
+    afterCursor = frontDummy->data;
    }
 
    // moveBack()
    // Moves cursor to position length() in this List.
-   void moveBack(){
-
+   void List::moveBack(){
+    cursorPosition = length();
+    beforeCursor = backDummy->prev;
+    afterCursor = backDummy;
    }
 
    // moveNext()
    // Advances cursor to next higher position. Returns the List element that
    // was passed over. 
    // pre: position()<length() 
-   ListElement moveNext(){
+   ListElement List::moveNext(){
+    if(cursorPosition >= length()){
+        throw std::range_error("List ADT: ERROR in moveNext(): Cursor position out of range");
+    }
 
    }
 
@@ -153,47 +163,47 @@ List::~List() {
    // Advances cursor to next lower position. Returns the List element that
    // was passed over. 
    // pre: position()>0
-   ListElement movePrev(){
+   ListElement List::movePrev(){
 
    }
 
    // insertAfter()
    // Inserts x after cursor.
-   void insertAfter(ListElement x){
+   void List::insertAfter(ListElement x){
 
    }
 
    // insertBefore()
    // Inserts x before cursor.
-   void insertBefore(ListElement x){
+   void List::insertBefore(ListElement x){
 
    }
 
    // setAfter()
    // Overwrites the List element after the cursor with x.
    // pre: position()<length()
-   void setAfter(ListElement x){
+   void List::setAfter(ListElement x){
 
    }
 
    // setBefore()
    // Overwrites the List element before the cursor with x.
    // pre: position()>0
-   void setBefore(ListElement x){
+   void List::setBefore(ListElement x){
 
    }
 
    // eraseAfter()
    // Deletes element after cursor.
    // pre: position()<length()
-   void eraseAfter(){
+   void List::eraseAfter(){
 
    }
 
    // eraseBefore()
    // Deletes element before cursor.
    // pre: position()>0
-   void eraseBefore(){
+   void List::eraseBefore(){
 
    }
 
@@ -206,7 +216,7 @@ List::~List() {
    // is found, places the cursor immediately after the found element, then 
    // returns the final cursor position. If x is not found, places the cursor 
    // at position length(), and returns -1. 
-   int findNext(ListElement x){
+   int List::findNext(ListElement x){
 
    }
 
