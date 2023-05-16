@@ -281,6 +281,7 @@ List::~List() {
     return -1;
    }
 
+    //SM
    // cleanup()
    // Removes any repeated elements in this List, leaving only unique elements.
    // The order of the remaining elements is obtained by retaining the frontmost 
@@ -401,9 +402,19 @@ List::~List() {
     return A.List::equals(B);
    }
 
+    //SM
    // operator=()
    // Overwrites the state of this List with state of L.
    List& List::operator=( const List& L ){
-
+        if (this != &L) {
+            List tmp = L;
+            std::swap(frontDummy, tmp.frontDummy);
+            std::swap(backDummy, tmp.backDummy);
+            std::swap(beforeCursor, tmp.beforeCursor);
+            std::swap(afterCursor, tmp.afterCursor);
+            std::swap(num_elements, tmp.num_elements);
+            std::swap(pos_cursor, tmp.pos_cursor);
+        }
+        return *this;
    }
 
