@@ -147,12 +147,18 @@ List::~List() {
     if(pos_cursor >= length()){
         throw std::range_error("List ADT: ERROR in moveNext(): Cursor position out of range");
     }
+    Node *N = afterCursor;
+	pos_cursor++;
+	beforeCursor = N;
+	afterCursor = N->next;
+	return N->data;
 
-    beforeCursor = afterCursor;
-    afterCursor = beforeCursor->next;
-    pos_cursor++;
 
-    return afterCursor->data;
+    // beforeCursor = afterCursor;
+    // afterCursor = beforeCursor->next;
+    // pos_cursor++;
+
+    // return afterCursor->data;
     
    }
 
@@ -164,12 +170,17 @@ List::~List() {
     if(pos_cursor <= 0){
         throw std::range_error("List ADT: ERROR in movePrev(): Cursor position out of range");
     }
+    Node *N = beforeCursor;
+	pos_cursor--;
+	beforeCursor = N->prev;
+	afterCursor = N;
+	return N->data;
 
-    afterCursor = beforeCursor;
-    beforeCursor = afterCursor->prev;
-    pos_cursor--;
+    // afterCursor = beforeCursor;
+    // beforeCursor = afterCursor->prev;
+    // pos_cursor--;
 
-    return beforeCursor->data;
+    // return beforeCursor->data;
    }
 
    // insertAfter()
