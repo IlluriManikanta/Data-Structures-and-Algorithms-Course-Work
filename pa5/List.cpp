@@ -290,7 +290,7 @@ List::~List() {
 	while (n != backDummy) {
 		Node *t = n->next;
 		while (t != backDummy) {
-			if (n->data != t->data) {
+			if (n->data == t->data) {
                 if (t == afterCursor) {
 					eraseAfter();
 				}
