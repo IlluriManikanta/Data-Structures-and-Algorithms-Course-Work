@@ -278,6 +278,44 @@ List::~List() {
     return -1;
    }
 
+void List::cleanup(){
+    int i = 0;
+    int c = pos_cursor;
+    bool l = pos_cursor == num_elements;
+    Node* p = frontDummy->next;
+    while(p != backDummy){
+        Node* q = p->next;
+        int j = i;
+        while(q != backDummy){
+            j++;
+            if(p->data == q->data){
+                q->prev->next = q->next;
+                q->next->prev = q->prev;
+                num_elements--;
+                if(j < c){
+                    c--;
+                    pos_cursor--;
+                    afterCursor = beforeCursor;
+                    beforeCursor = beforeCursor->prev;
+                }
+                j--;
+                Node* s=q;
+                q = q->next;
+                delete s;
+            } else {
+                q = q->next;
+            }       
+        }
+        i++;
+        p = p->next;
+    }
+    if(l){
+        pos_cursor = num_elements;
+        afterCursor = backDummy;
+        beforeCursor = backDummy->prev;
+    } 
+}
+
     //SM
    // cleanup()
    // Removes any repeated elements in this List, leaving only unique elements.
@@ -285,46 +323,46 @@ List::~List() {
    // occurrance of each element, and removing all other occurances. The cursor 
    // is not moved with respect to the retained elements, i.e. it lies between 
    // the same two retained elements that it did before cleanup() was called.
-   void List::cleanup(){
-        Node *n = frontDummy->next;
-        int size = 0;
-        int pos = 0;
-        while (n != backDummy) {
-            Node *t = n->next;
-            while (t != backDummy) {
-                if (n->data != t->data) {
-                    t = t->next;
-                } else {
-                    if (t == afterCursor) {
-                        eraseAfter();
-                    } else if (t == beforeCursor) {
-                        eraseBefore();
-                    }
-                    else {
-                        Node *d = t;
-                        t->next->prev = t->prev;
-                        t->prev->next = t->next;
-                        t = t->next;
-                        delete d;
-                    }
-                }
+//    void List::cleanup(){
+//         Node *n = frontDummy->next;
+//         int size = 0;
+//         int pos = 0;
+//         while (n != backDummy) {
+//             Node *t = n->next;
+//             while (t != backDummy) {
+//                 if (n->data != t->data) {
+//                     t = t->next;
+//                 } else {
+//                     if (t == afterCursor) {
+//                         eraseAfter();
+//                     } else if (t == beforeCursor) {
+//                         eraseBefore();
+//                     }
+//                     else {
+//                         Node *d = t;
+//                         t->next->prev = t->prev;
+//                         t->prev->next = t->next;
+//                         t = t->next;
+//                         delete d;
+//                     }
+//                 }
                     
-            }
-            n = n->next;
-        }
-        Node *t2 = frontDummy->next;
-        Node *t3 = frontDummy->next;
-            while (t2 != afterCursor) {
-                    pos++;
-                    t2 = t2->next;
-            }
-            while (t3 != backDummy) {
-                size++;
-                t3 = t3->next;
-            }
-        num_elements = size;
-        pos_cursor = pos; 
-}
+//             }
+//             n = n->next;
+//         }
+//         Node *t2 = frontDummy->next;
+//         Node *t3 = frontDummy->next;
+//             while (t2 != afterCursor) {
+//                     pos++;
+//                     t2 = t2->next;
+//             }
+//             while (t3 != backDummy) {
+//                 size++;
+//                 t3 = t3->next;
+//             }
+//         num_elements = size;
+//         pos_cursor = pos; 
+// }
 
    // concat()
    // Returns a new List consisting of the elements of this List, followed by
