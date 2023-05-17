@@ -125,6 +125,7 @@ afterCursor = frontDummy->next;
 pos_cursor = 0;
 }
 
+
 // moveBack()
 // Moves cursor to position length() in this List.
 void List::moveBack(){
