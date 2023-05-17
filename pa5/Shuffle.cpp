@@ -53,7 +53,8 @@ int main(int argc, char* argv[]){
         }
 
         int cnt = 0;
-        while (!(d.equals(copydeck))){
+        // while (!(d.equals(copydeck))){
+        while(true){
             shuffle(d);
             cnt++;
             if(d.equals(copydeck)){
