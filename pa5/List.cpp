@@ -238,7 +238,6 @@ pos_cursor--;
 num_elements--;
 }
 
-
 // Other Functions ---------------------------------------------------------
 
 // findNext()
