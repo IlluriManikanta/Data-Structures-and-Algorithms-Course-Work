@@ -94,6 +94,7 @@ if(position() >= length()){
 return afterCursor->data;
 }
 
+
 // peekPrev()
 // Returns the element before the cursor.
 // pre: position()>0
