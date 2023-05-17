@@ -294,12 +294,10 @@ List::~List() {
             while (t != backDummy) {
                 if (n->data != t->data) {
                     t = t->next;
-                }
-                else {
+                } else {
                     if (t == afterCursor) {
                         eraseAfter();
-                    }
-                    else if (t == beforeCursor) {
+                    } else if (t == beforeCursor) {
                         eraseBefore();
                     }
                     else {
