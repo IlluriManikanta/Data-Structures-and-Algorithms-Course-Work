@@ -84,6 +84,7 @@ int List::position() const{
 return pos_cursor;
 }
 
+
 // peekNext()
 // Returns the element after the cursor.
 // pre: position()<length()
