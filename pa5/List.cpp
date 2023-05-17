@@ -17,8 +17,8 @@ List::Node::Node(int x) {
 }
 
 List::List() {
-    frontDummy = new Node(-100);
-	backDummy = new Node(-100);
+    frontDummy = new Node(-400);
+	backDummy = new Node(-400);
 	frontDummy->next = backDummy;
 	backDummy->prev = frontDummy;
 	beforeCursor = frontDummy;
@@ -28,8 +28,8 @@ List::List() {
 }
 
 List::List(const List& L) {
-	    frontDummy = new Node(-100);
-        backDummy = new Node(-100);
+	    frontDummy = new Node(-400);
+        backDummy = new Node(-400);
         frontDummy->next = backDummy;
         backDummy->prev = frontDummy;
         beforeCursor = frontDummy;
