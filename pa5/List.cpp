@@ -133,6 +133,7 @@ afterCursor = backDummy;
 pos_cursor = length();
 }
 
+
 // moveNext()
 // Advances cursor to next higher position. Returns the List element that
 // was passed over. 
