@@ -400,6 +400,7 @@ bool operator==( const List& A, const List& B ){
 return A.List::equals(B);
 }
 
+
 //Used sudo code porvided
 // operator=()
 // Overwrites the state of this List with state of L.
