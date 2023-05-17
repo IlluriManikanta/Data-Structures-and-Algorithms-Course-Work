@@ -5,6 +5,7 @@
 // PA 5                       //
 // Implementing List ADT C++  //
 // ========================== //
+
 #include <iostream>
 #include <string>
 #include <stdexcept>
@@ -335,7 +336,7 @@ void List::cleanup() {
                 }
                 delete d;
                 num_elements--;
-                //change
+                //change made here
                 if(in <= pos_cursor){
                     pos_cursor --;
                 }
