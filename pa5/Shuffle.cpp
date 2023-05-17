@@ -14,19 +14,14 @@ using namespace std;
 //Implemented accoding to the instructions porvided and TA guidance from TA office hours. 
 void shuffle(List &D){
     List temp;
-    int d_half = D.length() / 2;
-
     D.moveFront();
     int i = 0;
-    while(i < d_half){
+    int h = (D.length() / 2);
+    while(i < h){
         temp.insertBefore(D.moveNext());
         D.eraseBefore();
         i++;
     }
-    // for (int i = 0; i < d_half; i++) {
-    //     temp.insertBefore(D.moveNext());
-    //     D.eraseBefore();
-    // }
 
     temp.moveFront();
     int j = 0;
@@ -35,10 +30,6 @@ void shuffle(List &D){
         D.insertBefore(temp.moveNext());
         j++;
     }
-    // for (int i = 0; i < temp.length(); i++) {
-    //     D.moveNext();
-    //     D.insertBefore(temp.moveNext());
-    // }
 
 }
 
