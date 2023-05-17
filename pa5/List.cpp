@@ -274,33 +274,39 @@ List::~List() {
     }
     return -1;
    }
+
 void List::cleanup() {
     Node* current = frontDummy->next;
+    
     while (current != backDummy) {
         Node* checker = current->next;
+
         while (checker != backDummy) {
-            Node* nextNode = checker->next;  // Store next node before potential deletion
             if (current->data == checker->data) {
-                if (checker == beforeCursor) {
-                    beforeCursor = beforeCursor->prev;
+                Node* toDelete = checker;
+
+                checker = checker->next;
+                toDelete->prev->next = toDelete->next;
+                toDelete->next->prev = toDelete->prev;
+                if (toDelete == beforeCursor) {
+                    beforeCursor = toDelete->prev;
                     afterCursor = beforeCursor->next;
                     if (num_elements > pos_cursor) {
                         pos_cursor--;
                     }
                 }
-                if (checker == afterCursor) {
-                    afterCursor = afterCursor->next;
+                if (toDelete == afterCursor) {
+                    afterCursor = toDelete->next;
                     beforeCursor = afterCursor->prev;
                     if (num_elements > pos_cursor) {
                         pos_cursor--;
                     }
                 }
-                checker->prev->next = checker->next;
-                checker->next->prev = checker->prev;
-                delete checker;
+                delete toDelete;
                 num_elements--;
+            } else {
+                checker = checker->next;
             }
-            checker = nextNode;  // Move to the next node
         }
         current = current->next;
     }
@@ -309,47 +315,6 @@ void List::cleanup() {
         beforeCursor = backDummy->prev;
     }
 }
-
-// void List::cleanup() {
-//     Node* current = frontDummy->next;
-    
-//     while (current != backDummy) {
-//         Node* checker = current->next;
-
-//         while (checker != backDummy) {
-//             if (current->data == checker->data) {
-//                 Node* toDelete = checker;
-
-//                 checker = checker->next;
-//                 toDelete->prev->next = toDelete->next;
-//                 toDelete->next->prev = toDelete->prev;
-//                 if (toDelete == beforeCursor) {
-//                     beforeCursor = toDelete->prev;
-//                     afterCursor = beforeCursor->next;
-//                     if (num_elements > pos_cursor) {
-//                         pos_cursor--;
-//                     }
-//                 }
-//                 if (toDelete == afterCursor) {
-//                     afterCursor = toDelete->next;
-//                     beforeCursor = afterCursor->prev;
-//                     if (num_elements > pos_cursor) {
-//                         pos_cursor--;
-//                     }
-//                 }
-//                 delete toDelete;
-//                 num_elements--;
-//             } else {
-//                 checker = checker->next;
-//             }
-//         }
-//         current = current->next;
-//     }
-//     if (pos_cursor == num_elements) {
-//         afterCursor = backDummy;
-//         beforeCursor = backDummy->prev;
-//     }
-// }
 
    // concat()
    // Returns a new List consisting of the elements of this List, followed by
