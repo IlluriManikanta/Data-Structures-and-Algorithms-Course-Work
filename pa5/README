@@ -1,0 +1,33 @@
+Manikantanagasai Harshit Illuri
+milluri@ucsc.edu
+PA5 README
+Assignment: pa5 -> LIST ADT C++
+
+About:
+Building List ADT using C++ to manipulate linked lists. Will be using this ADT on a shuffle program. 
+
+
+***Files Included***
+Shuffle.cpp - Uses List ADT to perform shuffling operations, and determine how many shuffles are necessary to bring a List
+                back into its original order.
+List.cpp - Contains all list operations nesscary to perform a shuffle on the list
+List.h
+ListTest.cpp - List Test file
+README 
+Makefile - compiles files
+
+***BUILD***
+Enter correct directory then run:
+make clean
+make ListTest
+
+***RUN***
+./ListTest
+
+***SHUFFLE BUILD***
+Enter correct directory then run:
+make clean
+make Shuffle
+
+***RUN***
+./Shuffle
