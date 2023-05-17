@@ -115,28 +115,29 @@ return beforeCursor->data;
 // clear()
 // Deletes all elements in this List, setting it to the empty state.
 void List::clear(){
-moveFront();
-while(length() > 0){
-    eraseAfter();
-}
+    moveFront();
+    while(length() > 0){
+        eraseAfter();
+    }
 }
 
 
 // moveFront()
 // Moves cursor to position 0 in this List.
 void List::moveFront(){
-beforeCursor = frontDummy;
-afterCursor = frontDummy->next;
-pos_cursor = 0;
+    pos_cursor = 0;
+    beforeCursor = frontDummy;
+    afterCursor = frontDummy->next;
+
 }
 
 
 // moveBack()
 // Moves cursor to position length() in this List.
 void List::moveBack(){
-beforeCursor = backDummy->prev;
-afterCursor = backDummy;
-pos_cursor = length();
+    beforeCursor = backDummy->prev;
+    afterCursor = backDummy;
+    pos_cursor = length();
 }
 
 
@@ -145,13 +146,15 @@ pos_cursor = length();
 // was passed over. 
 // pre: position()<length() 
 ListElement List::moveNext(){
-if(pos_cursor >= length()){
-    throw std::range_error("List ADT: ERROR in moveNext(): Cursor position out of range");
-}
-beforeCursor = afterCursor;
-afterCursor = afterCursor->next;
-pos_cursor++;
-return beforeCursor->data;
+    if(position() >= length()){
+        throw std::range_error("List ADT: ERROR in moveNext(): Cursor position out of range");
+    }
+
+    beforeCursor = afterCursor;
+    afterCursor = afterCursor->next;
+    pos_cursor++;
+
+    return beforeCursor->data;
 }
 
 
@@ -160,13 +163,15 @@ return beforeCursor->data;
 // was passed over. 
 // pre: position()>0
 ListElement List::movePrev(){
-if(pos_cursor <= 0){
-    throw std::range_error("List ADT: ERROR in movePrev(): Cursor position out of range");
-}
-afterCursor = beforeCursor;
-beforeCursor = beforeCursor->prev;
-pos_cursor--;
-return afterCursor->data;
+    if(position() <= 0){
+        throw std::range_error("List ADT: ERROR in movePrev(): Cursor position out of range");
+    }
+
+    afterCursor = beforeCursor;
+    beforeCursor = beforeCursor->prev;
+    pos_cursor--;
+
+    return afterCursor->data;
 }
 
 
@@ -201,7 +206,7 @@ void List::insertBefore(ListElement x){
 // Overwrites the List element after the cursor with x.
 // pre: position()<length()
 void List::setAfter(ListElement x){
-if(pos_cursor >= length()){
+if(position() >= length()){
     throw std::range_error("List ADT: ERROR in setAfter(): Cursor position out of range");
 }
 afterCursor->data = x;
@@ -212,7 +217,7 @@ afterCursor->data = x;
 // Overwrites the List element before the cursor with x.
 // pre: position()>0
 void List::setBefore(ListElement x){
-if(pos_cursor <= 0){
+if(position() <= 0){
     throw std::range_error("List ADT: ERROR in setAfter(): Cursor position out of range");
 }
 beforeCursor->data = x;
@@ -231,6 +236,7 @@ Node *N = afterCursor;
 afterCursor = afterCursor->next;
 beforeCursor->next = afterCursor;
 afterCursor->prev = beforeCursor;
+
 delete N; 
 num_elements--; 
 }
@@ -244,9 +250,11 @@ if (position() <= 0) {
     throw std::range_error("List ADT: ERROR in setAfter(): Cursor position out of range"); 
 }
 Node *N = beforeCursor;
+
 beforeCursor = beforeCursor->prev;
 beforeCursor->next = afterCursor;
 afterCursor->prev = beforeCursor;
+
 delete N;
 pos_cursor--;
 num_elements--;
