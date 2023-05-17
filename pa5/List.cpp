@@ -314,13 +314,13 @@ void List::cleanup() {
                 if (d == beforeCursor) {
                     beforeCursor = d->prev;
                     afterCursor = beforeCursor->next;
-                    if (num_elements > pos_cursor) {
+                    if (num_elements > position()) {
                         pos_cursor--;
                     }
                 } else if (d == afterCursor) {
                     afterCursor = d->next;
                     beforeCursor = afterCursor->prev;
-                    if (num_elements > pos_cursor) {
+                    if (num_elements > position()) {
                         pos_cursor--;
                     }
                 }
