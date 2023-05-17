@@ -319,9 +319,9 @@ List::~List() {
                     t2 = t2->next;
             }
             while (t3 != backDummy) {
-            size++;
-            t3 = t3->next;
-        }
+                size++;
+                t3 = t3->next;
+            }
         num_elements = size;
         pos_cursor = pos; 
 }
