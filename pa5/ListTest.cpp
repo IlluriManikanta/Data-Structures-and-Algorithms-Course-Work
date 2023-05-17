@@ -10,9 +10,32 @@
 using namespace std;
 
 int main(){
+   List A;
 
+    A.insertBefore(1);
+    cout << "A pos = " << A.position() << endl;
+    A.insertBefore(2);
+    cout << "A pos = " << A.position() << endl;
+    A.insertBefore(2);
+    cout << "A pos = " << A.position() << endl;
+    A.insertBefore(1);
+    cout << "A pos = " << A.position() << endl;
+    A.insertBefore(2);
+    cout << "A pos = " << A.position() << endl;
+    A.insertBefore(3);
+    cout << "A pos = " << A.position() << endl;
+    A.insertBefore(1);
+    cout << "A pos = " << A.position() << endl;
+    A.findPrev(3);
+    cout << "A pos before cleanup() = " << A.position() << endl;
+    A.cleanup();
+    cout << "A = " << A << endl;
+    cout << "A pos here = " << A.position() << endl;
+    if (A.position() != 2) cout << "A.pos = 2" << endl;
+
+/**
    int i, n=10;
-   List A, B, C, D;
+   List B, C, D;
 
    for(i=1; i<=n; i++){
       A.insertAfter(i);
@@ -187,6 +210,6 @@ int main(){
 
    cout << endl;
 
-
+*/
    return( EXIT_SUCCESS );
 }

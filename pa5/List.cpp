@@ -274,36 +274,33 @@ List::~List() {
     }
     return -1;
    }
-
 void List::cleanup() {
     Node* current = frontDummy->next;
     while (current != backDummy) {
         Node* checker = current->next;
         while (checker != backDummy) {
+            Node* nextNode = checker->next;  // Store next node before potential deletion
             if (current->data == checker->data) {
-                Node* toDelete = checker;
-                checker = checker->next;
-                toDelete->prev->next = toDelete->next;
-                toDelete->next->prev = toDelete->prev;
-                if (toDelete == beforeCursor) {
-                    beforeCursor = toDelete->prev;
+                if (checker == beforeCursor) {
+                    beforeCursor = beforeCursor->prev;
                     afterCursor = beforeCursor->next;
                     if (num_elements > pos_cursor) {
                         pos_cursor--;
                     }
                 }
-                if (toDelete == afterCursor) {
-                    afterCursor = toDelete->next;
+                if (checker == afterCursor) {
+                    afterCursor = afterCursor->next;
                     beforeCursor = afterCursor->prev;
                     if (num_elements > pos_cursor) {
                         pos_cursor--;
                     }
                 }
-                delete toDelete;
+                checker->prev->next = checker->next;
+                checker->next->prev = checker->prev;
+                delete checker;
                 num_elements--;
-            } else {
-                checker = checker->next;
             }
+            checker = nextNode;  // Move to the next node
         }
         current = current->next;
     }
@@ -313,43 +310,45 @@ void List::cleanup() {
     }
 }
 
-// //S
-// void List::cleanup(){
-//     int i = 0;
-//     int c = pos_cursor;
-//     bool l = pos_cursor == num_elements;
-//     Node* p = frontDummy->next;
-//     while(p != backDummy){
-//         Node* q = p->next;
-//         int j = i;
-//         while(q != backDummy){
-//             j++;
-//             if(p->data == q->data){
-//                 q->prev->next = q->next;
-//                 q->next->prev = q->prev;
-//                 num_elements--;
-//                 if(j < c){
-//                     c--;
-//                     pos_cursor--;
-//                     afterCursor = beforeCursor;
-//                     beforeCursor = beforeCursor->prev;
+// void List::cleanup() {
+//     Node* current = frontDummy->next;
+    
+//     while (current != backDummy) {
+//         Node* checker = current->next;
+
+//         while (checker != backDummy) {
+//             if (current->data == checker->data) {
+//                 Node* toDelete = checker;
+
+//                 checker = checker->next;
+//                 toDelete->prev->next = toDelete->next;
+//                 toDelete->next->prev = toDelete->prev;
+//                 if (toDelete == beforeCursor) {
+//                     beforeCursor = toDelete->prev;
+//                     afterCursor = beforeCursor->next;
+//                     if (num_elements > pos_cursor) {
+//                         pos_cursor--;
+//                     }
 //                 }
-//                 j--;
-//                 Node* s=q;
-//                 q = q->next;
-//                 delete s;
+//                 if (toDelete == afterCursor) {
+//                     afterCursor = toDelete->next;
+//                     beforeCursor = afterCursor->prev;
+//                     if (num_elements > pos_cursor) {
+//                         pos_cursor--;
+//                     }
+//                 }
+//                 delete toDelete;
+//                 num_elements--;
 //             } else {
-//                 q = q->next;
-//             }       
+//                 checker = checker->next;
+//             }
 //         }
-//         i++;
-//         p = p->next;
+//         current = current->next;
 //     }
-//     if(l){
-//         pos_cursor = num_elements;
+//     if (pos_cursor == num_elements) {
 //         afterCursor = backDummy;
 //         beforeCursor = backDummy->prev;
-//     } 
+//     }
 // }
 
    // concat()
