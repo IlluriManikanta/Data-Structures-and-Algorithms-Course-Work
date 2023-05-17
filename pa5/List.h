@@ -1,3 +1,11 @@
+// ========== Name ========== //
+// Manikantanagasai H. Illuri //
+// milluri@ucsc.edu           //
+// 2023 Spring CSE101         //
+// PA 5                       //
+// List.h file                //
+// ========================== //
+
 //-----------------------------------------------------------------------------
 // List.h
 // Header file for List ADT. List is a double ended queue with a vertical
