@@ -17,16 +17,28 @@ void shuffle(List &D){
     int d_half = D.length() / 2;
 
     D.moveFront();
-    for (int i = 0; i < d_half; i++) {
+    int i = 0;
+    while(i < d_half){
         temp.insertBefore(D.moveNext());
         D.eraseBefore();
+        i++;
     }
+    // for (int i = 0; i < d_half; i++) {
+    //     temp.insertBefore(D.moveNext());
+    //     D.eraseBefore();
+    // }
 
     temp.moveFront();
-    for (int i = 0; i < temp.length(); i++) {
+    int j = 0;
+    while(j < temp.length()){
         D.moveNext();
         D.insertBefore(temp.moveNext());
+        j++;
     }
+    // for (int i = 0; i < temp.length(); i++) {
+    //     D.moveNext();
+    //     D.insertBefore(temp.moveNext());
+    // }
 
 }
 
