@@ -78,6 +78,7 @@ if(length() < -1){
 return backDummy->prev->data;
 }
 
+
 // position()
 // Returns the position of cursor in this List: 0 <= position() <= length().
 int List::position() const{
