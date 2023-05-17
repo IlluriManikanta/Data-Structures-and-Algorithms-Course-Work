@@ -186,7 +186,6 @@ List::~List() {
    // Inserts x before cursor.
    void List::insertBefore(ListElement x){
         Node *n = new Node(x);
-
         beforeCursor->next = n;
         afterCursor->prev = n;
         n->prev = beforeCursor;
