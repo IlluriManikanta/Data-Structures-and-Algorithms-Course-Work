@@ -330,9 +330,9 @@ void List::cleanup() {
                 } else if (d == afterCursor) {
                     afterCursor = d->next;
                     beforeCursor = afterCursor->prev;
-                    if (num_elements > position()) {
-                        pos_cursor--;
-                    }
+                    // if (num_elements > position()) {
+                    //     pos_cursor--;
+                    // }
                 }
                 delete d;
                 num_elements--;
