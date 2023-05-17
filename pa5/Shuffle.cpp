@@ -70,7 +70,6 @@ int main(int argc, char* argv[]){
             //     d.moveNext();
             //     d.insertBefore(temp.moveNext());
             // }
-
             cnt++;
             if(d.equals(copydeck)){
                 break;
