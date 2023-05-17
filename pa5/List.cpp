@@ -105,7 +105,6 @@ return beforeCursor->data;
 }
 
 
-
 // Manipulation procedures -------------------------------------------------
 
 // clear()
