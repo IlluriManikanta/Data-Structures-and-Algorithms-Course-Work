@@ -24,7 +24,7 @@ List::List() {
 	beforeCursor = frontDummy;
 	afterCursor = backDummy;
 	num_elements = 0;
-    pos_cursor = 0;
+    pos_cursor = -1;
 }
 
 List::List(const List& L) {
@@ -337,7 +337,6 @@ void List::cleanup() {
                 if(in <= pos_cursor){
                     pos_cursor --;
                 }
-                // pos_cursor--;
             } else {
                 check = check->next;
             }

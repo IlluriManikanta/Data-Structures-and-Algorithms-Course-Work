@@ -10,7 +10,7 @@
 using namespace std;
 
 int main(){
-   List A;
+   List A, B;
 
     A.insertBefore(1);
     cout << "A pos = " << A.position() << endl;
@@ -31,8 +31,34 @@ int main(){
     A.cleanup();
     cout << "A = " << A << endl;
     cout << "A pos here = " << A.position() << endl;
-    if (A.position() != 2) cout << "A.pos = 2" << endl;
+    if (A.position() != 2) cout << "A.pos = 2\n" << endl;
 
+
+
+   cout << "Start: B pos = " << B.position() << endl;
+   B.insertBefore(1);
+   cout << "B pos = " << B.position() << endl;
+      B.insertBefore(2);
+         cout << "B pos = " << B.position() << endl;
+      B.insertBefore(2);
+         cout << "B pos = " << B.position() << endl;
+      B.insertBefore(1);
+         cout << "B pos = " << B.position() << endl;
+      B.insertBefore(2);
+         cout << "B pos = " << B.position() << endl;
+      B.insertBefore(3);
+         cout << "B pos = " << B.position() << endl;
+      B.insertBefore(1);
+         cout << "B pos = " << B.position() << endl;
+      B.findPrev(3);
+         cout << "B pos = " << B.position() << endl;
+      B.movePrev();
+         cout << "B pos = " << B.position() << endl;
+      B.cleanup();
+      cout << "B = " << B << endl;
+      cout << "B pos here = " << B.position() << endl;
+      if (B.position() != 2) cout << "B.pos = 2" << endl;
+   
    return( EXIT_SUCCESS );
 }
 
