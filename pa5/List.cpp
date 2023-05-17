@@ -304,20 +304,20 @@ void List::cleanup() {
         Node* check = curr->next;
 
         while (check != backDummy) {
-            if (curr->data == check->data) {
+            if (curr->data == check->data){
                 Node* d = check;
 
                 check = check->next;
                 d->prev->next = d->next;
                 d->next->prev = d->prev;
+
                 if (d == beforeCursor) {
                     beforeCursor = d->prev;
                     afterCursor = beforeCursor->next;
                     if (num_elements > pos_cursor) {
                         pos_cursor--;
                     }
-                }
-                if (d == afterCursor) {
+                } else if (d == afterCursor) {
                     afterCursor = d->next;
                     beforeCursor = afterCursor->prev;
                     if (num_elements > pos_cursor) {
