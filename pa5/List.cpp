@@ -323,6 +323,7 @@ void List::cleanup() {
     }
 }
 
+
 // concat()
 // Returns a new List consisting of the elements of this List, followed by
 // the elements of L. The cursor in the returned List will be at postion 0.
@@ -345,6 +346,7 @@ List List::concat(const List& L) const{
     return K;
 }
 
+//Used sudo code porvided
 // to_string()
 // Returns a string representation of this List consisting of a comma 
 // separated sequence of elements, surrounded by parentheses.
@@ -359,6 +361,7 @@ std::string List::to_string() const{
     return s;
 }
 
+//Used sudo code porvided
 // equals()
 // Returns true if and only if this List is the same integer sequence as R.
 // The cursors in this List and in R are unchanged.
@@ -382,12 +385,14 @@ return eq;
 
 // Overriden Operators -----------------------------------------------------
 
+//Used sudo code porvided
 // operator<<()
 // Inserts string representation of L into stream.
 std::ostream& operator<<( std::ostream& stream, const List& L ){
 return stream << L.List::to_string();
 }
 
+//Used sudo code porvided
 // operator==()
 // Returns true if and only if A is the same integer sequence as B. The 
 // cursors in both Lists are unchanged.
@@ -395,16 +400,16 @@ bool operator==( const List& A, const List& B ){
 return A.List::equals(B);
 }
 
-//SM
+//Used sudo code porvided
 // operator=()
 // Overwrites the state of this List with state of L.
 List& List::operator=( const List& L ){
     if (this != &L) {
         List tmp = L;
-        std::swap(frontDummy, tmp.frontDummy);
-        std::swap(backDummy, tmp.backDummy);
         std::swap(beforeCursor, tmp.beforeCursor);
         std::swap(afterCursor, tmp.afterCursor);
+        std::swap(frontDummy, tmp.frontDummy);
+        std::swap(backDummy, tmp.backDummy);
         std::swap(num_elements, tmp.num_elements);
         std::swap(pos_cursor, tmp.pos_cursor);
     }
