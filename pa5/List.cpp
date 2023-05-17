@@ -258,6 +258,7 @@ while(position() < length()){
 return -1;
 }
 
+
 // findPrev()
 // Starting from the current cursor position, performs a linear search (in 
 // the direction back-to-front) for the first occurrence of element x. If x
