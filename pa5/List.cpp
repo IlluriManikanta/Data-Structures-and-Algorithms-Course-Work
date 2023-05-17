@@ -28,7 +28,7 @@ List::List() {
 }
 
 List::List(const List& L) {
-	frontDummy = new Node(-11);
+	    frontDummy = new Node(-11);
         backDummy = new Node(-11);
         frontDummy->next = backDummy;
         backDummy->prev = frontDummy;
@@ -36,15 +36,15 @@ List::List(const List& L) {
         afterCursor = backDummy;
         pos_cursor = 0;
         num_elements = 0;
-	Node *t = L.frontDummy->next;
-	while(t != L.backDummy) {
-		this->insertBefore(t->data);
-		t = t->next;
+	Node *N = L.frontDummy->next;
+	while(N != L.backDummy) {
+		this->insertBefore(N->data);
+		N = N->next;
 	}		
 }
 
 List::~List() {
-	clear();
+	this->clear();
 	delete frontDummy;
 	delete backDummy;
 }
@@ -65,7 +65,7 @@ List::~List() {
     if(length() < -1){
         throw std::length_error("List ADT: ERROR in front(): Calling front on Empty List");
     }
-    return frontDummy->data;
+    return frontDummy->next->data;
    }
 
    // back()
@@ -75,18 +75,12 @@ List::~List() {
     if(length() < -1){
         throw std::length_error("List ADT: ERROR in back(): Calling back on Empty List");
     }
-    return backDummy->data;
+    return backDummy->prev->data;
    }
 
    // position()
    // Returns the position of cursor in this List: 0 <= position() <= length().
    int List::position() const{
-    if(length() < -1){
-        throw std::length_error("List ADT: ERROR in position(): Calling position on Empty List");
-    }
-    if(pos_cursor > length()){
-        throw std::range_error("List ADT: ERROR in position(): Cursor position out of range");
-    }
     return pos_cursor;
    }
 
@@ -94,7 +88,7 @@ List::~List() {
    // Returns the element after the cursor.
    // pre: position()<length()
    ListElement List::peekNext() const{
-    if(pos_cursor >= length()){
+    if(position() >= length()){
         throw std::range_error("List ADT: ERROR in peekNext(): Cursor position out of range");
     }
     return afterCursor->data;
@@ -104,7 +98,7 @@ List::~List() {
    // Returns the element before the cursor.
    // pre: position()>0
    ListElement List::peekPrev() const{
-    if(pos_cursor <= 0){
+    if(position() <= 0){
         throw std::range_error("List ADT: ERROR in peekPrev(): Cursor position out of range");
     }
     return beforeCursor->data;
@@ -118,7 +112,7 @@ List::~List() {
    // Deletes all elements in this List, setting it to the empty state.
    void List::clear(){
     moveFront();
-    while(length() != 0){
+    while(length() > 0){
         eraseAfter();
     }
    }
@@ -126,17 +120,17 @@ List::~List() {
    // moveFront()
    // Moves cursor to position 0 in this List.
    void List::moveFront(){
-    pos_cursor = 0;
     beforeCursor = frontDummy;
-    afterCursor = beforeCursor->next;
+    afterCursor = frontDummy->next;
+    pos_cursor = 0;
    }
 
    // moveBack()
    // Moves cursor to position length() in this List.
    void List::moveBack(){
-    pos_cursor = length();
     beforeCursor = backDummy->prev;
     afterCursor = backDummy;
+    pos_cursor = length();
    }
 
    // moveNext()
@@ -147,11 +141,10 @@ List::~List() {
     if(pos_cursor >= length()){
         throw std::range_error("List ADT: ERROR in moveNext(): Cursor position out of range");
     }
-    Node *N = afterCursor;
-	pos_cursor++;
-	beforeCursor = N;
-	afterCursor = N->next;
-	return N->data;
+    beforeCursor = afterCursor;
+    afterCursor = afterCursor->next;
+    pos_cursor++;
+    return beforeCursor->data;
    }
 
    // movePrev()
@@ -162,22 +155,20 @@ List::~List() {
     if(pos_cursor <= 0){
         throw std::range_error("List ADT: ERROR in movePrev(): Cursor position out of range");
     }
-    Node *N = beforeCursor;
-	pos_cursor--;
-	beforeCursor = N->prev;
-	afterCursor = N;
-	return N->data;
+    afterCursor = beforeCursor;
+    beforeCursor = beforeCursor->prev;
+    pos_cursor--;
+    return afterCursor->data;
    }
 
    // insertAfter()
    // Inserts x after cursor.
    void List::insertAfter(ListElement x){
         Node *temp = new Node(x);
-
-        beforeCursor->next = temp;
-        afterCursor->prev = temp;
         temp->prev = beforeCursor;
         temp->next = afterCursor;
+        beforeCursor->next = temp;
+        afterCursor->prev = temp;
         afterCursor = temp;
         num_elements++;
    }
@@ -185,12 +176,12 @@ List::~List() {
    // insertBefore()
    // Inserts x before cursor.
    void List::insertBefore(ListElement x){
-        Node *n = new Node(x);
-        beforeCursor->next = n;
-        afterCursor->prev = n;
-        n->prev = beforeCursor;
-        n->next = afterCursor;
-        beforeCursor = n;
+        Node *temp = new Node(x);
+        temp->prev = beforeCursor;
+        temp->next = afterCursor;
+        beforeCursor->next = temp;
+        afterCursor->prev = temp;
+        beforeCursor = temp;
         num_elements++;
         pos_cursor++;
    }
@@ -199,7 +190,7 @@ List::~List() {
    // Overwrites the List element after the cursor with x.
    // pre: position()<length()
    void List::setAfter(ListElement x){
-    if(pos_cursor > length()){
+    if(pos_cursor >= length()){
         throw std::range_error("List ADT: ERROR in setAfter(): Cursor position out of range");
     }
     afterCursor->data = x;
@@ -209,7 +200,7 @@ List::~List() {
    // Overwrites the List element before the cursor with x.
    // pre: position()>0
    void List::setBefore(ListElement x){
-    if(pos_cursor < 0){
+    if(pos_cursor <= 0){
         throw std::range_error("List ADT: ERROR in setAfter(): Cursor position out of range");
     }
     beforeCursor->data = x;
@@ -219,7 +210,7 @@ List::~List() {
    // Deletes element after cursor.
    // pre: position()<length()
    void List::eraseAfter(){
-    if (position() > length()) {
+    if (position() >= length()) {
         throw std::range_error("List ADT: ERROR in setAfter(): Cursor position out of range"); 
     }
     Node *N = afterCursor;
@@ -256,10 +247,12 @@ List::~List() {
    // returns the final cursor position. If x is not found, places the cursor 
    // at position length(), and returns -1. 
    int List::findNext(ListElement x){
-    while(pos_cursor < length()){
-        if(moveNext() == x){
-            return pos_cursor;
+    while(position() < length()){
+        if(afterCursor->data == x){
+            moveNext();
+            return position();
         }
+        moveNext();
     }
     return -1;
    }
@@ -271,13 +264,16 @@ List::~List() {
    // returns the final cursor position. If x is not found, places the cursor 
    // at position 0, and returns -1. 
    int List::findPrev(ListElement x){
-    while(pos_cursor > 0){
-        if(movePrev() == x){
-            return pos_cursor;
+    while(position() > 0){
+        if(afterCursor->data == x){
+            movePrev();
+            return position();
         }
+        movePrev();
     }
     return -1;
    }
+
 //S
 void List::cleanup(){
     int i = 0;
@@ -369,7 +365,7 @@ void List::cleanup(){
    // Returns a new List consisting of the elements of this List, followed by
    // the elements of L. The cursor in the returned List will be at postion 0.
    List List::concat(const List& L) const{
-        List K;
+        List K = List();
         Node* N = this->frontDummy->next;
 
         while (N != this->backDummy) {
@@ -391,15 +387,14 @@ void List::cleanup(){
    // Returns a string representation of this List consisting of a comma 
    // separated sequence of elements, surrounded by parentheses.
    std::string List::to_string() const{
-        std::string str = "(";
-
-        for (Node* N = frontDummy; N != nullptr; N = N->next) {
-            str += std::to_string(N->data);
-            str += (N->next != nullptr) ? ", " : "";
+        Node* N = nullptr;
+        std::string s = "(";
+        for(N=frontDummy->next; N!=backDummy->prev; N=N->next){
+            s += std::to_string(N->data)+", ";
         }
+        s += std::to_string(N->data)+")";
 
-        str += ")";
-        return str;
+        return s;
    }
 
    // equals()
@@ -409,19 +404,17 @@ void List::cleanup(){
     if (num_elements != R.num_elements) {
         return false;
     }
-
-    Node* N = frontDummy;
-    Node* M = R.frontDummy;
-
-    while (N != nullptr) {
-        if (N->data != M->data) {
-            return false;
-        }
+    bool eq = false;
+    Node* N = frontDummy->next;
+    Node* M = R.frontDummy->next;
+    eq = ( this->length() == R.length());
+    while (eq && N != backDummy->prev) {
+        eq = (N->data == M->data);
         N = N->next;
         M = M->next;
-    }
 
-    return true;
+    }
+    return eq;
    }
 
 
