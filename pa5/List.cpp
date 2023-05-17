@@ -287,36 +287,44 @@ List::~List() {
    // the same two retained elements that it did before cleanup() was called.
    void List::cleanup(){
     Node *n = frontDummy->next;
-    int size = 0;
-    int pos = 0;
-    while (n != backDummy) {
-        Node *t = n->next;
-        while (t != backDummy) {
-            if (n->data == t->data) {
+	while (n != backDummy) {
+		Node *t = n->next;
+		while (t != backDummy) {
+			if (n->data != t->data) {
                 if (t == afterCursor) {
-                    eraseAfter();
-                }
-                if (t == beforeCursor) {
-                    eraseBefore();
-                } else {
-                    Node *d = t;
-                    t->next->prev = t->prev;
-                    t->prev->next = t->next;
-                    t = t->next;
-                    delete d;
-                }
-                
-                
-            } else {
-
+					eraseAfter();
+				}
+				if (t == beforeCursor) {
+					eraseBefore();
+				} else {
+					Node *d = t;
+					t->next->prev = t->prev;
+					t->prev->next = t->next;
+					t = t->next;
+					delete d;
+				}	
+			} else {
                 t = t->next;
-            }
+			}
+				
+		}
+		n = n->next;
+	}
+
+	Node *t2 = frontDummy->next;
+	Node *t3 = frontDummy->next;
+    // int size = 0;
+	// int pos = 0;
+        while (t2 != afterCursor) {
+                pos_cursor++;
+                t2 = t2->next;
         }
-        n = n->next;
-    }
-
-
-
+        while (t3 != backDummy) {
+		num_elements++;
+		t3 = t3->next;
+	}
+	// num_elements = size;
+	// pos_cursor = pos; 
 }
 
    // concat()
