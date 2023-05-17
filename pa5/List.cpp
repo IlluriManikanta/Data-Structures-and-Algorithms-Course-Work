@@ -35,7 +35,7 @@ List::List(const List& L) {
         beforeCursor = frontDummy;
         afterCursor = backDummy;
         num_elements = 0;
-        pos_cursor = 0;
+        pos_cursor = -1;
 	Node *N = L.frontDummy->next;
 	while(N != L.backDummy) {
 		this->insertBefore(N->data);
@@ -63,7 +63,7 @@ int List::length() const{
 // Returns the front element in this List.
 // pre: length()>0
 ListElement List::front() const{
-if(length() < -1){
+if(length() < 1){
     throw std::length_error("List ADT: ERROR in front(): Calling front on Empty List");
 }
 return frontDummy->next->data;
@@ -74,7 +74,7 @@ return frontDummy->next->data;
 // Returns the back element in this List.
 // pre: length()>0
 ListElement List::back() const{
-if(length() < -1){
+if(length() < 1){
     throw std::length_error("List ADT: ERROR in back(): Calling back on Empty List");
 }
 return backDummy->prev->data;
@@ -135,9 +135,10 @@ void List::moveFront(){
 // moveBack()
 // Moves cursor to position length() in this List.
 void List::moveBack(){
+    pos_cursor = length();
     beforeCursor = backDummy->prev;
     afterCursor = backDummy;
-    pos_cursor = length();
+    
 }
 
 
@@ -146,7 +147,7 @@ void List::moveBack(){
 // was passed over. 
 // pre: position()<length() 
 ListElement List::moveNext(){
-    if(position() >= length()){
+    if(position() >= length() - 1){
         throw std::range_error("List ADT: ERROR in moveNext(): Cursor position out of range");
     }
 
@@ -163,7 +164,7 @@ ListElement List::moveNext(){
 // was passed over. 
 // pre: position()>0
 ListElement List::movePrev(){
-    if(position() <= 0){
+    if(position() <= 1){
         throw std::range_error("List ADT: ERROR in movePrev(): Cursor position out of range");
     }
 
@@ -334,7 +335,8 @@ void List::cleanup() {
                 }
                 delete d;
                 num_elements--;
-                if(in <= pos_cursor){
+                //change
+                if(in < pos_cursor){
                     pos_cursor --;
                 }
             } else {
