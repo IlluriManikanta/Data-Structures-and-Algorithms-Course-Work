@@ -296,11 +296,11 @@ List::~List() {
         if(check != i){
             moveNext();
         }
-        int posi = position()-1;
-        int F = findNext(i->data);
-        if(F == -1){
+        // int posi = position()-1;
+        // int F = findNext(i->data);
+        if(findNext(i->data) == -1){
             //resets position
-            while (position() != posi){
+            while (position() != (position()-1)){
                 // printf("position = %d\n", position());
                 // printf("posi = %d\n", posi);
                 movePrev();
@@ -313,7 +313,7 @@ List::~List() {
             i = frontDummy;
             check = i;
         }
-    
+    }
     // Node *n = frontDummy->next;
     // int size = 0;
     // int pos = 0;
@@ -350,7 +350,7 @@ List::~List() {
     // }
     // num_elements = size;
     // pos_cursor = pos;
-}
+
 }
 
    // concat()
