@@ -71,7 +71,9 @@ int main(){
    B.eraseAfter();
    cout << B << endl;
    cout << B.position() << endl;
+   printf("hi 1");
    cout << B.findPrev(2) << endl;
+   printf("hi 2");
    B.eraseBefore();
    B.eraseAfter();
    cout << B << endl;
