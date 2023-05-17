@@ -222,6 +222,7 @@ delete N;
 num_elements--; 
 }
 
+
 // eraseBefore()
 // Deletes element before cursor.
 // pre: position()>0
