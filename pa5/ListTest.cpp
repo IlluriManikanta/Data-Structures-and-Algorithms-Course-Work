@@ -1,3 +1,12 @@
+// ========== Name ========== //
+// Manikantanagasai H. Illuri //
+// milluri@ucsc.edu           //
+// 2023 Spring CSE101         //
+// PA 5                       //
+// ListTest.cpp to test List  //
+// ========================== //
+//Added own test cases to test my code 
+
 //-----------------------------------------------------------------------------
 // ListTest.cpp
 // A test client for List ADT
@@ -10,9 +19,18 @@
 using namespace std;
 
 int main(){
-   List A, B;
+   int i, n=10;
+   List A, B, C, D;
 
-    A.insertBefore(1);
+   for(i=1; i<=n; i++){
+      A.insertAfter(i);
+      B.insertAfter(11-i);
+      C.insertBefore(i);
+      D.insertBefore(11-i);
+   }
+
+   //cleanup position check
+   A.insertBefore(1);
     cout << "A pos = " << A.position() << endl;
     A.insertBefore(2);
     cout << "A pos = " << A.position() << endl;
@@ -33,9 +51,8 @@ int main(){
     cout << "A pos here = " << A.position() << endl;
     if (A.position() != 2) cout << "A.pos = 2\n" << endl;
 
-
-
-   cout << "Start: B pos = " << B.position() << endl;
+   //cleanup position check
+    cout << "Start: B pos = " << B.position() << endl;
    B.insertBefore(1);
    cout << "B pos = " << B.position() << endl;
       B.insertBefore(2);
@@ -58,20 +75,6 @@ int main(){
       cout << "B = " << B << endl;
       cout << "B pos here = " << B.position() << endl;
       if (B.position() != 2) cout << "B.pos = 2" << endl;
-   
-   return( EXIT_SUCCESS );
-}
-
-/**
-   int i, n=10;
-   List B, C, D;
-
-   for(i=1; i<=n; i++){
-      A.insertAfter(i);
-      B.insertAfter(11-i);
-      C.insertBefore(i);
-      D.insertBefore(11-i);
-   }
 
    cout << endl;
    cout << "A = " << A << endl;
@@ -99,7 +102,7 @@ int main(){
    cout << "D.position() = " << D.position() << endl;
 
    cout << endl << "B: ";
-   for(i=1; i<=7; i++){
+   for(i=1; i<=9; i++){
       cout << B.movePrev() << " ";
    }
    cout << endl << "B.position() = " << B.position() << endl;
@@ -131,18 +134,18 @@ int main(){
    B.eraseAfter();
    cout << B << endl;
    cout << B.position() << endl;
-   cout << B.findNext(20) << endl; 
+   cout << B.findNext(30) << endl; 
    cout << B.position() << endl;
-   cout << B.findPrev(20) << endl;
+   cout << B.findPrev(30) << endl;
    cout << B.position() << endl;
    cout << endl;
 
-   for( i=10; i>=1; i--){
+   for( i=101; i>=1; i--){
       A.insertAfter(i);
       A.movePrev();
    }
    cout << "A = " << A << endl;
-   for( i=1; i<=15; i++){
+   for( i=1; i<=110; i++){
       A.moveNext();
    }
    cout << A.position() << endl;
@@ -238,5 +241,6 @@ int main(){
    }
 
    cout << endl;
-
-*/
+   
+   return( EXIT_SUCCESS );
+}
