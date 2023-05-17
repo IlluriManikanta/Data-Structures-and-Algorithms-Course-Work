@@ -40,8 +40,10 @@ int main(int argc, char* argv[]){
         return 1;
     }
 
+    //Setting to the deck
     int decksize = atoi(argv[1]);
-    if(decksize <=0){
+    //Check to see if the argument is a positive value or not
+    if(decksize < 1){
         cerr << "Deck size must be a positive integer" << endl;
         return 1;
     }
@@ -50,35 +52,17 @@ int main(int argc, char* argv[]){
 
     for(int i = 1; i <= decksize; i++){
         List d;
-
-
         for(int j = 1; j <= i; j++){
             d.insertBefore(j);
         }
-
         List copydeck = d;
         int cnt = 0;
         while(true){
             shuffle(d);
-            // List temp;
-            // int d_half = d.length() / 2;
-
-            // d.moveFront();
-            // for (int i = 0; i < d_half; i++) {
-            //     temp.insertBefore(d.moveNext());
-            //     d.eraseBefore();
-            // }
-
-            // temp.moveFront();
-            // for (int i = 0; i < temp.length(); i++) {
-            //     d.moveNext();
-            //     d.insertBefore(temp.moveNext());
-            // }
             cnt++;
             if(d.equals(copydeck)){
                 break;
             }
-
         }
         cout << i << "\t\t\t\t" << cnt << endl;
     }
