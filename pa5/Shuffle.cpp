@@ -11,23 +11,23 @@
 
 using namespace std;
 
-void shuffle(List &D){
-    List temp;
-    int d_half = D.length() / 2;
+// void shuffle(List &D){
+//     List temp;
+//     int d_half = D.length() / 2;
 
-    D.moveFront();
-    for (int i = 0; i < d_half; i++) {
-        temp.insertBefore(D.moveNext());
-        D.eraseBefore();
-    }
+//     D.moveFront();
+//     for (int i = 0; i < d_half; i++) {
+//         temp.insertBefore(D.moveNext());
+//         D.eraseBefore();
+//     }
 
-    temp.moveFront();
-    for (int i = 0; i < temp.length(); i++) {
-        D.moveNext();
-        D.insertBefore(temp.moveNext());
-    }
+//     temp.moveFront();
+//     for (int i = 0; i < temp.length(); i++) {
+//         D.moveNext();
+//         D.insertBefore(temp.moveNext());
+//     }
 
-}
+// }
 
 int main(int argc, char* argv[]){
     //Checking for correct number of arguments
@@ -51,12 +51,27 @@ int main(int argc, char* argv[]){
         for(int j = 1; j <= i; j++){
             d.insertBefore(j);
         }
-        
+
         List copydeck = d;
         int cnt = 0;
-        // while (!(d.equals(copydeck))){
         while(true){
-            shuffle(d);
+            // shuffle(d);
+
+            List temp;
+            int d_half = d.length() / 2;
+
+            d.moveFront();
+            for (int i = 0; i < d_half; i++) {
+                temp.insertBefore(d.moveNext());
+                d.eraseBefore();
+            }
+
+            temp.moveFront();
+            for (int i = 0; i < temp.length(); i++) {
+                d.moveNext();
+                d.insertBefore(temp.moveNext());
+            }
+
             cnt++;
             if(d.equals(copydeck)){
                 break;
