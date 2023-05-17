@@ -55,8 +55,7 @@ int main(int argc, char* argv[]){
         List copydeck = d;
         int cnt = 0;
         while(true){
-            // shuffle(d);
-
+            
             List temp;
             int d_half = d.length() / 2;
 
