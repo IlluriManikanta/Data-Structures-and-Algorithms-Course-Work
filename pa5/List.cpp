@@ -293,21 +293,21 @@ List::~List() {
     int size = 0;
     int pos = 0;
     while (n != backDummy) {
-        // Node *t = n->next;
-        while (n->next != backDummy) {
-            if (n->data != n->next->data) {
-                n->next = n->next->next;
+        Node *t = n->next;
+        while (t != backDummy) {
+            if (n->data != t->data) {
+                t = t->next;
             } else {
-                if (n->next == afterCursor) {
+                if (t == afterCursor) {
                     eraseAfter();
-                } else if (n->next == beforeCursor) {
+                } else if (t == beforeCursor) {
                     eraseBefore();
                 } else {
-                    // Node *d = n->next;
-                    n->next->next->prev = n->next->prev;
-                    n->next->prev->next = n->next->next;
-                    n->next = n->next->next;
-                    delete n->next;
+                    Node *d = t;
+                    t->next->prev = t->prev;
+                    t->prev->next = t->next;
+                    t = t->next;
+                    delete d;
                 }
             }
         }
