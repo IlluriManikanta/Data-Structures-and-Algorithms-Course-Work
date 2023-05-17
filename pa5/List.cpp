@@ -332,7 +332,7 @@ void List::cleanup() {
         }
         curr = curr->next;
     }
-    if (pos_cursor == num_elements) {
+    if (position() == num_elements) {
         afterCursor = backDummy;
         beforeCursor = backDummy->prev;
     }
