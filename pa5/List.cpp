@@ -289,67 +289,42 @@ List::~List() {
    // is not moved with respect to the retained elements, i.e. it lies between 
    // the same two retained elements that it did before cleanup() was called.
    void List::cleanup(){
-     moveFront();
-    Node *check = nullptr;
-    for(Node *i = frontDummy; i != backDummy; i = i->next){
-        //helps check previous element again.
-        if(check != i){
-            moveNext();
-        }
-        // int posi = position()-1;
-        // int F = findNext(i->data);
-        if(findNext(i->data) == -1){
-            //resets position
-            while (position() != (position()-1)){
-                // printf("position = %d\n", position());
-                // printf("posi = %d\n", posi);
-                movePrev();
+    Node *n = frontDummy->next;
+    int size = 0;
+    int pos = 0;
+    while (n != backDummy) {
+        // Node *t = n->next;
+        while (n->next != backDummy) {
+            if (n->data != n->next->data) {
+                n->next = n->next->next;
+            } else {
+                if (n->next == afterCursor) {
+                    eraseAfter();
+                } else if (n->next == beforeCursor) {
+                    eraseBefore();
+                } else {
+                    // Node *d = n->next;
+                    n->next->next->prev = n->next->prev;
+                    n->next->prev->next = n->next->next;
+                    n->next = n->next->next;
+                    delete n->next;
+                }
             }
-            moveNext();
-        }else{
-            //erases the element and moves to front 
-           eraseBefore();
-            moveFront();
-            i = frontDummy;
-            check = i;
         }
+        n = n->next;
     }
-    // Node *n = frontDummy->next;
-    // int size = 0;
-    // int pos = 0;
-    // while (n != backDummy) {
-    //     Node *t = n->next;
-    //     while (t != backDummy) {
-    //         if (n->data != t->data) {
-    //             t = t->next;
-    //         } else {
-    //             if (t == afterCursor) {
-    //                 eraseAfter();
-    //             } else if (t == beforeCursor) {
-    //                 eraseBefore();
-    //             } else {
-    //                 Node *d = t;
-    //                 t->next->prev = t->prev;
-    //                 t->prev->next = t->next;
-    //                 t = t->next;
-    //                 delete d;
-    //             }
-    //         }
-    //     }
-    //     n = n->next;
-    // }
-    // Node *t2 = frontDummy->next;
-    // Node *t3 = frontDummy->next;
-    // while (t2 != afterCursor) {
-    //     pos++;
-    //     t2 = t2->next;
-    // }
-    // while (t3 != backDummy) {
-    //     size++;
-    //     t3 = t3->next;
-    // }
-    // num_elements = size;
-    // pos_cursor = pos;
+    Node *t2 = frontDummy->next;
+    Node *t3 = frontDummy->next;
+    while (t2 != afterCursor) {
+        pos++;
+        t2 = t2->next;
+    }
+    while (t3 != backDummy) {
+        size++;
+        t3 = t3->next;
+    }
+    num_elements = size;
+    pos_cursor = pos;
 
 }
 
