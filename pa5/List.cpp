@@ -152,14 +152,6 @@ List::~List() {
 	beforeCursor = N;
 	afterCursor = N->next;
 	return N->data;
-
-
-    // beforeCursor = afterCursor;
-    // afterCursor = beforeCursor->next;
-    // pos_cursor++;
-
-    // return afterCursor->data;
-    
    }
 
    // movePrev()
@@ -175,12 +167,6 @@ List::~List() {
 	beforeCursor = N->prev;
 	afterCursor = N;
 	return N->data;
-
-    // afterCursor = beforeCursor;
-    // beforeCursor = afterCursor->prev;
-    // pos_cursor--;
-
-    // return beforeCursor->data;
    }
 
    // insertAfter()
@@ -357,7 +343,7 @@ List::~List() {
             K.insertBefore(M->data);
             M = M->next;
         }
-
+        K.moveFront();
         return K;
    }
 
