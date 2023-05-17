@@ -147,6 +147,7 @@ pos_cursor++;
 return beforeCursor->data;
 }
 
+
 // movePrev()
 // Advances cursor to next lower position. Returns the List element that
 // was passed over. 
