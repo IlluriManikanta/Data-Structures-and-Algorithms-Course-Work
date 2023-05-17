@@ -292,9 +292,7 @@ List::~List() {
     while (n != backDummy) {
         Node *t = n->next;
         while (t != backDummy) {
-            if (n->data != t->data) {
-                t = t->next;
-            } else {
+            if (n->data == t->data) {
                 if (t == afterCursor) {
                     eraseAfter();
                 }
@@ -307,22 +305,17 @@ List::~List() {
                     t = t->next;
                     delete d;
                 }
+                
+                
+            } else {
+
+                t = t->next;
             }
         }
         n = n->next;
     }
-    Node *t2 = frontDummy->next;
-    Node *t3 = frontDummy->next;
-    while (t2 != afterCursor) {
-        pos++;
-        t2 = t2->next;
-    }
-    while (t3 != backDummy) {
-        size++;
-        t3 = t3->next;
-    }
-    num_elements = size;
-    pos_cursor = pos;
+
+
 
 }
 
