@@ -173,10 +173,11 @@ List::~List() {
    // Inserts x after cursor.
    void List::insertAfter(ListElement x){
         Node *temp = new Node(x);
-        temp->prev = beforeCursor;
-        temp->next = afterCursor;
+
         beforeCursor->next = temp;
         afterCursor->prev = temp;
+        temp->prev = beforeCursor;
+        temp->next = afterCursor;
         afterCursor = temp;
         num_elements++;
    }
@@ -185,10 +186,11 @@ List::~List() {
    // Inserts x before cursor.
    void List::insertBefore(ListElement x){
         Node *n = new Node(x);
-        n->prev = beforeCursor;
-        n->next = afterCursor;
+
         beforeCursor->next = n;
         afterCursor->prev = n;
+        n->prev = beforeCursor;
+        n->next = afterCursor;
         beforeCursor = n;
         num_elements++;
         pos_cursor++;
