@@ -46,12 +46,13 @@ int main(int argc, char* argv[]){
 
     for(int i = 1; i <= decksize; i++){
         List d;
-        List copydeck = d;
+
 
         for(int j = 1; j <= i; j++){
             d.insertBefore(j);
         }
-
+        
+        List copydeck = d;
         int cnt = 0;
         // while (!(d.equals(copydeck))){
         while(true){
