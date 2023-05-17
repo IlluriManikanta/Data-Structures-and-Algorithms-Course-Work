@@ -222,9 +222,9 @@ List::~List() {
         throw std::range_error("List ADT: ERROR in setAfter(): Cursor position out of range"); 
     }
     Node *N = afterCursor;
-    beforeCursor->next = N->next; 
-    afterCursor->next->prev = beforeCursor; 
-    afterCursor = N->next; 
+    afterCursor = afterCursor->next;
+    beforeCursor->next = afterCursor;
+    afterCursor->prev = beforeCursor;
     delete N; 
     num_elements--; 
    }
@@ -233,7 +233,7 @@ List::~List() {
    // Deletes element before cursor.
    // pre: position()>0
    void List::eraseBefore(){
-    if (position() < 0) {
+    if (position() <= 0) {
         throw std::range_error("List ADT: ERROR in setAfter(): Cursor position out of range"); 
     }
     Node *N = beforeCursor;
