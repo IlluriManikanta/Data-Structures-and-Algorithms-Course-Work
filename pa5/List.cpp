@@ -385,6 +385,7 @@ return eq;
 
 // Overriden Operators -----------------------------------------------------
 
+
 //Used sudo code porvided
 // operator<<()
 // Inserts string representation of L into stream.
