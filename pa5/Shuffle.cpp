@@ -36,15 +36,15 @@ int main(int argc, char* argv[]){
         return 1;
     }
 
-    // int decksize = atoi(argv[1]);
-    if(atoi(argv[1]) <=0){
+    int decksize = atoi(argv[1]);
+    if(decksize <=0){
         cerr << "Deck size must be a positive integer" << endl;
         return 1;
     }
 
     cout << "deck size\t\tshuffle count\n------------------------------" << endl;
 
-    for(int i = 1; i <= atoi(argv[1]); i++){
+    for(int i = 1; i <= decksize; i++){
         List d;
         List copydeck = d;
 
