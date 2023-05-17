@@ -11,6 +11,7 @@
 
 using namespace std;
 
+//Implemented accoding to the instructions porvided and TA guidance from TA office hours. 
 void shuffle(List &D){
     List temp;
     int d_half = D.length() / 2;
