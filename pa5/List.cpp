@@ -324,9 +324,7 @@ void List::cleanup() {
                 if (d == beforeCursor) {
                     beforeCursor = d->prev;
                     afterCursor = beforeCursor->next;
-                    if (num_elements <= position()) {
-                        pos_cursor--;
-                    }
+                    
                 } else if (d == afterCursor) {
                     afterCursor = d->next;
                     beforeCursor = afterCursor->prev;
@@ -340,6 +338,9 @@ void List::cleanup() {
                 // if(in <= pos_cursor){
                 //     pos_cursor--;
                 // }
+                if (num_elements <= position()) {
+                        pos_cursor--;
+                }
             } else {
                 check = check->next;
             }
