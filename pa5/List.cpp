@@ -24,7 +24,7 @@ List::List() {
 	beforeCursor = frontDummy;
 	afterCursor = backDummy;
 	num_elements = 0;
-    pos_cursor = -1;
+    pos_cursor = 0;
 }
 
 List::List(const List& L) {
@@ -35,7 +35,7 @@ List::List(const List& L) {
         beforeCursor = frontDummy;
         afterCursor = backDummy;
         num_elements = 0;
-        pos_cursor = -1;
+        pos_cursor = 0;
 	Node *N = L.frontDummy->next;
 	while(N != L.backDummy) {
 		this->insertBefore(N->data);
@@ -63,7 +63,7 @@ int List::length() const{
 // Returns the front element in this List.
 // pre: length()>0
 ListElement List::front() const{
-if(length() < 1){
+if(length() < -1){
     throw std::length_error("List ADT: ERROR in front(): Calling front on Empty List");
 }
 return frontDummy->next->data;
@@ -74,7 +74,7 @@ return frontDummy->next->data;
 // Returns the back element in this List.
 // pre: length()>0
 ListElement List::back() const{
-if(length() < 1){
+if(length() < -1){
     throw std::length_error("List ADT: ERROR in back(): Calling back on Empty List");
 }
 return backDummy->prev->data;
@@ -147,7 +147,7 @@ void List::moveBack(){
 // was passed over. 
 // pre: position()<length() 
 ListElement List::moveNext(){
-    if(position() >= length() - 1){
+    if(position() >= length()){
         throw std::range_error("List ADT: ERROR in moveNext(): Cursor position out of range");
     }
 
@@ -164,7 +164,7 @@ ListElement List::moveNext(){
 // was passed over. 
 // pre: position()>0
 ListElement List::movePrev(){
-    if(position() <= 1){
+    if(position() <= 0){
         throw std::range_error("List ADT: ERROR in movePrev(): Cursor position out of range");
     }
 
