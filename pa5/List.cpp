@@ -206,6 +206,7 @@ if(pos_cursor <= 0){
 beforeCursor->data = x;
 }
 
+
 // eraseAfter()
 // Deletes element after cursor.
 // pre: position()<length()
