@@ -275,91 +275,81 @@ List::~List() {
     return -1;
    }
 
-//S
-void List::cleanup(){
-    int i = 0;
-    int c = pos_cursor;
-    bool l = pos_cursor == num_elements;
-    Node* p = frontDummy->next;
-    while(p != backDummy){
-        Node* q = p->next;
-        int j = i;
-        while(q != backDummy){
-            j++;
-            if(p->data == q->data){
-                q->prev->next = q->next;
-                q->next->prev = q->prev;
-                num_elements--;
-                if(j < c){
-                    c--;
-                    pos_cursor--;
-                    afterCursor = beforeCursor;
-                    beforeCursor = beforeCursor->prev;
+void List::cleanup() {
+    Node* current = frontDummy->next;
+    while (current != backDummy) {
+        Node* checker = current->next;
+        while (checker != backDummy) {
+            if (current->data == checker->data) {
+                Node* toDelete = checker;
+                checker = checker->next;
+                toDelete->prev->next = toDelete->next;
+                toDelete->next->prev = toDelete->prev;
+                if (toDelete == beforeCursor) {
+                    beforeCursor = toDelete->prev;
+                    afterCursor = beforeCursor->next;
+                    if (num_elements > pos_cursor) {
+                        pos_cursor--;
+                    }
                 }
-                j--;
-                Node* s=q;
-                q = q->next;
-                delete s;
+                if (toDelete == afterCursor) {
+                    afterCursor = toDelete->next;
+                    beforeCursor = afterCursor->prev;
+                    if (num_elements > pos_cursor) {
+                        pos_cursor--;
+                    }
+                }
+                delete toDelete;
+                num_elements--;
             } else {
-                q = q->next;
-            }       
+                checker = checker->next;
+            }
         }
-        i++;
-        p = p->next;
+        current = current->next;
     }
-    if(l){
-        pos_cursor = num_elements;
+    if (pos_cursor == num_elements) {
         afterCursor = backDummy;
         beforeCursor = backDummy->prev;
-    } 
+    }
 }
 
-//     //SM
-//    // cleanup()
-//    // Removes any repeated elements in this List, leaving only unique elements.
-//    // The order of the remaining elements is obtained by retaining the frontmost 
-//    // occurrance of each element, and removing all other occurances. The cursor 
-//    // is not moved with respect to the retained elements, i.e. it lies between 
-//    // the same two retained elements that it did before cleanup() was called.
-//    void List::cleanup(){
-//         Node *n = frontDummy->next;
-//         int size = 0;
-//         int pos = position();
-//         while (n != backDummy) {
-//             Node *t = n->next;
-//             while (t != backDummy) {
-//                 if (n->data != t->data) {
-//                     t = t->next;
-//                 } else {
-//                     if (t == afterCursor) {
-//                         eraseAfter();
-//                     } else if (t == beforeCursor) {
-//                         eraseBefore();
-//                     }
-//                     else {
-//                         Node *d = t;
-//                         t->next->prev = t->prev;
-//                         t->prev->next = t->next;
-//                         t = t->next;
-//                         delete d;
-//                     }
+// //S
+// void List::cleanup(){
+//     int i = 0;
+//     int c = pos_cursor;
+//     bool l = pos_cursor == num_elements;
+//     Node* p = frontDummy->next;
+//     while(p != backDummy){
+//         Node* q = p->next;
+//         int j = i;
+//         while(q != backDummy){
+//             j++;
+//             if(p->data == q->data){
+//                 q->prev->next = q->next;
+//                 q->next->prev = q->prev;
+//                 num_elements--;
+//                 if(j < c){
+//                     c--;
+//                     pos_cursor--;
+//                     afterCursor = beforeCursor;
+//                     beforeCursor = beforeCursor->prev;
 //                 }
-                    
-//             }
-//             n = n->next;
+//                 j--;
+//                 Node* s=q;
+//                 q = q->next;
+//                 delete s;
+//             } else {
+//                 q = q->next;
+//             }       
 //         }
-//         Node *t2 = frontDummy->next;
-//         Node *t3 = frontDummy->next;
-//             while (t2 != afterCursor) {
-//                     pos++;
-//                     t2 = t2->next;
-//             }
-//             while (t3 != backDummy) {
-//                 size++;
-//                 t3 = t3->next;
-//             }
-//         num_elements = size;
-//         pos_cursor = pos; 
+//         i++;
+//         p = p->next;
+//     }
+//     if(l){
+//         pos_cursor = num_elements;
+//         afterCursor = backDummy;
+//         beforeCursor = backDummy->prev;
+//     } 
 // }
 
    // concat()
