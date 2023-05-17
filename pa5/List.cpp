@@ -383,9 +383,7 @@ while (eq && N != backDummy->prev) {
 return eq;
 }
 
-
 // Overriden Operators -----------------------------------------------------
-
 
 //Used sudo code porvided
 // operator<<()
