@@ -334,6 +334,7 @@ void List::cleanup() {
                 }
                 delete d;
                 num_elements--;
+                pos_cursor--;
             } else {
                 check = check->next;
             }

@@ -33,6 +33,9 @@ int main(){
     cout << "A pos here = " << A.position() << endl;
     if (A.position() != 2) cout << "A.pos = 2" << endl;
 
+   return( EXIT_SUCCESS );
+}
+
 /**
    int i, n=10;
    List B, C, D;
@@ -211,5 +214,3 @@ int main(){
    cout << endl;
 
 */
-   return( EXIT_SUCCESS );
-}
