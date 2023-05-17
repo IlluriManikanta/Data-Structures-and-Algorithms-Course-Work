@@ -405,13 +405,16 @@ return A.List::equals(B);
 // Overwrites the state of this List with state of L.
 List& List::operator=( const List& L ){
     if (this != &L) {
-        List tmp = L;
-        std::swap(beforeCursor, tmp.beforeCursor);
-        std::swap(afterCursor, tmp.afterCursor);
-        std::swap(frontDummy, tmp.frontDummy);
-        std::swap(backDummy, tmp.backDummy);
-        std::swap(num_elements, tmp.num_elements);
-        std::swap(pos_cursor, tmp.pos_cursor);
+        List temp = L;
+
+        std::swap(beforeCursor, temp.beforeCursor);
+        std::swap(afterCursor, temp.afterCursor);
+
+        std::swap(frontDummy, temp.frontDummy);
+        std::swap(backDummy, temp.backDummy);
+
+        std::swap(num_elements, temp.num_elements);
+        std::swap(pos_cursor, temp.pos_cursor);
     }
     return *this;
 }
