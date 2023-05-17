@@ -338,7 +338,7 @@ void List::cleanup() {
                 num_elements--;
                 //change made here
                 if(in <= pos_cursor){
-                    pos_cursor --;
+                    pos_cursor--;
                 }
             } else {
                 check = check->next;
