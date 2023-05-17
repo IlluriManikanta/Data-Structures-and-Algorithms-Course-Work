@@ -5,7 +5,6 @@
 // PA 5                       //
 // Implementing List ADT C++  //
 // ========================== //
-
 #include <iostream>
 #include <string>
 #include <stdexcept>
@@ -215,6 +214,7 @@ List::~List() {
         throw std::range_error("List ADT: ERROR in setAfter(): Cursor position out of range"); 
     }
     Node *N = afterCursor;
+
     afterCursor = afterCursor->next;
     beforeCursor->next = afterCursor;
     afterCursor->prev = beforeCursor;

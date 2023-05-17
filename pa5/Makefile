@@ -16,11 +16,11 @@
 #  make check2         runs valgrind on Shuffle with CLA 35
 #------------------------------------------------------------------------------
 
-# Shuffle : Shuffle.o List.o
-# 	g++ -std=c++17 -Wall -o Shuffle Shuffle.o List.o 
+Shuffle : Shuffle.o List.o
+	g++ -std=c++17 -Wall -o Shuffle Shuffle.o List.o 
 
-# Shuffle.o : List.h Shuffle.cpp
-# 	g++ -std=c++17 -Wall -c Shuffle.cpp
+Shuffle.o : List.h Shuffle.cpp
+	g++ -std=c++17 -Wall -c Shuffle.cpp
 
 ListTest : ListTest.o List.o
 	g++ -std=c++17 -Wall -o ListTest ListTest.o List.o 
