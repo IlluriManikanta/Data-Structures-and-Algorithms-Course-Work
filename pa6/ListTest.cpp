@@ -3,17 +3,14 @@
 // milluri@ucsc.edu           //
 // 2023 Spring CSE101         //
 // PA 6                       //
-// Implementing List ADT C++  //
+// ListTest.cpp to test List  //
 // ========================== //
-
 //Added own test cases to test my code 
 
 //-----------------------------------------------------------------------------
 // ListTest.cpp
 // A test client for List ADT
 //-----------------------------------------------------------------------------
-
-
 #include<iostream>
 #include<string>
 #include<stdexcept>
@@ -22,10 +19,6 @@
 using namespace std;
 
 int main(){
-   printf("%s\n", "Beginning the Tests\n");
-		
-		printf("%s\n", "Your code is working fine if it matches the output at the bottom\n");
-
    int i, n=10;
    List A, B, C, D;
 
@@ -37,8 +30,6 @@ int main(){
    }
 
    //cleanup position check
-   printf("%s\n", "Cleanup Position check");
-
    A.insertBefore(1);
     cout << "A pos = " << A.position() << endl;
     A.insertBefore(2);
@@ -110,29 +101,25 @@ int main(){
    cout << "D = " << D << endl;
    cout << "D.position() = " << D.position() << endl;
 
-printf("%s\n", "testing movePrev");
-		
-
    cout << endl << "B: ";
    for(i=1; i<=9; i++){
       cout << B.movePrev() << " ";
    }
    cout << endl << "B.position() = " << B.position() << endl;
-   printf("%s\n", "testing moveNext");
+   
    cout << endl << "C: ";
    for(i=1; i<=7; i++){
       cout << C.moveNext() << " ";
    }
    cout << endl << "C.position() = " << C.position() << endl;
 
-printf("%s\n", "testing equals, true or false");
    cout << endl;
    cout << "A==B is " << (A==B?"true":"false") << endl;
    cout << "B==C is " << (B==C?"true":"false") << endl;
    cout << "C==D is " << (C==D?"true":"false") << endl;
    cout << "D==A is " << (D==A?"true":"false") << endl;
    cout << endl;
-printf("%s\n", "testing findNext");
+
    cout << B.findNext(5) << endl;
    cout << B << endl;
    B.eraseBefore();
@@ -153,12 +140,10 @@ printf("%s\n", "testing findNext");
    cout << B.position() << endl;
    cout << endl;
 
-printf("%s\n", "testing insertafter");
    for( i=101; i>=1; i--){
       A.insertAfter(i);
       A.movePrev();
    }
-   printf("%s\n", "testing movenext");
    cout << "A = " << A << endl;
    for( i=1; i<=110; i++){
       A.moveNext();
@@ -257,5 +242,5 @@ printf("%s\n", "testing insertafter");
 
    cout << endl;
    
-   return( 0 );
+   return( EXIT_SUCCESS );
 }
