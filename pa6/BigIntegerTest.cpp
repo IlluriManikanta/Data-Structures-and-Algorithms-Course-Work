@@ -1,3 +1,11 @@
+// ========== Name ========== //
+// Manikantanagasai H. Illuri //
+// milluri@ucsc.edu           //
+// 2023 Spring CSE101         //
+// PA 6                       //
+// BigInteger ADT Test 		  //
+// ========================== //
+
 //-----------------------------------------------------------------------------
 //  BigIntegerClient.cpp 
 //  A test client for the BigInteger ADT
