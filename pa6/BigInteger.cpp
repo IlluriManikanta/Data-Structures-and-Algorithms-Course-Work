@@ -237,7 +237,6 @@ void BigInteger::negate(){
     signum *= -1;
 }
 
-
 // BigInteger Arithmetic operations ----------------------------------------
 
 // add()
