@@ -24,7 +24,7 @@ int main(int argc, char* argv[]){
 
     //Opening read and write files
     in_file.open(argv[1]);
-    if( !in_file.is_open() ){
+    if(!in_file.is_open() ){
         cerr << "Unable to open file " << argv[1] << " for reading" << endl;
         return(1);
     }
