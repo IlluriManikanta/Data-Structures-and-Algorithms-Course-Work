@@ -221,7 +221,6 @@ int BigInteger::compare(const BigInteger& N) const{
     return ret;
 }
 
-
 // Manipulation procedures -------------------------------------------------
 
 // makeZero()
