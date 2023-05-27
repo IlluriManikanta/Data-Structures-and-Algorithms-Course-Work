@@ -312,7 +312,7 @@ void List::cleanup() {
     int out = 0;
     while (curr != backDummy) {
         Node* check = curr->next;
-        int in = out + 1;
+        // int in = out + 1;
         while (check != backDummy) {
             if (curr->data == check->data){
                 Node* d = check;
@@ -337,7 +337,7 @@ void List::cleanup() {
             } else {
                 check = check->next;
             }
-            in++;
+            // in++;
         }
         out++;
         curr = curr->next;
