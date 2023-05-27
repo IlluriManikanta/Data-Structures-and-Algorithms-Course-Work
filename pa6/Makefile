@@ -17,22 +17,26 @@
 #  make BigIntegerCheck     runs BigIntegerTest in valgrind
 #  make ListCheck           runs ListTest in valgrind
 #------------------------------------------------------------------------------
+
 CC = g++
 CFLAGS = -std=c++17 -Wall
 
-all: ListTest Shuffle
-
-Shuffle: Shuffle.o List.o
-    $(CC) -o $@ $^
+all: ListTest Arithmetic BigIntegerTest
 
 ListTest: ListTest.o List.o
+    $(CC) -o $@ $^
+
+BigIntegerTest: BigIntegerTest.o BigInteger.o List.o
+    $(CC) -o $@ $^
+
+Arithmetic: Arithmetic.o BigInteger.o List.o
     $(CC) -o $@ $^
 
 %.o: %.c
     $(CC) $(CFLAGS) -c $<
 
 clean:
-    rm -f ListTest Shuffle List *.o
+    rm -f ListTest Arithmetic BigIntegerTest List *.o
 
 cleanText:
     rm -f *.txt
@@ -40,8 +44,11 @@ cleanText:
 cleandir:
     rm -r backup
 
-checkShuffle:
-    valgrind --leak-check=full ./Shuffle 50
+checkMath:
+    valgrind --leak-check=full ./Arithmetic in out
 
-checkTest:
+checkInteger:
+    valgrind --leak-check=full ./BigIntegerTest
+
+checkList:
     valgrind --leak-check=full ./ListTest
