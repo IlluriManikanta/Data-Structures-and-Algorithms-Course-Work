@@ -11,7 +11,7 @@
 #include <stdexcept>
 #include "List.h"
 
-List::Node::Node(int x) {
+List::Node::Node(ListElement x) {
     next = nullptr;
 	prev = nullptr;
 	data = x;

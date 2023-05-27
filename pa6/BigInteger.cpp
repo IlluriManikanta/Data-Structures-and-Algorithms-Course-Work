@@ -54,27 +54,43 @@ int normalizeList(List& L){
     return signval;
 }
 
+//TA George helped me implement this function(05/22/2023) 
 void sumList(List& S, List A, List B, int sgn){
     S.clear();
     scalarMultiply(B, sgn);
-    A.moveFront();
-    B.moveFront();
+    A.moveBack();
+    B.moveBack();
 
     while (A.position() < A.length() && B.position() < B.length()) {
-        ListElement x = A.moveNext();
-        ListElement y = B.moveNext();
+
+        ListElement x = 0;
+        if(A.position() > 0){
+            x = A.peekPrev();
+        } else {
+            x = 0;
+        }
+        
+        ListElement y = 0;
+        if(B.position() > 0){
+            y = B.peekPrev();
+        } else {
+            y = 0;
+        }
+        if(A.position() > 0){
+            A.movePrev();
+        }
+
+        if(B.position() > 0){
+            B.movePrev();
+        }
+
         ListElement sumofele = x + y;
         S.insertBefore(sumofele);
     }
 
-    while (A.position() < A.length()) {
-        ListElement x = A.moveNext();
-        S.insertBefore(x);
-    }
-
-    while (B.position() < B.length()) {
-        ListElement y = B.moveNext();
-        S.insertBefore(y);
+    S.moveFront();
+    while(S.front() == 0 && S.length() > 1){
+        S.eraseAfter();
     }
 }
 
@@ -127,38 +143,38 @@ BigInteger::BigInteger(long x){
 // Pre: s is a non-empty string consisting of (at least one) base 10 digit
 // {0,1,2,3,4,5,6,7,8,9}, and an optional sign {+,-} prefix.
 BigInteger::BigInteger(std::string s){
-    if (s.empty()){
-        throw std::invalid_argument("BigInteger ADT: ERROR in Constructor: empty string");
-    }
+    // if (s.empty()){
+    //     throw std::invalid_argument("BigInteger ADT: ERROR in Constructor: empty string");
+    // }
 
-    signum = 1;  // Default sign is positive
-    int startIndex = 0;
+    // signum = 1;  // Default sign is positive
+    // int startIndex = 0;
 
-    if (s[0] == '+' || s[0] == '-') {
-        if (s[0] == '-') {
-            signum = -1;
-        }
-        startIndex = 1;
-    }
+    // if (s[0] == '+' || s[0] == '-') {
+    //     if (s[0] == '-') {
+    //         signum = -1;
+    //     }
+    //     startIndex = 1;
+    // }
 
-    int numDigits = s.length() - startIndex;
-    int numBlocks = (numDigits + power - 1) / power;  // Calculate number of blocks
+    // int numDigits = s.length() - startIndex;
+    // int numBlocks = (numDigits + power - 1) / power;  // Calculate number of blocks
 
-    for (int i = numBlocks - 1; i >= 0; --i) {
-        int endIndex = startIndex + power;
-        if (endIndex > s.length()) {
-            endIndex = s.length();
-        }
+    // for (int i = numBlocks - 1; i >= 0; --i) {
+    //     int endIndex = startIndex + power;
+    //     if (endIndex > s.length()) {
+    //         endIndex = s.length();
+    //     }
 
-        std::string block = s.substr(endIndex - power, endIndex - startIndex);
-        digits.insertAfter(std::stol(block));
-        startIndex += power;
-    }
+    //     std::string block = s.substr(endIndex - power, endIndex - startIndex);
+    //     digits.insertAfter(std::stol(block));
+    //     startIndex += power;
+    // }
 
-    digits.moveFront();
-    while (digits.peekNext() == 0) {
-        digits.eraseAfter();
-    }
+    // digits.moveFront();
+    // while (digits.peekNext() == 0) {
+    //     digits.eraseAfter();
+    // }
 }
 
 // BigInteger()
