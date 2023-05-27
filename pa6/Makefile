@@ -24,7 +24,7 @@ CFLAGS = -std=c++17 -Wall
 all: ListTest Arithmetic BigIntegerTest
 
 ListTest: ListTest.o List.o
-    $(CC) -o $@ $^
+	$(CC) -o $@ $^
 
 BigIntegerTest: BigIntegerTest.o BigInteger.o List.o
     $(CC) -o $@ $^
