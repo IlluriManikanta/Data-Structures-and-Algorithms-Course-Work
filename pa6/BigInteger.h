@@ -5,6 +5,7 @@
 // PA 6                       //
 // BigInteger ADT .h file     //
 // ========================== //
+
 //-----------------------------------------------------------------------------
 // BigInteger.h
 // Header file for the BigInteger ADT
