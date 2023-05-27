@@ -21,13 +21,13 @@ using namespace std;
 int main(){
 
    string s1 = "91287346670000043892345634563400005619187236478";
-   //string s2 = "-330293847502398475";
+   string s2 = "-330293847502398475";
    string s3 = "9876545439000000345634560000000002000034565430000000006543654365346534";
-   //string s4 = "9876545439000000000000000100000000000006543654365346534";
+   string s4 = "9876545439000000000000000100000000000006543654365346534";
    string s5 = "98765454390000034563456191872363456345619187236000456456345756780000065436543";
-   //string s6 = "9876545439000000000000000000000000000006543";
+   string s6 = "9876545439000000000000000000000000000006543";
 
-   //BigInteger N;
+   BigInteger N;
    BigInteger A = BigInteger(s1);
    BigInteger B = BigInteger(s3);
    BigInteger C = BigInteger(s5);
@@ -42,8 +42,10 @@ int main(){
    BigInteger D = A+B;
    BigInteger E = B+A;
    BigInteger F = D-E;
+   BigInteger F = A-B;
    BigInteger G = 53234*A + 29384747*B + 928374*C;
    BigInteger H = A*B;
+   BigInteger F = A*A;
    BigInteger I = B*A;
    BigInteger J = G*H*I;
 

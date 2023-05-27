@@ -8,7 +8,7 @@
 
 #include "BigInteger.h"
 
-ListElement base  = 1000000000;  
+ListElement base = 1000000000;  
 int power = 9;
 
 // Helper Functions below ---------------------------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ void sumList(List& S, List A, List B, int sgn){
     A.moveBack();
     B.moveBack();
     
-    while (A.position() > 0 || B.position() > 0) { // changes made to condition 
+    while (A.position() > 0 || B.position() > 0) {  
 
         ListElement x = 0;
         if(A.position() > 0){
@@ -142,40 +142,38 @@ BigInteger::BigInteger(long x){
 // Constructor that creates a new BigInteger from the string s.
 // Pre: s is a non-empty string consisting of (at least one) base 10 digit
 // {0,1,2,3,4,5,6,7,8,9}, and an optional sign {+,-} prefix.
-BigInteger::BigInteger(std::string s)
-{
-    if (s.size() == 0)
-    {                                                                         // chcking if the size of the string is greater than 0
-        throw std::invalid_argument("BigInteger: Constructor: empty string"); // throwing the invalid_argument error
-    }
-    signum = s[0] == '-' ? -1 : 1; // setting the signum value based on the sign in front of the number
-    if (s[0] == '+' || s[0] == '-')
-    {                    // checing if the first character of the string is + or -
-        s = s.substr(1); // s is set to the substing starting from index 1 till end
+BigInteger::BigInteger(std::string s){
+    if (s.size() == 0){                                                                        
+        throw std::invalid_argument("BigInteger: ERROR in Constructor: empty string"); 
     }
 
-    if (s.size() > 0)
-    {                     // chcking if the size of the sub string is greater than 0
-        for (char &c : s) // for each character c in the substring s
-        {
-            if (!isdigit(c))
-            {                                                                               // checking if the each character c is not a digit
-                throw std::invalid_argument("BigInteger: Constructor: non-numeric string"); // thrwoing the exception of the invalid argument and error messsage
+    signum = 1;
+    if (s[0] == '-') {
+        signum = -1;
+        s = s.substr(1);
+    } else if (s[0] == '+') {
+        s = s.substr(1);
+    }
+
+    if (s.size() >= 1){                     
+        for (char &c : s) {
+            if (!isdigit(c)){                                                                               
+                throw std::invalid_argument("BigInteger: ERROR in Constructor: non-numeric string"); 
             }
         }
+    } else {                                                                               
+        throw std::invalid_argument("BigInteger: ERROR in Constructor: non-numeric string"); 
     }
-    else
-    {                                                                               // else
-        throw std::invalid_argument("BigInteger: Constructor: non-numeric string"); // throwing the exception of the non-numeric string
+
+    int position = s.length() % power; 
+
+    if (position){                                                    
+        digits.insertBefore(stol(s.substr(0, position))); 
     }
-    int position = s.length() % power; // Positon is calculated by length of the substring modulo the POWER
-    if (position)
-    {                                                     // if it position has some value
-        digits.insertBefore(stol(s.substr(0, position))); // inserting before the string from 0 till position type casted into long
-    }
-    for (position = s.length() % power; position < (int)s.length(); position += power) // looping from the length of the string mod power till the length of the string
-    {
-        digits.insertBefore(stol(s.substr(position, power))); // inserting the digit from the position till the power
+
+    while(position < (int)s.length()){
+        digits.insertBefore(stol(s.substr(position, power))); 
+        position += power;
     }
 }
 
@@ -203,24 +201,24 @@ int BigInteger::compare(const BigInteger& N) const{
     List A = digits;
     List B = N.digits;
 
-    // Compare signum
+
     if (signum > N.signum) {
         ret = 1;
     } else if (signum < N.signum) {
         ret = -1;
     } else {
-        // Compare digit lengths
+
         if (A.length() < B.length()) {
             ret = -1;
         } else if (A.length() > B.length()) {
             ret = 1;
         } else {
-            // Compare individual digits
+
             A.moveFront();
             B.moveFront();
 
 
-            while (A.position() < A.length() && ret == 0) { //can remove ret val check from while loop 
+            while (A.position() < A.length() && ret == 0) { 
                 if (A.peekNext() < B.peekNext()) {
                     ret = -1;
                 } else if (A.peekNext() > B.peekNext()) {
@@ -286,8 +284,8 @@ BigInteger BigInteger::sub(const BigInteger& N) const{
 }
 
 // mult()
-//NEED TO CHANGE
 // Returns a BigInteger representing the product of this and N. 
+//TA Amaan assisted me in tackeling corner cases and fixing logical errors in loop(05/24/2023)
 BigInteger BigInteger::mult(const BigInteger& N) const{ 
     BigInteger fnl;
     if (this->signum == 0 || N.signum == 0) {
@@ -302,8 +300,7 @@ BigInteger BigInteger::mult(const BigInteger& N) const{
     int move = 0;
     while (Ntemp.position() != 0) {
         ListElement now = Ntemp.peekPrev();
-        Ntemp.movePrev();
-
+        
         tmp = this->digits;
         scalarMultiply(tmp, now);
         shiftList(tmp, move);
@@ -313,6 +310,7 @@ BigInteger BigInteger::mult(const BigInteger& N) const{
 
         normalizeList(tot);
         move++;
+        Ntemp.movePrev();
     }
 
     fnl.digits = tot;
@@ -327,8 +325,6 @@ BigInteger BigInteger::mult(const BigInteger& N) const{
 // Other Functions ---------------------------------------------------------
 
 // to_string()
-//NEED TO CHANGE
-
 // Returns a string representation of this BigInteger consisting of its
 // base 10 digits. If this BigInteger is negative, the returned string 
 // will begin with a negative sign '-'. If this BigInteger is zero, the
@@ -345,25 +341,24 @@ std::string BigInteger::to_string(){
     
     digits.moveFront();
     while (digits.position() < digits.length()) {
-        std::string t = "";
+        std::string st = "";
         ListElement element = digits.moveNext();
         if (element == 0) {
-            t = "0";
+            st = "0";
         } else {
-            int temp = element;
-            while (temp > 0) {
-                t = char('0' + (temp % 10)) + t;
-                temp /= 10;
+            int tmp = element;
+            while (tmp > 0) {
+                st = char('0' + (tmp % power)) + st; 
+                tmp /= power;
             }
         }
-        int size = t.length();
-        int end = power - size;
+        int size = st.length();
         int i = 0;
-        while (i < end) {
-            t = "0" + t;
+        while (i < (power - size)) {
+            st = "0" + st;
             i++;
         }
-        s = s + t;
+        s = s + st;
     }
     
     int j = 0;

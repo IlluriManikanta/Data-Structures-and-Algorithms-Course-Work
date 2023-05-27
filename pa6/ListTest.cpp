@@ -5,10 +5,15 @@
 // PA 6                       //
 // Implementing List ADT C++  //
 // ========================== //
+
+//Added own test cases to test my code 
+
 //-----------------------------------------------------------------------------
 // ListTest.cpp
 // A test client for List ADT
 //-----------------------------------------------------------------------------
+
+
 #include<iostream>
 #include<string>
 #include<stdexcept>
@@ -17,7 +22,6 @@
 using namespace std;
 
 int main(){
-
    int i, n=10;
    List A, B, C, D;
 
@@ -27,6 +31,53 @@ int main(){
       C.insertBefore(i);
       D.insertBefore(11-i);
    }
+
+   //cleanup position check
+   A.insertBefore(1);
+    cout << "A pos = " << A.position() << endl;
+    A.insertBefore(2);
+    cout << "A pos = " << A.position() << endl;
+    A.insertBefore(2);
+    cout << "A pos = " << A.position() << endl;
+    A.insertBefore(1);
+    cout << "A pos = " << A.position() << endl;
+    A.insertBefore(2);
+    cout << "A pos = " << A.position() << endl;
+    A.insertBefore(3);
+    cout << "A pos = " << A.position() << endl;
+    A.insertBefore(1);
+    cout << "A pos = " << A.position() << endl;
+    A.findPrev(3);
+    cout << "A pos before cleanup() = " << A.position() << endl;
+    A.cleanup();
+    cout << "A = " << A << endl;
+    cout << "A pos here = " << A.position() << endl;
+    if (A.position() != 2) cout << "A.pos = 2\n" << endl;
+
+   //cleanup position check
+    cout << "Start: B pos = " << B.position() << endl;
+   B.insertBefore(1);
+   cout << "B pos = " << B.position() << endl;
+      B.insertBefore(2);
+         cout << "B pos = " << B.position() << endl;
+      B.insertBefore(2);
+         cout << "B pos = " << B.position() << endl;
+      B.insertBefore(1);
+         cout << "B pos = " << B.position() << endl;
+      B.insertBefore(2);
+         cout << "B pos = " << B.position() << endl;
+      B.insertBefore(3);
+         cout << "B pos = " << B.position() << endl;
+      B.insertBefore(1);
+         cout << "B pos = " << B.position() << endl;
+      B.findPrev(3);
+         cout << "B pos = " << B.position() << endl;
+      B.movePrev();
+         cout << "B pos = " << B.position() << endl;
+      B.cleanup();
+      cout << "B = " << B << endl;
+      cout << "B pos here = " << B.position() << endl;
+      if (B.position() != 2) cout << "B.pos = 2" << endl;
 
    cout << endl;
    cout << "A = " << A << endl;
@@ -54,7 +105,7 @@ int main(){
    cout << "D.position() = " << D.position() << endl;
 
    cout << endl << "B: ";
-   for(i=1; i<=7; i++){
+   for(i=1; i<=9; i++){
       cout << B.movePrev() << " ";
    }
    cout << endl << "B.position() = " << B.position() << endl;
@@ -78,23 +129,26 @@ int main(){
    B.eraseAfter();
    cout << B << endl;
    cout << B.position() << endl;
+
    cout << B.findPrev(2) << endl;
+
    B.eraseBefore();
+   cout << "after erase before" << B << endl;
    B.eraseAfter();
    cout << B << endl;
-   cout << B.position() << endl; 
-   cout << B.findNext(20) << endl; 
    cout << B.position() << endl;
-   cout << B.findPrev(20) << endl;
+   cout << B.findNext(30) << endl; 
+   cout << B.position() << endl;
+   cout << B.findPrev(30) << endl;
    cout << B.position() << endl;
    cout << endl;
 
-   for( i=10; i>=1; i--){
+   for( i=101; i>=1; i--){
       A.insertAfter(i);
       A.movePrev();
    }
    cout << "A = " << A << endl;
-   for( i=1; i<=15; i++){
+   for( i=1; i<=110; i++){
       A.moveNext();
    }
    cout << A.position() << endl;
@@ -190,7 +244,6 @@ int main(){
    }
 
    cout << endl;
-
-
+   
    return( EXIT_SUCCESS );
 }

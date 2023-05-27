@@ -1,6 +1,40 @@
-/*
 Manikantanagasai Harshit Illuri
 milluri@ucsc.edu
 PA6 README
-Assignment: pa5 -> LIST ADT C++
-*/
+Assignment: pa6 -> BigInteger ADT C++
+
+
+About:
+I have created a BigInteger ADT in C++ that is capable of performing arithmetic
+operations on arbitrarily large signed integers.
+
+
+***Files Included***
+Arithmetic.cpp - Top level client for the project, described above, written by you
+BigInteger.cpp - BigInteger implementation file, written by you
+BigInteger.h - BigInteger header file, provided, do not alter
+BigIntegerTest.cpp - Test suite for the BigInteger ADT, written by you
+List.cpp - List implementation file, written by you in pa5
+List.h - List header file, provided in pa5, altered slightly by you
+ListTest.cpp - Test suite for the List ADT, written by you
+Makefile - Included in Examples/pa6, alter as you see fit
+README - Content listing of the project
+
+***BUILD***
+Enter correct directory then run:
+make clean
+make BigIntegerTest
+
+
+***RUN***
+./BigIntegerTest
+
+***SHUFFLE BUILD***
+Enter correct directory then run:
+make clean
+make Arithmetic
+
+***RUN***
+./Arithmetic
+
+
