@@ -6,9 +6,6 @@
 // Implementing BigInteger ADT//
 // ========================== //
 
-#include<iostream> 
-#include <cmath>
-#include <cstring>
 #include "BigInteger.h"
 
 long base  = 1000000000;  
