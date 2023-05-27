@@ -125,7 +125,6 @@ BigInteger::BigInteger(long x){
 }
 
 // BigInteger()
-
 //NEED TO CHANGE
 // Constructor that creates a new BigInteger from the string s.
 // Pre: s is a non-empty string consisting of (at least one) base 10 digit
