@@ -30,7 +30,7 @@ int main(int argc, char* argv[]){
     }
     
     out_file.open(argv[2]);
-    if( !out_file.is_open() ){
+    if(!out_file.is_open() ){
         cerr << "Unable to open file " << argv[2] << " for writing" << endl;
         return(1);
     }
