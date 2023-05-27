@@ -348,8 +348,8 @@ std::string BigInteger::to_string(){
         } else {
             int tmp = element;
             while (tmp > 0) {
-                st = char('0' + (tmp % power)) + st; 
-                tmp /= power;
+                st = char('0' + (tmp % 10)) + st; 
+                tmp /= 10;
             }
         }
         int size = st.length();
