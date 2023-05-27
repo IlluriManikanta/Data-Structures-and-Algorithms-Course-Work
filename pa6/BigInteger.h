@@ -153,7 +153,6 @@ public:
    // Overwrites A with the product A*B. 
    friend BigInteger operator*=( BigInteger& A, const BigInteger& B );
 
-};
-
+}
 
 #endif
