@@ -39,10 +39,10 @@ int normalizeList(List& L){
         carry = 0;
         if(hold < 0){
             carry = -1;
-            hold = hold + base;
+            hold += base;
         }
-        L.setBefore(hold%base);
-        carry += hold / base;
+        L.setBefore(hold % base);
+        carry += (hold / base);
         L.movePrev();
     }
 
@@ -60,8 +60,8 @@ void sumList(List& S, List A, List B, int sgn){
     scalarMultiply(B, sgn);
     A.moveBack();
     B.moveBack();
-
-    while (A.position() < A.length() && B.position() < B.length()) {
+    
+    while (A.position() > 0 || B.position() > 0) { // changes made to condition 
 
         ListElement x = 0;
         if(A.position() > 0){
@@ -76,6 +76,9 @@ void sumList(List& S, List A, List B, int sgn){
         } else {
             y = 0;
         }
+
+        ListElement sumofele = x + y;
+        S.insertAfter(sumofele);
         if(A.position() > 0){
             A.movePrev();
         }
@@ -83,9 +86,6 @@ void sumList(List& S, List A, List B, int sgn){
         if(B.position() > 0){
             B.movePrev();
         }
-
-        ListElement sumofele = x + y;
-        S.insertBefore(sumofele);
     }
 
     S.moveFront();
@@ -142,39 +142,41 @@ BigInteger::BigInteger(long x){
 // Constructor that creates a new BigInteger from the string s.
 // Pre: s is a non-empty string consisting of (at least one) base 10 digit
 // {0,1,2,3,4,5,6,7,8,9}, and an optional sign {+,-} prefix.
-BigInteger::BigInteger(std::string s){
-    // if (s.empty()){
-    //     throw std::invalid_argument("BigInteger ADT: ERROR in Constructor: empty string");
-    // }
+BigInteger::BigInteger(std::string s)
+{
+    if (s.size() == 0)
+    {                                                                         // chcking if the size of the string is greater than 0
+        throw std::invalid_argument("BigInteger: Constructor: empty string"); // throwing the invalid_argument error
+    }
+    signum = s[0] == '-' ? -1 : 1; // setting the signum value based on the sign in front of the number
+    if (s[0] == '+' || s[0] == '-')
+    {                    // checing if the first character of the string is + or -
+        s = s.substr(1); // s is set to the substing starting from index 1 till end
+    }
 
-    // signum = 1;  // Default sign is positive
-    // int startIndex = 0;
-
-    // if (s[0] == '+' || s[0] == '-') {
-    //     if (s[0] == '-') {
-    //         signum = -1;
-    //     }
-    //     startIndex = 1;
-    // }
-
-    // int numDigits = s.length() - startIndex;
-    // int numBlocks = (numDigits + power - 1) / power;  // Calculate number of blocks
-
-    // for (int i = numBlocks - 1; i >= 0; --i) {
-    //     int endIndex = startIndex + power;
-    //     if (endIndex > s.length()) {
-    //         endIndex = s.length();
-    //     }
-
-    //     std::string block = s.substr(endIndex - power, endIndex - startIndex);
-    //     digits.insertAfter(std::stol(block));
-    //     startIndex += power;
-    // }
-
-    // digits.moveFront();
-    // while (digits.peekNext() == 0) {
-    //     digits.eraseAfter();
-    // }
+    if (s.size() > 0)
+    {                     // chcking if the size of the sub string is greater than 0
+        for (char &c : s) // for each character c in the substring s
+        {
+            if (!isdigit(c))
+            {                                                                               // checking if the each character c is not a digit
+                throw std::invalid_argument("BigInteger: Constructor: non-numeric string"); // thrwoing the exception of the invalid argument and error messsage
+            }
+        }
+    }
+    else
+    {                                                                               // else
+        throw std::invalid_argument("BigInteger: Constructor: non-numeric string"); // throwing the exception of the non-numeric string
+    }
+    int position = s.length() % power; // Positon is calculated by length of the substring modulo the POWER
+    if (position)
+    {                                                     // if it position has some value
+        digits.insertBefore(stol(s.substr(0, position))); // inserting before the string from 0 till position type casted into long
+    }
+    for (position = s.length() % power; position < (int)s.length(); position += power) // looping from the length of the string mod power till the length of the string
+    {
+        digits.insertBefore(stol(s.substr(position, power))); // inserting the digit from the position till the power
+    }
 }
 
 // BigInteger()
@@ -268,7 +270,7 @@ BigInteger BigInteger::add(const BigInteger& N) const{
 
     sumList(sum.digits, copya.digits, copyb.digits, sgn); // adding all list values togather
     sum.signum = normalizeList(sum.digits);
-    if(sum.signum == -1){
+    if(normalizeList(sum.digits) == -1){
         scalarMultiply(sum.digits, -1);
     }
 
@@ -475,6 +477,3 @@ BigInteger operator*=( BigInteger& A, const BigInteger& B ){
     A = A.mult(B);
     return A;
 }
-
-
-
