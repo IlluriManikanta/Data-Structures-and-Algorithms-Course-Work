@@ -19,6 +19,9 @@
 using namespace std;
 
 int main(){
+		printf("%s\n", "Beginning the Tests\n");
+		
+		printf("%s\n", "Your code is working fine if it matches the output at the bottom\n");
 
    string s1 = "91287346670000043892345634563400005619187236478";
    string s2 = "-330293847502398475";
@@ -39,14 +42,19 @@ int main(){
    cout << "C = " << C << endl;
    cout << endl;
 
+	printf("%s\n", "Testing addition\n");
    BigInteger D = A+B;
    BigInteger E = B+A;
+   	printf("%s\n", "Testing subtraction\n");
    BigInteger F = D-E;
    BigInteger F = A-B;
-   BigInteger G = 53234*A + 29384747*B + 928374*C;
+   	printf("%s\n", "Testing addition and multiplication\n");
+   BigInteger G = 53527*A + 593247447*B + 8482474*C;
+    	printf("%s\n", "Testing multiplication\n");
    BigInteger H = A*B;
    BigInteger F = A*A;
    BigInteger I = B*A;
+   	printf("%s\n", "Testing multiplication on three values\n");
    BigInteger J = G*H*I;
 
    cout << "(A==B) = " << ((A==B)?"True":"False") << endl;
@@ -80,6 +88,7 @@ int main(){
    cout << endl;
 
    // test exceptions
+   	printf("%s\n", "Testing exceptions");
    try{
       BigInteger J = BigInteger("");
    }catch( std::invalid_argument& e ){
@@ -105,7 +114,8 @@ int main(){
       cout << "   continuing without interruption" << endl;
    }
 
+	printf("%s\n", "Testing Ended\n");
    cout << endl;
 
-   return EXIT_SUCCESS;
+   return 0;
 }
