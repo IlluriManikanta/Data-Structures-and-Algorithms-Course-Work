@@ -366,7 +366,6 @@ std::string BigInteger::to_string(){
 
 }
 
-
 // Overriden Operators -----------------------------------------------------
 
 // operator<<()
