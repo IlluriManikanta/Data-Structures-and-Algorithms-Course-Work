@@ -309,7 +309,6 @@ BigInteger BigInteger::mult(const BigInteger& N) const{
     return fnl;
 }
 
-
 // Other Functions ---------------------------------------------------------
 
 // to_string()
