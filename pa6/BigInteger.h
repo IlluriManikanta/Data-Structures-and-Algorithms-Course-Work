@@ -36,17 +36,17 @@ public:
 
    // BigInteger()
    // Constructor that creates a new BigInteger from the long value x.
-   BigInteger::BigInteger(long x);
+   BigInteger(long x);
 
    // BigInteger()
    // Constructor that creates a new BigInteger from the string s.
    // Pre: s is a non-empty string consisting of (at least one) base 10 digit
    // {0,1,2,3,4,5,6,7,8,9}, and an optional sign {+,-} prefix.
-   BigInteger::BigInteger(std::string s);
+   BigInteger(std::string s);
 
    // BigInteger()
    // Constructor that creates a copy of N.
-   BigInteger::BigInteger(const BigInteger& N);
+   BigInteger(const BigInteger& N);
 
    // Optional Destuctor
    // ~BigInteger()
@@ -58,39 +58,39 @@ public:
    // sign()
    // Returns -1, 1 or 0 according to whether this BigInteger is positive, 
    // negative or 0, respectively.
-   int BigInteger::sign() const;
+   int sign() const;
 
    // compare()
    // Returns -1, 1 or 0 according to whether this BigInteger is less than N,
    // greater than N or equal to N, respectively.
-   int BigInteger::compare(const BigInteger& N) const;
+   int compare(const BigInteger& N) const;
 
 
    // Manipulation procedures -------------------------------------------------
 
    // makeZero()
    // Re-sets this BigInteger to the zero state.
-   void BigInteger::makeZero();
+   void makeZero();
 
    // negate()
    // If this BigInteger is zero, does nothing, otherwise reverses the sign of 
    // this BigInteger positive <--> negative. 
-   void BigInteger::negate();
+   void negate();
 
 
    // BigInteger Arithmetic operations ----------------------------------------
 
    // add()
    // Returns a BigInteger representing the sum of this and N.
-   BigInteger::BigInteger add(const BigInteger& N) const;
+   BigInteger add(const BigInteger& N) const;
 
    // sub()
    // Returns a BigInteger representing the difference of this and N.
-   BigInteger::BigInteger sub(const BigInteger& N) const;
+   BigInteger sub(const BigInteger& N) const;
 
    // mult()
    // Returns a BigInteger representing the product of this and N. 
-   BigInteger::BigInteger mult(const BigInteger& N) const;
+   BigInteger mult(const BigInteger& N) const;
 
 
    // Other Functions ---------------------------------------------------------
@@ -100,7 +100,7 @@ public:
    // base 10 digits. If this BigInteger is negative, the returned string 
    // will begin with a negative sign '-'. If this BigInteger is zero, the
    // returned string will consist of the character '0' only.
-   std::string BigInteger::to_string();
+   std::string to_string();
 
 
    // Overriden Operators -----------------------------------------------------
