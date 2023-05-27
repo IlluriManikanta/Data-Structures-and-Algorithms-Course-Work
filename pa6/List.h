@@ -6,7 +6,6 @@
 // List.h file                //
 // ========================== //
 
-
 //-----------------------------------------------------------------------------
 // List.h
 // Header file for List ADT. List is a double ended queue with a vertical
