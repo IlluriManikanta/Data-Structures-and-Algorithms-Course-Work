@@ -6,7 +6,6 @@
 // BigInteger ADT Test 		  //
 // ========================== //
 
-
 //-----------------------------------------------------------------------------
 //  BigIntegerClient.cpp 
 //  A test client for the BigInteger ADT
