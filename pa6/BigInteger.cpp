@@ -171,7 +171,6 @@ BigInteger::BigInteger(const BigInteger& N){
     digits = N.digits;
 }
 
-
 // Access functions --------------------------------------------------------
 
 // sign()
