@@ -8,7 +8,7 @@
 
 #include "BigInteger.h"
 
-long base  = 1000000000;  
+ListElement base  = 1000000000;  
 int power = 9;
 
 // Helper Functions below ---------------------------------------------------------------------------------------------------
