@@ -201,7 +201,6 @@ int BigInteger::compare(const BigInteger& N) const{
     List A = digits;
     List B = N.digits;
 
-
     if (signum > N.signum) {
         ret = 1;
     } else if (signum < N.signum) {
