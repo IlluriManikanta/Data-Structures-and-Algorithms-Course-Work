@@ -156,7 +156,7 @@ BigInteger::BigInteger(std::string s){
     }
 
     if (s.size() >= 1){                     
-        for (char &c : s) {
+        for (char const &c : s) {
             if (!isdigit(c)){                                                                               
                 throw std::invalid_argument("BigInteger: ERROR in Constructor: non-numeric string"); 
             }
@@ -216,7 +216,6 @@ int BigInteger::compare(const BigInteger& N) const{
 
             A.moveFront();
             B.moveFront();
-
 
             while (A.position() < A.length() && ret == 0) { 
                 if (A.peekNext() < B.peekNext()) {
