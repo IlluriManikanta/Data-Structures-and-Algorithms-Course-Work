@@ -278,9 +278,42 @@ BigInteger BigInteger::sub(const BigInteger& N) const{
 }
 
 // mult()
+//NEED TO CHANGE
 // Returns a BigInteger representing the product of this and N. 
-BigInteger BigInteger::mult(const BigInteger& N) const{
-    
+BigInteger BigInteger::mult(const BigInteger& N) const{ 
+    BigInteger fnl;
+    if (this->signum == 0 || N.signum == 0) {
+        return fnl;
+    }
+
+    List tot;
+    List Ntemp = N.digits;  
+    List tmp;
+
+    Ntemp.moveBack();
+    int move = 0;
+    while (Ntemp.position() != 0) {
+        ListElement now = Ntemp.peekPrev();
+        Ntemp.movePrev();
+
+        tmp = this->digits;
+        scalarMultiply(tmp, now);
+        shiftList(tmp, move);
+
+        List tempsum = tot;
+        sumList(tot, tempsum, tmp, 1);
+
+        normalizeList(tot);
+        move++;
+    }
+
+    fnl.digits = tot;
+    if(this->signum == N.signum){
+        fnl.signum = 1;
+    } else {
+        fnl.signum = -1;
+    }
+    return fnl;
 }
 
 
