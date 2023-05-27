@@ -309,7 +309,7 @@ return -1;
 // the same two retained elements that it did before cleanup() was called.
 void List::cleanup() {
     Node* curr = frontDummy->next;
-    int out = 0;
+    // int out = 0;
     while (curr != backDummy) {
         Node* check = curr->next;
         // int in = out + 1;
@@ -339,7 +339,7 @@ void List::cleanup() {
             }
             // in++;
         }
-        out++;
+        // out++;
         curr = curr->next;
     }
     if (position() == num_elements) {
