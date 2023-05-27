@@ -365,7 +365,7 @@ std::string BigInteger::to_string(){
     }
     
     std::string sub = "";
-    for (int k = j; k < s.length(); k++) {
+    for (int k = j; k < (int)s.length(); k++) {
         sub += s[k];
     }
     
