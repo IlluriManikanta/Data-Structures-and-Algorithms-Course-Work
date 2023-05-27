@@ -88,7 +88,6 @@ void shiftList(List& L, int p){
     }
 }
 
-
 // Class Constructors & Destructors ----------------------------------------
 
 // BigInteger()
