@@ -249,31 +249,38 @@ void Dictionary::clear(){
 // If a pair with key==k exists, overwrites the corresponding value with v, 
 // otherwise inserts the new pair (k, v).
 void Dictionary::setValue(keyType k, valType v){
-    Node* N = new Node(k, v);
-    N->left = nil;
-    N->right = nil;
+    Node* P = nil;
+    Node* R = root;
 
-    Node* parent = this->nil;
-    Node** currentptr = &this->root;
+    while (R != nil) {
+        P = R;
 
-    while (*currentptr != this->nil) {
-        parent = *currentptr;
-
-        if (k < (*currentptr)->key) {
-            currentptr = &((*currentptr)->left);
-        } else if (k > (*currentptr)->key) {
-            currentptr = &((*currentptr)->right);
+        if (k < R->key) {
+            R = R->left;
+        } else if (k > R->key) {
+            R = R->right;
         } else {
-            (*currentptr)->val = v;
-            delete N;
+            R->val = v;
             return;
         }
     }
 
-    N->parent = parent;
-    *currentptr = N;
+    Node* N = new Node(k, v);
+    N->parent = P;
+    N->left = nil;
+    N->right = nil;
 
-    num_pairs++;    
+    if (P == nil) {
+        root = N;
+    } else if (k < P->key) {
+        P->left = N;
+        N->parent = P;
+    } else {
+        P->right = N;
+        N->parent = P;
+    }
+
+    num_pairs++;
 }
 
 //Helper function
@@ -429,5 +436,9 @@ Dictionary& Dictionary::operator=( const Dictionary& D ){
     return *this;
 
 }
+
+
+
+
 
 
