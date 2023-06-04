@@ -213,9 +213,8 @@ public:
    // reference to this Dictionary.
    Dictionary& operator=( const Dictionary& D );
 
-   //Helper function
-   void transplant(Node* u, Node* v);
-
+    //Helper Function
+    void transplant(Node* u, Node* v);
 };
 
 
