@@ -175,5 +175,31 @@ int main(){
    }
 
    cout << endl;  
+
+   cout << "Additional test cases:" << endl;
+
+   Dictionary D;
+   D.setValue("key1", 100);
+   D.setValue("key2", 200);
+   D.setValue("key3", 300);
+   D.setValue("key4", 400);
+   D.setValue("key5", 500);
+
+   cout << "D.size() = " << D.size() << endl << D << endl;
+
+   D.remove("key3");
+   D.remove("key5");
+
+   cout << "D.size() = " << D.size() << endl << D << endl;
+
+   try {
+      cout << D.getValue("key3") << endl;
+   }
+   catch (logic_error& e) {
+      cout << e.what() << endl;
+   }
+
+   cout << endl;
+
    return( EXIT_SUCCESS );
 }
