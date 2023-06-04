@@ -45,8 +45,6 @@ void Dictionary::preOrderString(std::string& s, Node* R) const{
         s += R->key + '\n';
         preOrderString(s, R->left);
 	    preOrderString(s, R->right);
-    } else {
-        return;
     }
 }
 
@@ -58,10 +56,8 @@ void Dictionary::preOrderCopy(Node* R, Node* N){
         setValue(R->key, R->val);
         preOrderCopy(R->left, N);
         preOrderCopy(R->right, N);
-
-    } else {
-        return;
     }
+
 }
 
 // postOrderDelete()
@@ -71,8 +67,6 @@ void Dictionary::postOrderDelete(Node* R){
         postOrderDelete(R->left);
         postOrderDelete(R->right);
         delete R;
-    } else {
-        return;
     }
 }
 
