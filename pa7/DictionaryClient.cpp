@@ -176,6 +176,7 @@ int main(){
 
    cout << endl;  
 
+   //Additional Test cases
    cout << "Additional test cases:" << endl;
 
    Dictionary D;
@@ -184,11 +185,13 @@ int main(){
    D.setValue("key3", 300);
    D.setValue("key4", 400);
    D.setValue("key5", 500);
+   D.setValue("key6", 600);
 
    cout << "D.size() = " << D.size() << endl << D << endl;
 
    D.remove("key3");
    D.remove("key5");
+   D.remove("key6");
 
    cout << "D.size() = " << D.size() << endl << D << endl;
 
