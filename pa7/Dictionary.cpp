@@ -150,7 +150,7 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
 
 // Creates new Dictionary in the empty state.
 Dictionary::Dictionary(){
-    nil = new Node(" ", -1);
+    nil = new Node(" ", 0);
     current = nil;
     root = nil;
 	num_pairs = 0;
@@ -158,7 +158,7 @@ Dictionary::Dictionary(){
 
 // Copy constructor.
 Dictionary::Dictionary(const Dictionary& D){
-    nil = new Node(" ", -1);
+    nil = new Node(" ", 0);
 	current = nil;
     root = nil;
 	num_pairs = 0;
