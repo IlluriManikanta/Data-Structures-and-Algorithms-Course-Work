@@ -329,6 +329,10 @@ void Dictionary::remove(keyType k) {
         throw std::logic_error("Dictionary: remove(): key \"" + k + "\" does not exist");
     }
 
+    if(current == N){
+        current = nil;
+    }
+
     if (N->left == nil) {
         transplant(N, N->right);
         delete N;
