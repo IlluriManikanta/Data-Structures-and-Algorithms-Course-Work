@@ -305,7 +305,6 @@ void Dictionary::remove(keyType k){
       current = nil;
    }
    
-   //if it has left, right, or both children
    if (node->left == nil) {
       transplant(node, node->right);
    } 
