@@ -50,7 +50,7 @@ void Dictionary::preOrderString(std::string& s, Node* R) const{
 // Recursively inserts a deep copy of the subtree rooted at R into this 
 // Dictionary. Recursion terminates at N.
 void Dictionary::preOrderCopy(Node* R, Node* N){
-    if(R != nil){
+    if(R != N){
         setValue(R->key, R->val);
         preOrderCopy(R->left, N);
         preOrderCopy(R->right, N);
@@ -119,7 +119,7 @@ Dictionary::Node* Dictionary::findNext(Node* N){
         return findMin(N->right);
     } else {
         Node* y = N->parent;
-        while (y != nil && N != y->right){
+        while (y != nil && N == y->right){
             N = y;
             y = y->parent;
         }
@@ -150,7 +150,7 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
 
 // Creates new Dictionary in the empty state.
 Dictionary::Dictionary(){
-    nil = new Node(" ", 0);
+    nil = new Node(" ", -1);
     current = nil;
     root = nil;
 	num_pairs = 0;
@@ -158,7 +158,7 @@ Dictionary::Dictionary(){
 
 // Copy constructor.
 Dictionary::Dictionary(const Dictionary& D){
-    nil = new Node(" ", 0);
+    nil = new Node(" ", -1);
 	current = nil;
     root = nil;
 	num_pairs = 0;
@@ -321,6 +321,7 @@ void Dictionary::remove(keyType k){
     }
     delete(N);
 }
+
 
 // begin()
 // If non-empty, places current iterator at the first (key, value) pair
