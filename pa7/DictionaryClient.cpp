@@ -131,6 +131,7 @@ int main(){
    for(A.end(); A.hasCurrent(); A.prev()){
       s = A.currentKey();
       x = A.currentVal();
+
       cout << "("+s+", " << x << ") ";
    }
    cout << endl << endl;
@@ -174,6 +175,43 @@ int main(){
    }
 
    cout << endl;  
+
+      cout << "Additional test cases:" << endl;
+
+   Dictionary D;
+   Dictionary E;
+   D.setValue("key1", 100);
+   E.setValue("key1", 100);
+   D.setValue("key2", 200);
+   E.setValue("key1", 200);
+   D.setValue("key3", 300);
+   E.setValue("key1", 300);
+   D.setValue("key4", 400);
+   E.setValue("key1", 400);
+   D.setValue("key5", 500);
+   E.setValue("key1", 500);
+
+   cout << "D.size() = " << D.size() << endl << D << endl;
+   cout << "E.size() = " << E.size() << endl << E << endl;
+
+   D.remove("key3");
+   E.remove("key3");
+   D.remove("key5");
+   E.remove("key5");
+
+   cout << "D.size() = " << D.size() << endl << D << endl;
+   cout << "E.size() = " << E.size() << endl << E << endl;
+
+   try {
+      cout << D.getValue("key3") << endl;
+      cout << E.getValue("key3") << endl;
+   }
+   catch (logic_error& e) {
+      cout << e.what() << endl;
+      cout << "   continuing without interruption" << endl;
+   }
+
+   cout << endl;
 
    return( EXIT_SUCCESS );
 }
