@@ -299,43 +299,72 @@ void Dictionary::transplant(Node* u, Node* v){
 // Deletes the pair for which key==k. If that pair is current, then current
 // becomes undefined.
 // Pre: contains(k).
-void Dictionary::remove(keyType k) {
-    Node* N = search(root, k);  // Assuming you have a searchNode function to find the node with key==k
+// void Dictionary::remove(keyType k) {
+//     Node* N = search(root, k);  // Assuming you have a searchNode function to find the node with key==k
 
-    if (N == nil) {
-        throw std::logic_error("Dictionary: remove(): key \"" + k + "\" does not exist");
-    }
+//     if (N == nil) {
+//         throw std::logic_error("Dictionary: remove(): key \"" + k + "\" does not exist");
+//     }
 
-    if(current == N){
-        current = nil;
-    }
+//     if(current == N){
+//         current = nil;
+//     }
 
-    if (N->left == nil) {
-        transplant(N, N->right);
-        delete N;
-    } else if (N->right == nil) {
-        transplant(N, N->left);
-        delete N;
-    } else {
-        Node* y = findMin(N->right);
+//     if (N->left == nil) {
+//         transplant(N, N->right);
+//         delete N;
+//     } else if (N->right == nil) {
+//         transplant(N, N->left);
+//         delete N;
+//     } else {
+//         Node* y = findMin(N->right);
 
-        if (y->parent != N) {
-            transplant(y, y->right);
-            y->right = N->right;
-            y->right->parent = y;
-        } else {
-            transplant(N, y);
-            y->left = N->left;
-            y->left->parent = y;
-        }
+//         if (y->parent != N) {
+//             transplant(y, y->right);
+//             y->right = N->right;
+//             y->right->parent = y;
+//         } else {
+//             transplant(N, y);
+//             y->left = N->left;
+//             y->left->parent = y;
+//         }
 
-        delete N;
-    }
+//         delete N;
+//     }
 
-    num_pairs--;
+//     num_pairs--;
+// }
+
+void Dictionary::remove(keyType k){
+   Node* node = search(root, k);
+   if(node == nil){
+      throw std::logic_error("Dictionary: remove(): key \"" + k + "\" does not exist");
+   }
+   if(node == current){
+      current = nil;
+   }
+   
+   //if it has left, right, or both children
+   if (node->left == nil) {
+      transplant(node, node->right);
+   } 
+   else if (node->right == nil) {
+      transplant(node, node->left);
+   } 
+   else {
+      Node* y = findMin(node->right);
+      if (y->parent != node) {
+         transplant(y, y->right);
+         y->right = node->right;
+         y->right->parent = y;
+      }
+      transplant(node, y);
+      y->left = node->left;
+      y->left->parent = y;
+   }
+   num_pairs--;
+   delete node;
 }
-
-
 
 // begin()
 // If non-empty, places current iterator at the first (key, value) pair
