@@ -294,34 +294,6 @@ void Dictionary::transplant(Node* u, Node* v){
 // Deletes the pair for which key==k. If that pair is current, then current
 // becomes undefined.
 // Pre: contains(k).
-// void Dictionary::remove(keyType k){
-//     Node* N = search(root, k);
-//     if (N == nil){
-//         throw std::logic_error("Dictionary ADT: ERROR in remove(): key \"" + k + "\" does not exist");
-//     }
-
-//     if (N->left == nil){
-//         transplant(N, N->right);
-//         num_pairs--;
-//     }else if (N->right == nil){
-//         transplant(N, N->left);
-//         num_pairs--;
-//     }else {
-//         Node* y = findMin(N->right);
-
-//         if (y->parent != N) {
-//             transplant(y, y->right);
-//             y->right = N->right;
-//             y->right->parent = y;
-//         } 
-//         transplant(N, y);
-//         y->left = N->left;
-//         y->left->parent = y;
-//         num_pairs--;
-//     }
-//     delete(N);
-// }
-
 void Dictionary::remove(keyType k) {
     Node* N = search(root, k);  // Assuming you have a searchNode function to find the node with key==k
 
