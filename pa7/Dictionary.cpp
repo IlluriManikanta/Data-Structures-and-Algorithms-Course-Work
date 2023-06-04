@@ -249,38 +249,47 @@ void Dictionary::clear(){
 // If a pair with key==k exists, overwrites the corresponding value with v, 
 // otherwise inserts the new pair (k, v).
 void Dictionary::setValue(keyType k, valType v){
-    Node* P = nil;
-    Node* R = root;
-
-    while (R != nil) {
+    
+    Node *P = nil;
+    Node *R = root;
+    while(R != nil){
         P = R;
-
-        if (k < R->key) {
+        if(k < R->key){
             R = R->left;
-        } else if (k > R->key) {
+        }else if(k > R->key){
             R = R->right;
-        } else {
+        }else{
             R->val = v;
             return;
         }
     }
 
-    Node* N = new Node(k, v);
-    N->parent = P;
-    N->left = nil;
-    N->right = nil;
+//    set a temp node* N to a new Node of key=k and val=v
+//    set the parent node of N to P
+//    set the left and right node of N to nil
+//    if P equalls nil:
+//       set the root to N;
+//    else if k is smaller than the key of node P:
+//       set the left node of P to N
+//    else:
+//       set the right node of P to N
+//       
 
-    if (P == nil) {
+    Node *N = new Node(k,v);
+    N->parent = P;
+    N->left = nil; 
+    N->right = nil; 
+    if(P == nil){
         root = N;
-    } else if (k < P->key) {
+    }else if(k < P->key){
         P->left = N;
-        N->parent = P;
-    } else {
+    }else{
         P->right = N;
-        N->parent = P;
     }
 
+//    increment num_pairs
     num_pairs++;
+
 }
 
 //Helper function
