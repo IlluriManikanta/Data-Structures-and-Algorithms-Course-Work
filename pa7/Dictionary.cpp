@@ -13,11 +13,11 @@
 
 // Creates new Dictionary in the empty state. 
 Dictionary::Node::Node(keyType k, valType v) {
-  key = k;
-  val = v;
-  left = nullptr;
-  right = nullptr;
-  parent = nullptr;
+  this->key = k;
+  this->val = v;
+  this->left = nullptr;
+  this->right = nullptr;
+  this->parent = nullptr;
 }
 
 // Helper Functions (Optional) ---------------------------------------------
@@ -31,8 +31,6 @@ void Dictionary::inOrderString(std::string& s, Node* R) const{
         inOrderString(s, R->left);
         s += R->key + " : " + std::to_string(R->val) + '\n';
         inOrderString(s, R->right);
-    } else {
-        return;
     }
 }
 
@@ -76,7 +74,7 @@ void Dictionary::postOrderDelete(Node* R){
 Dictionary::Node* Dictionary::search(Node* R, keyType k) const{
     if (k == R->key || R == nil){
         return R;		
-    } else if (k.compare(R->key) <= -1){
+    } else if (k < R->key){
         return search(R->left, k);
     } else {
         return search(R->right, k);
@@ -87,15 +85,13 @@ Dictionary::Node* Dictionary::search(Node* R, keyType k) const{
 // If the subtree rooted at R is not empty, returns a pointer to the 
 // leftmost Node in that subtree, otherwise returns nil.
 Dictionary::Node* Dictionary::findMin(Node* R){
-    if (R != nil){    
-        Node *temp = R;
+    Node *temp = R;
+    if(temp != nil){
         while (temp->left != nil){
             temp = temp->left;
-        }
-        return temp;
-    } else {
-        return nil;
+        } 
     }
+    return temp;
 }
 
 
@@ -121,14 +117,14 @@ Dictionary::Node* Dictionary::findNext(Node* N){
         return nil;
     } else if (N->right != nil){
         return findMin(N->right);
+    } else {
+        Node* y = N->parent;
+        while (y != nil && N != y->right){
+            N = y;
+            y = y->parent;
+        }
+        return y;
     }
-
-    Node* y = N->parent;
-    while (y != nil && N != y->right){
-        N = y;
-        y = y->parent;
-    }
-    return y;
 }
 
 // findPrev()
@@ -140,24 +136,21 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
         return nil;
     } else if (N->left != nil){
         return findMax(N->left);
-    }
-
-    Node* temp = N->parent;
-    while (temp != nil){
-        if (N == temp->right){
-            return temp;
+    } else {
+        Node* temp = N->parent;
+        while(temp != nil && N == temp->left){
+            N = temp;
+            temp = temp->parent;
         }
-        N = temp;
-        temp = temp->parent;
+        return temp;
     }
-    return temp;
 }
 
 // Class Constructors & Destructors -------------------------------------------
 
 // Creates new Dictionary in the empty state.
 Dictionary::Dictionary(){
-    nil = new Node("\0", -1);
+    nil = new Node(" ", -1);
     current = nil;
     root = nil;
 	num_pairs = 0;
@@ -165,7 +158,7 @@ Dictionary::Dictionary(){
 
 // Copy constructor.
 Dictionary::Dictionary(const Dictionary& D){
-    nil = new Node("\0", -1);
+    nil = new Node(" ", -1);
 	current = nil;
     root = nil;
 	num_pairs = 0;
@@ -191,25 +184,31 @@ int Dictionary::size() const{
 // Returns true if there exists a pair such that key==k, and returns false
 // otherwise.
 bool Dictionary::contains(keyType k) const{
-    return this->search(root, k) == nil ? false : true;
+    if((search(root, k)) != nil){
+        return true;
+    }
+    return false;
 }
 
 // getValue()
 // Returns a reference to the value corresponding to key k.
 // Pre: contains(k)
 valType& Dictionary::getValue(keyType k) const{
-    Node *temp = this->search(root, k);
-    if (temp == nil){
-        throw std::logic_error("Dictionary ADT: ERROR in getValue(): key \"" + k + "\" does not exist");
+    Node *N = search(root, k);
+    if(N == nil){
+        throw std::logic_error("Dictionary ADT: ERROR in getValue(): key \""+k+"\" does not exist");
     }
-    return temp->val;
+    return N->val;
 }
 
 // hasCurrent()
 // Returns true if the current iterator is defined, and returns false 
 // otherwise.
 bool Dictionary::hasCurrent() const{
-    return current == nil ? false : true;
+    if(current != nil){
+        return true;
+    }
+    return false;
 }
 
 // currentKey()
@@ -219,7 +218,6 @@ keyType Dictionary::currentKey() const{
     if (current == nil){
         throw std::logic_error("Dictionary ADT: ERROR in currentKey(): current undefined");
     }
-
     return current->key;
 }
 
@@ -240,8 +238,8 @@ valType& Dictionary::currentVal() const{
 // Resets this Dictionary to the empty state, containing no pairs.
 void Dictionary::clear(){
     postOrderDelete(root);
-    root = nil;
     current = nil;
+    root = nil;
     num_pairs = 0;
 }
 
@@ -249,7 +247,6 @@ void Dictionary::clear(){
 // If a pair with key==k exists, overwrites the corresponding value with v, 
 // otherwise inserts the new pair (k, v).
 void Dictionary::setValue(keyType k, valType v){
-    
     Node *P = nil;
     Node *R = root;
     while(R != nil){
@@ -264,17 +261,6 @@ void Dictionary::setValue(keyType k, valType v){
         }
     }
 
-//    set a temp node* N to a new Node of key=k and val=v
-//    set the parent node of N to P
-//    set the left and right node of N to nil
-//    if P equalls nil:
-//       set the root to N;
-//    else if k is smaller than the key of node P:
-//       set the left node of P to N
-//    else:
-//       set the right node of P to N
-//       
-
     Node *N = new Node(k,v);
     N->parent = P;
     N->left = nil; 
@@ -287,9 +273,7 @@ void Dictionary::setValue(keyType k, valType v){
         P->right = N;
     }
 
-//    increment num_pairs
     num_pairs++;
-
 }
 
 //Helper function
@@ -329,14 +313,13 @@ void Dictionary::remove(keyType k){
             transplant(y, y->right);
             y->right = N->right;
             y->right->parent = y;
-        } else {
-            transplant(N, y);
-            y->left = N->left;
-            y->left->parent = y;
-        }
-
+        } 
+        transplant(N, y);
+        y->left = N->left;
+        y->left->parent = y;
         num_pairs--;
     }
+    delete(N);
 }
 
 // begin()
