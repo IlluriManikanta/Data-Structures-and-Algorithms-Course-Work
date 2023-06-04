@@ -5,6 +5,7 @@
 // PA 7                       //
 // Dictionary ADT  .h         //
 // ========================== //
+
 //-----------------------------------------------------------------------------
 // Dictionary.h
 // Header file for Dictionary ADT based on a Binary Search Tree. Includes a

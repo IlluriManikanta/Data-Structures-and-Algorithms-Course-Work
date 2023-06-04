@@ -5,6 +5,8 @@
 // PA 7                       //
 // Order                      //
 // ========================== //
+
+
 #include <iostream>
 #include<fstream>
 #include<string>
@@ -40,7 +42,7 @@ int main(int argc, char* argv[]) {
 
     // Counting and printing tokens 
     Dictionary D;
-    string s;
+    string s = "";
     for (int i = 1; getline(in, s); i++) {
         D.setValue(s, i);
     }

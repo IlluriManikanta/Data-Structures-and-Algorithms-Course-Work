@@ -3,7 +3,6 @@ milluri@ucsc.edu
 PA7 README
 Assignment: pa7 -> Dictionary ADT C++
 
-
 About:
 In this project we will create a program that is very similar in operation to pa1, this time in C++. The main
 program will be called Order.c, and will use a Dictionary ADT based on a Binary Search Tree.
