@@ -159,6 +159,30 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
     return temp;
 }
 
+// Class Constructors & Destructors -------------------------------------------
+
+// Creates new Dictionary in the empty state.
+Dictionary::Dictionary(){
+    nil = new Node("\0", -1);
+    current = nil;
+    root = nil;
+	num_pairs = 0;
+}
+
+// Copy constructor.
+Dictionary::Dictionary(const Dictionary& D){
+    nil = new Node("\0", -1);
+	current = nil;
+    root = nil;
+	num_pairs = 0;
+	preOrderCopy(D.root, D.nil);
+}
+
+// Destructor
+Dictionary::~Dictionary(){
+	postOrderDelete(this->root);
+	delete nil;
+}
 
 
 // Access functions --------------------------------------------------------
