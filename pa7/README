@@ -1,0 +1,37 @@
+Manikantanagasai Harshit Illuri
+milluri@ucsc.edu
+PA7 README
+Assignment: pa7 -> Dictionary ADT C++
+
+
+About:
+In this project we will create a program that is very similar in operation to pa1, this time in C++. The main
+program will be called Order.c, and will use a Dictionary ADT based on a Binary Search Tree.
+
+
+***Files Included***
+README - a catalog of submitted files and any notes to the grader
+Makefile - Provided
+Dictionary.h - Provided
+Dictionary.cpp - Contains the ADT functions
+DictionaryTest.cpp - Test client of the Dictionary ADT
+Order.cpp - The client for this project
+
+***BUILD***
+Enter correct directory then run:
+make clean
+make DictionaryTest
+
+
+***RUN***
+./DictionaryTest
+
+***SHUFFLE BUILD***
+Enter correct directory then run:
+make clean
+make Order
+
+***RUN***
+./Order <in> <out>
+
+
