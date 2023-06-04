@@ -214,7 +214,7 @@ public:
    Dictionary& operator=( const Dictionary& D );
 
    //Helper function
-   void Dictionary::transplant(Node* u, Node* v);
+   void transplant(Node* u, Node* v);
 
 };
 
