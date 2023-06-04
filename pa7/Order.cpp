@@ -10,6 +10,9 @@
 #include<string>
 #include "Dictionary.h"
 
+//All functions in this file were written reffering to TA Mike's sudo code which is provided in his google drive.
+//Link to Sudo code "https://drive.google.com/file/d/1hNyVUto4a8gs0K4TkEyBX9tWmy_tyfOY/view?usp=share_link" (unsure if link works for everyone)
+
 using namespace std;
 
 int main(int argc, char* argv[]) {
