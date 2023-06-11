@@ -9,8 +9,8 @@
 #include <iostream>
 #include "Dictionary.h"
 
-#define BLACK -1
-#define RED 1
+#define BLACK 1
+#define RED 0
 
 // delete, delete fixup, transpplant. insert fix up, right rotate, left rotate
 
@@ -31,6 +31,40 @@ Dictionary::Node::Node(keyType k, valType v) {
   this->parent = nullptr;
   color = RED;
 }
+
+// Class Constructors & Destructors -------------------------------------------
+
+// Creates new Dictionary in the empty state.
+Dictionary::Dictionary(){
+    nil = new Node("NIL", 0);
+    current = nil;
+    root = nil;
+	num_pairs = 0;
+    nil->parent = nil;
+    nil->left = nil;
+    nil->right = nil;
+    nil->color = BLACK;
+}
+
+// Copy constructor.
+Dictionary::Dictionary(const Dictionary& D){
+    nil = new Node("NIL", 0);
+	current = nil;
+    root = nil;
+	num_pairs = D.num_pairs;
+    nil->parent = nil;
+    nil->left = nil;
+    nil->right = nil;
+    nil->color = BLACK;
+	preOrderCopy(D.root, root);
+}
+
+// Destructor
+Dictionary::~Dictionary(){
+	postOrderDelete(this->root);
+	delete nil;
+}
+
 
 // Helper Functions (Optional) ---------------------------------------------
 
@@ -55,6 +89,7 @@ void Dictionary::preOrderString(std::string& s, Node* R) const{
         s += R->key + '\n';
         preOrderString(s, R->left);
 	    preOrderString(s, R->right);
+
     }
 }
 
@@ -64,8 +99,8 @@ void Dictionary::preOrderString(std::string& s, Node* R) const{
 void Dictionary::preOrderCopy(Node* R, Node* N){
     if(R != N){
         setValue(R->key, R->val);
-        preOrderCopy(R->left, N);
-        preOrderCopy(R->right, N);
+        preOrderCopy(R->left, N->left);
+        preOrderCopy(R->right, N->right);
     }
 
 }
@@ -76,8 +111,10 @@ void Dictionary::postOrderDelete(Node* R){
     if (R != nil){
         postOrderDelete(R->left);
         postOrderDelete(R->right);
+        num_pairs -= 1;
         delete R;
     }
+    R = nil;
 }
 
 // search()
@@ -158,38 +195,6 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
     }
 }
 
-// Class Constructors & Destructors -------------------------------------------
-
-// Creates new Dictionary in the empty state.
-Dictionary::Dictionary(){
-    nil = new Node("NIL", -1);
-    current = nil;
-    root = nil;
-	num_pairs = 0;
-    nil->parent = nil;
-    nil->left = nil;
-    nil->right = nil;
-    nil->color = BLACK;
-}
-
-// Copy constructor.
-Dictionary::Dictionary(const Dictionary& D){
-    nil = new Node("NIL", -1);
-	current = nil;
-    root = nil;
-	num_pairs = 0;
-    nil->parent = nil;
-    nil->left = nil;
-    nil->right = nil;
-    nil->color = BLACK;
-	preOrderCopy(D.root, D.nil);
-}
-
-// Destructor
-Dictionary::~Dictionary(){
-	postOrderDelete(this->root);
-	delete nil;
-}
 
 //Additional Functions-----------------------------------------------------------------------------
 
@@ -565,30 +570,10 @@ void Dictionary::remove(keyType k){
    if(node == current){
       current = nil;
    }
-   
-  RB_Delete(search(root, k)); // edited for PA8
+   Node *node_clear = search(root, k);
+  RB_Delete(node_clear); // edited for PA8
+  delete node_clear;
   num_pairs--;
-
-   
-//    if (node->left == nil) {
-//       transplant(node, node->right);
-//    } 
-//    else if (node->right == nil) {
-//       transplant(node, node->left);
-//    } 
-//    else {
-//       Node* y = findMin(node->right);
-//       if (y->parent != node) {
-//          transplant(y, y->right);
-//          y->right = node->right;
-//          y->right->parent = y;
-//       }
-//       transplant(node, y);
-//       y->left = node->left;
-//       y->left->parent = y;
-//    }
-//    num_pairs--;
-//    delete node;
 }
 
 // begin()
