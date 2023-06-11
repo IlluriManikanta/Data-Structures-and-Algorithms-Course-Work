@@ -86,10 +86,13 @@ void Dictionary::inOrderString(std::string& s, Node* R) const{
 // by a pre-order tree walk.
 void Dictionary::preOrderString(std::string& s, Node* R) const{
     if(R != nil){
-        s += R->key + '\n';
+        s.append(R->key);
+        if(R->color == RED){
+            s.append(" (RED)");
+        }
+        s.append("\n");
         preOrderString(s, R->left);
 	    preOrderString(s, R->right);
-
     }
 }
 
