@@ -68,6 +68,9 @@ int main(){
    // call operator=()
    B = A;
 
+   cout << "A.size() = " << A.size() << endl  << A << endl;
+   cout << "B.size() = " << B.size() << endl  << B << endl;
+
    B.setValue("deschooler", 101);
    B.setValue("reinsurer", 102);
    B.setValue("glagolitic", 103);
@@ -77,14 +80,8 @@ int main(){
    // call copy constructor
    Dictionary C = B;
 
-   cout << "A.size() = " << A.size() << endl  << A << endl;
    cout << "B.size() = " << B.size() << endl  << B << endl;
    cout << "C.size() = " << C.size() << endl  << C << endl;
-
-   // check copy constructor
-   cout << "copy constructor creates identical trees: " << endl;
-   cout << ((C.pre_string()==B.pre_string())?"true":"false") << endl;
-   cout << endl;
 
    // check operator==()
    cout << "A==B is " << (A==B?"true":"false") << endl;
@@ -92,9 +89,9 @@ int main(){
    cout << "C==A is " << (C==A?"true":"false") << endl << endl;
 
    // perform alterations on A
-   cout << "A.getValue(\"hemiolia\") = " << A.getValue("hemiolia") << endl;
+   cout << A.getValue("hemiolia") << endl;
    A.getValue("hemiolia") *= 10; // change the value associated with "hemiolia"
-   cout << "A.getValue(\"hemiolia\") = " << A.getValue("hemiolia") << endl << endl;
+   cout << A.getValue("hemiolia") << endl << endl;
 
    // check state of A
    cout << "A.size() = " << A.size() << endl  << A << endl;
