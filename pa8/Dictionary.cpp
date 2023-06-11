@@ -87,12 +87,13 @@ void Dictionary::inOrderString(std::string& s, Node* R) const{
 void Dictionary::preOrderString(std::string& s, Node* R) const{
     if(R != nil){
         s.append(R->key);
-        if(R->color == RED){
+        if(R->color == 0){
             s.append(" (RED)");
         }
         s.append("\n");
         preOrderString(s, R->left);
 	    preOrderString(s, R->right);
+
     }
 }
 
@@ -243,18 +244,12 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
         if (N->parent == nullptr) { 
             root = M;
         }
-        else {
-            if (N == N->parent->left) {
-                N->parent->left = M;
-            }
-            else {
-                N->parent->right = M;
-            }
+        else if (N == N->parent->left) {
+            N->parent->left = M;
+        } else {
+            N->parent->right = M;
         }
-
-        if (M != nullptr) { 
-            M->left = N;
-        }
+        M->left = N;
         N->parent = M;
    }
 
@@ -550,20 +545,6 @@ void Dictionary::setValue(keyType k, valType v){
     num_pairs++;
 }
 
-//Helper function
-void Dictionary::transplant(Node* u, Node* v){
-    if (u->parent == nil){
-        root = v;
-    } else if (u == u->parent->left){
-        u->parent->left = v;
-    } else {
-        u->parent->right = v;
-    }
-    if (v != nil){
-        v->parent = u->parent;
-    }
-}
-
 //remove()
 void Dictionary::remove(keyType k){
    Node* node = search(root, k);
@@ -574,9 +555,10 @@ void Dictionary::remove(keyType k){
       current = nil;
    }
    Node *node_clear = search(root, k);
-  RB_Delete(node_clear); // edited for PA8
-  delete node_clear;
-  num_pairs--;
+   if(node != nil){
+    RB_Delete(node);
+    num_pairs--;
+   }
 }
 
 // begin()
