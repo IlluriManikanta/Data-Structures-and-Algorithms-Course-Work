@@ -510,10 +510,28 @@ void Dictionary::clear(){
     num_pairs = 0;
 }
 
+//naimi
 // setValue()
-// If a pair with key==k exists, overwrites the corresponding value with v, 
+// If a pair with key==k exists, overwrites the corresponding value with v,
 // otherwise inserts the new pair (k, v).
 void Dictionary::setValue(keyType k, valType v){
+//    set a temp node* P to nil
+//    set a temo node* R to root
+//    iterate as long as R is not nil:
+//       set P to R
+//       check to see if k is smaller than the key of R:
+//          if so, shift R to it's left node
+//       else if k is greater than the key of R:
+//          if so, shift R to it's right node
+//       else:  // k is equal to R->key
+//          set the value of R to v
+//          return;
+    Node *t = search(root, k);
+    // if (t != nil) {
+    //   // If a pair with key==k exists, overwrite the corresponding value with v
+    //   t->val = v;
+    //   return;
+    // }
     Node *P = nil;
     Node *R = root;
     while(R != nil){
@@ -522,11 +540,23 @@ void Dictionary::setValue(keyType k, valType v){
             R = R->left;
         }else if(k > R->key){
             R = R->right;
-        }else{
+        }
+        else{
             R->val = v;
             return;
         }
     }
+
+//    set a temp node* N to a new Node of key=k and val=v
+//    set the parent node of N to P
+//    set the left and right node of N to nil
+//    if P equalls nil:
+//       set the root to N;
+//    else if k is smaller than the key of node P:
+//       set the left node of P to N
+//    else:
+//       set the right node of P to N
+//       
 
     Node *N = new Node(k,v);
     N->parent = P;
@@ -539,11 +569,47 @@ void Dictionary::setValue(keyType k, valType v){
     }else{
         P->right = N;
     }
-    N->left = nil;
-    N->right = nil;
-    N->color = RED;
+    N->color = 1;
+    RB_InsertFixUp(N);
+//    increment num_pairs
     num_pairs++;
 }
+//naimi
+
+// // setValue()
+// // If a pair with key==k exists, overwrites the corresponding value with v, 
+// // otherwise inserts the new pair (k, v).
+// void Dictionary::setValue(keyType k, valType v){
+//     Node *P = nil;
+//     Node *R = root;
+//     while(R != nil){
+//         P = R;
+//         if(k < R->key){
+//             R = R->left;
+//         }else if(k > R->key){
+//             R = R->right;
+//         }else{
+//             R->val = v;
+//             return;
+//         }
+//     }
+
+//     Node *N = new Node(k,v);
+//     N->parent = P;
+//     N->left = nil; 
+//     N->right = nil; 
+//     if(P == nil){
+//         root = N;
+//     }else if(k < P->key){
+//         P->left = N;
+//     }else{
+//         P->right = N;
+//     }
+//     N->left = nil;
+//     N->right = nil;
+//     N->color = RED;
+//     num_pairs++;
+// }
 
 //remove()
 void Dictionary::remove(keyType k){
