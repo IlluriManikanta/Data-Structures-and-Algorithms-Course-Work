@@ -6,8 +6,10 @@
 // // Dictionary ADT             //
 // // ========================== //
 
+
 #include <iostream>
 #include "Dictionary.h"
+#include <fstream>
 
 #define RED 1
 #define BLACK 0
@@ -33,7 +35,6 @@ Dictionary::Node::Node(keyType k, valType v) {
 // Creates new Dictionary in the empty state.
 Dictionary::Dictionary(){
     nil = new Node(" ", -1);
-    nil->color = 0;
     root = nil;
     current = nil;
     num_pairs = 0;
@@ -42,7 +43,6 @@ Dictionary::Dictionary(){
 // Copy constructor.
 Dictionary::Dictionary(const Dictionary& D){
     nil = new Node(" ", -1);
-    nil->color = 0;
     root = nil;
     current = nil;
     num_pairs = 0;
@@ -103,12 +103,12 @@ void Dictionary::preOrderCopy(Node* R, Node* N){
 // Deletes all Nodes in the subtree rooted at R.
 void Dictionary::postOrderDelete(Node* R){
     if (R != nil){
-        postOrderDelete(R->left);
         postOrderDelete(R->right);
-        num_pairs -= 1;
+        postOrderDelete(R->left);
+        //num_pairs -= 1;
         delete R;
     }
-    R = nil;
+    //R = nil;
 }
 
 // search()
@@ -192,34 +192,6 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
 
 //Additional Functions-----------------------------------------------------------------------------
 
-// BST_insert()
-   // Inserts a copy of the Node *M into this Dictionary. Used by preOrderCopy().
-   void Dictionary::BST_insert(Node* M){
-        Node* y = nil;
-        Node* x = root;
-        while(x != nil){
-            y = x;
-            if(M->key < x->key){
-                x = x->left;
-            } else {
-                x = x->right;
-            }
-        } 
-        M->parent = y;
-        if(y == nil){
-            root = M;
-        } else if(M->key < y->key){
-            y->left = M;
-        } else {
-            y->right = M;
-        }
-        M->left = nil;
-        M->right = nil;
-        M->color = 0;
-        RB_InsertFixUp(M);
-
-   }
-
 // LeftRotate()
    void Dictionary::LeftRotate(Node* N){
         Node* M = N->right;
@@ -257,19 +229,12 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
 
         if (N->parent == nil) {
             root = M;
-        }
-        else {
-            if (N == N->parent->right) {
+        } else if (N == N->parent->right) {
                 N->parent->right = M;
-            }
-            else {
+        } else {
                 N->parent->left = M;
-            }
         }
-
-        if (M != nil) {
-            M->right = N;
-        }
+        M->right = N;
         N->parent = M;
    }
 
@@ -394,7 +359,7 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
    void Dictionary::RB_Delete(Node* N){
     Node* y = N;
     Node* x;
-    int y_original_color = y->color;
+    int y_color = y->color;
 
     if (y->left == nil) {
         x = N->right;
@@ -406,8 +371,12 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
     }
     else {
         y = findMin(y->right);
-        y_original_color = y->color;
+        y_color = y->color;
         x = y->right;
+
+        if (x == nil) { // To pdate x pointer when y->right is nil
+            x = y->parent; // To update x to y's parent
+        }
        
         RB_Transplant(y, y->right);
         y->right = N->right;
@@ -419,7 +388,7 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
         y->color = N->color;
     }
 
-    if (y_original_color == BLACK) {
+    if (y_color == BLACK) {
         RB_DeleteFixUp(x);
     }
     delete N;
@@ -460,10 +429,7 @@ valType& Dictionary::getValue(keyType k) const{
 // Returns true if the current iterator is defined, and returns false 
 // otherwise.
 bool Dictionary::hasCurrent() const{
-    if(current != nil){
-        return true;
-    }
-    return false;
+    return current != nil;
 }
 
 // currentKey()
@@ -502,51 +468,56 @@ void Dictionary::clear(){
 // setValue()
 // If a pair with key==k exists, overwrites the corresponding value with v, 
 // otherwise inserts the new pair (k, v).
-void Dictionary::setValue(keyType k, valType v){
-    Node *P = nil;
-    Node *R = root;
-    while(R != nil){
-        P = R;
-        if(k < R->key){
-            R = R->left;
-        }else if(k > R->key){
-            R = R->right;
-        }else{
-            R->val = v;
+//Had to rewrite setvalue. This implementation was creating with the help of numerous TA's and 
+//sudo code provided by them from previous asgn. 
+void Dictionary::setValue(keyType k, valType v) {
+    Node* cNode = root;
+    Node* pNode = nil;
+
+    while (cNode != nil) {
+        if (k < cNode->key) {
+            pNode = cNode;
+            cNode = cNode->left;
+        } else if (k > cNode->key) {
+            pNode = cNode;
+            cNode = cNode->right;
+        } else {
+            cNode->val = v;
             return;
         }
     }
 
-    Node *N = new Node(k,v);
-    N->parent = P;
-    N->left = nil; 
-    N->right = nil; 
-    if(P == nil){
-        root = N;
-    }else if(k < P->key){
-        P->left = N;
-    }else{
-        P->right = N;
-    }
-    N->left = nil;
-    N->right = nil;
-    N->color = RED;
+    Node* node = new Node(k, v);
+    node->color = 1;
+    node->left = nil;
+    node->right = nil;
+    node->parent = pNode;
+
+    if (pNode == nil)
+        root = node;
+    else if (k < pNode->key)
+        pNode->left = node;
+    else
+        pNode->right = node;
+
     num_pairs++;
+    RB_InsertFixUp(node);
 }
 
 //remove()
 void Dictionary::remove(keyType k){
-   Node* node = search(root, k);
-   if(node == nil){
+    Node *t = search(root, k);
+    if(t == nil){
       throw std::logic_error("Dictionary: remove(): key \"" + k + "\" does not exist");
    }
-   if(node == current){
-      current = nil;
+   if(current->key == k){
+        current = nil;
    }
-   if(node != nil){
-    RB_Delete(node);
-    num_pairs--;
+   if(t != nil){
+        RB_Delete(t);
+        num_pairs--;
    }
+
 }
 
 // begin()
@@ -612,7 +583,7 @@ std::string Dictionary::to_string() const{
 // keys are separated by newline "\n" characters. The key order is given
 // by a pre-order tree walk.
 std::string Dictionary::pre_string() const{
-    std::string s = "";
+    std::string s;
     preOrderString(s, root);
     return s;
 }
@@ -655,4 +626,3 @@ Dictionary& Dictionary::operator=( const Dictionary& D ){
     return *this;
 
 }
-
