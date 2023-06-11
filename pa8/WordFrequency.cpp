@@ -72,7 +72,6 @@ int main(int argc, char* argv[]) {
             } else {
                 D.setValue(token, 1);
             }
-
             begin = min(line.find_first_not_of(delim, end + 1), len);
             end = min(line.find_first_of(delim, begin), len);
             token = line.substr(begin, end - begin);
