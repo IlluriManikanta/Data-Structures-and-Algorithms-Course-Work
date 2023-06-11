@@ -2,7 +2,7 @@
 // Manikantanagasai H. Illuri //
 // milluri@ucsc.edu           //
 // 2023 Spring CSE101         //
-// PA 7                       //
+// PA 8                       //
 // WordFrequency              //
 // ========================== //
 
@@ -16,11 +16,13 @@ using namespace std;
 #define MAX_LEN 300
 
 int main(int argc, char* argv[]) {
+    //checking number of arguments
     if (argc != 3) {
         cerr << "Usage: " << argv[0] << " <input file> <output file>" << endl;
         return EXIT_FAILURE;
     }
 
+    //checking in file can be opened
     ifstream in(argv[1]);
     if (!in.is_open()) {
         cerr << "Unable to open file " << argv[1] << " for reading" << endl;
@@ -33,22 +35,27 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
 
+    // Declaring all needed variables
     Dictionary D;
 
-    int line_count = 0;
+    int line_cnt = 0;
     string line;
-    string tokenBuffer;
     string token;
+    string tokenBuffer;
+    size_t begin;
+    size_t end;
+    size_t len;
     string delim = " \t\\\"\',<.>/?;:[{]}|`~!@#$%^&*()-_=+0123456789";
-    size_t begin, end, len;
-
+    
+    //loop to iterate throught lines and find tokens
     while (getline(in, line)) {
-        line_count++;
+        line_cnt++;
         len = line.length();
 
         int token_count = 0;
         tokenBuffer = "";
 
+        //reading first lines
         begin = min(line.find_first_not_of(delim, 0), len);
         end = min(line.find_first_of(delim, begin), len);
         token = line.substr(begin, end - begin);
@@ -72,6 +79,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
+    //closing files
     out << D << "\n";
     in.close();
     out.close();

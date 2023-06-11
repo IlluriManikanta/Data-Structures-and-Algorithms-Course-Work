@@ -1,22 +1,18 @@
-// ========== Name ========== //
-// Manikantanagasai H. Illuri //
-// milluri@ucsc.edu           //
-// 2023 Spring CSE101         //
-// PA 8                       //
-// Dictionary ADT             //
-// ========================== //
+// // ========== Name ========== //
+// // Manikantanagasai H. Illuri //
+// // milluri@ucsc.edu           //
+// // 2023 Spring CSE101         //
+// // PA 8                       //
+// // Dictionary ADT             //
+// // ========================== //
 
 #include <iostream>
 #include "Dictionary.h"
 
-#define BLACK 1
-#define RED 0
+#define RED 1
+#define BLACK 0
 
-// delete, delete fixup, transpplant. insert fix up, right rotate, left rotate
-
-
-
-//All functions in this file were written reffering to TA Mike's sudo code which is provided in his google drive.
+//All functions in this file were written reffering to TA Mike's sudo code for pa7 which is provided in his google drive.
 //Link to Sudo code "https://drive.google.com/file/d/1hNyVUto4a8gs0K4TkEyBX9tWmy_tyfOY/view?usp=share_link" (unsure if link works for everyone)
 
 
@@ -36,27 +32,21 @@ Dictionary::Node::Node(keyType k, valType v) {
 
 // Creates new Dictionary in the empty state.
 Dictionary::Dictionary(){
-    nil = new Node("NIL", 0);
-    current = nil;
+    nil = new Node(" ", -1);
+    nil->color = 0;
     root = nil;
-	num_pairs = 0;
-    nil->parent = nil;
-    nil->left = nil;
-    nil->right = nil;
-    nil->color = BLACK;
+    current = nil;
+    num_pairs = 0;
 }
 
 // Copy constructor.
 Dictionary::Dictionary(const Dictionary& D){
-    nil = new Node("NIL", 0);
-	current = nil;
+    nil = new Node(" ", -1);
+    nil->color = 0;
     root = nil;
-	num_pairs = D.num_pairs;
-    nil->parent = nil;
-    nil->left = nil;
-    nil->right = nil;
-    nil->color = BLACK;
-	preOrderCopy(D.root, root);
+    current = nil;
+    num_pairs = 0;
+    preOrderCopy(D.root, D.nil);
 }
 
 // Destructor
@@ -103,8 +93,8 @@ void Dictionary::preOrderString(std::string& s, Node* R) const{
 void Dictionary::preOrderCopy(Node* R, Node* N){
     if(R != N){
         setValue(R->key, R->val);
-        preOrderCopy(R->left, N->left);
-        preOrderCopy(R->right, N->right);
+        preOrderCopy(R->left, N);
+        preOrderCopy(R->right, N);
     }
 
 }
@@ -288,7 +278,7 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
         while (N->parent->color == RED) {
             if (N->parent == N->parent->parent->left) {
                 Node* y = N->parent->parent->right;
-                if (y != nullptr && y->color == RED) {
+                if (y->color == RED) {
                     N->parent->color = BLACK;                   
                     y->color = BLACK;                             
                     N->parent->parent->color = RED;               
@@ -306,7 +296,7 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
             }
             else {
                 Node* y = N->parent->parent->left;
-                if (y != nullptr && y->color == RED) {
+                if (y->color == RED) {
                     N->parent->color = BLACK;                    
                     y->color = BLACK;                             
                     N->parent->parent->color = RED;               
@@ -360,7 +350,7 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
                     if (w->right->color == BLACK) {
                         w->left->color = BLACK;
                         w->color = RED;
-                        RightRotate(N);
+                        RightRotate(w);
                         w = N->parent->right;
                     }
                     w->color = N->parent->color;
@@ -508,77 +498,41 @@ void Dictionary::clear(){
     num_pairs = 0;
 }
 
-//naimi
-void Dictionary::setValue(keyType k, valType v) {
-    Node* existingNode = search(root, k);
-    if (existingNode != nil) { 
-        existingNode->val = v;
-    }else{
-        Node* z = new Node(k, v);
-        Node* y = nil;
-        Node* x = root;
-        while (x != nil) {
-            y = x;
-            if(z->key == y->key){
-                break;
-            }
-            if (z->key < x->key){
-                x = x->left;
-            }else{
-                x = x->right;
-            }
-        }
-        z->parent = y;
-        z->left = nil;
-        z->right = nil;
-        if (y == nil){
-            root = z;
-        }else if (z->key < y->key){
-            y->left = z;
+
+// setValue()
+// If a pair with key==k exists, overwrites the corresponding value with v, 
+// otherwise inserts the new pair (k, v).
+void Dictionary::setValue(keyType k, valType v){
+    Node *P = nil;
+    Node *R = root;
+    while(R != nil){
+        P = R;
+        if(k < R->key){
+            R = R->left;
+        }else if(k > R->key){
+            R = R->right;
         }else{
-            y->right = z;
+            R->val = v;
+            return;
         }
-        z->color = 1;
-        RB_InsertFixUp(z);
-        num_pairs++;
     }
+
+    Node *N = new Node(k,v);
+    N->parent = P;
+    N->left = nil; 
+    N->right = nil; 
+    if(P == nil){
+        root = N;
+    }else if(k < P->key){
+        P->left = N;
+    }else{
+        P->right = N;
+    }
+    N->left = nil;
+    N->right = nil;
+    N->color = RED;
+    num_pairs++;
 }
-//naimi
-
-// // setValue()
-// // If a pair with key==k exists, overwrites the corresponding value with v, 
-// // otherwise inserts the new pair (k, v).
-// void Dictionary::setValue(keyType k, valType v){
-//     Node *P = nil;
-//     Node *R = root;
-//     while(R != nil){
-//         P = R;
-//         if(k < R->key){
-//             R = R->left;
-//         }else if(k > R->key){
-//             R = R->right;
-//         }else{
-//             R->val = v;
-//             return;
-//         }
-//     }
-
-//     Node *N = new Node(k,v);
-//     N->parent = P;
-//     N->left = nil; 
-//     N->right = nil; 
-//     if(P == nil){
-//         root = N;
-//     }else if(k < P->key){
-//         P->left = N;
-//     }else{
-//         P->right = N;
-//     }
-//     N->left = nil;
-//     N->right = nil;
-//     N->color = RED;
-//     num_pairs++;
-// }
 
 //remove()
 void Dictionary::remove(keyType k){
@@ -701,5 +655,4 @@ Dictionary& Dictionary::operator=( const Dictionary& D ){
     return *this;
 
 }
-
 

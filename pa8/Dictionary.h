@@ -1,3 +1,11 @@
+// ========== Name ========== //
+// Manikantanagasai H. Illuri //
+// milluri@ucsc.edu           //
+// 2023 Spring CSE101         //
+// PA 8                       //
+// Dictionary ADT  .h         //
+// ========================== //
+
 //-----------------------------------------------------------------------------
 // Dictionary.h
 // Header file for Dictionary ADT based on a Red-Black Tree. Includes a

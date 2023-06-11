@@ -1,5 +1,13 @@
+// ========== Name ========== //
+// Manikantanagasai H. Illuri //
+// milluri@ucsc.edu           //
+// 2023 Spring CSE101         //
+// PA 8                       //
+// Dictionary ADT Testing File//
+// ========================== //
+
 //-----------------------------------------------------------------------------
-// DictionaryClient.cpp
+// DictionaryTest.cpp
 // A test client for the Dictionary ADT
 //-----------------------------------------------------------------------------
 #include<iostream>

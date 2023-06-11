@@ -1,0 +1,39 @@
+Manikantanagasai Harshit Illuri
+milluri@ucsc.edu
+PA8 README
+Assignment: pa8 -> Dictionary ADT C++
+
+About:
+Implementing a Dictionary ADT in C++ to use on Red-Black Tree. I will implement the WordFrequency. It will read in each line of a file, parse the
+individual words on each line, convert each word to all lower case characters, then place it (as key) in a Dictionary.
+
+
+***Files Included***
+README - a catalog of submitted files and any notes to the grader
+Makefile - Provided
+Dictionary.h - Provided
+Dictionary.cpp - Contains the ADT functions
+DictionaryTest.cpp - Test client of the Dictionary ADT
+Order.cpp - The client for this project
+WordFrequency.cpp - I will label each frequency of the words. 
+
+***BUILD***
+Enter correct directory then run:
+make clean
+make DictionaryTest
+
+
+***RUN***
+./DictionaryTest
+
+***SHUFFLE BUILD***
+Enter correct directory then run:
+make clean
+make Order
+make WordFrequency
+
+***RUN***
+./Order <in> <out>
+./WordFrequency <in> <out>
+
+
