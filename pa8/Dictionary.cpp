@@ -566,25 +566,29 @@ void Dictionary::remove(keyType k){
       current = nil;
    }
    
-   if (node->left == nil) {
-      transplant(node, node->right);
-   } 
-   else if (node->right == nil) {
-      transplant(node, node->left);
-   } 
-   else {
-      Node* y = findMin(node->right);
-      if (y->parent != node) {
-         transplant(y, y->right);
-         y->right = node->right;
-         y->right->parent = y;
-      }
-      transplant(node, y);
-      y->left = node->left;
-      y->left->parent = y;
-   }
-   num_pairs--;
-   delete node;
+  RB_Delete(search(root, k)); // edited for PA8
+  num_pairs--;
+
+   
+//    if (node->left == nil) {
+//       transplant(node, node->right);
+//    } 
+//    else if (node->right == nil) {
+//       transplant(node, node->left);
+//    } 
+//    else {
+//       Node* y = findMin(node->right);
+//       if (y->parent != node) {
+//          transplant(y, y->right);
+//          y->right = node->right;
+//          y->right->parent = y;
+//       }
+//       transplant(node, y);
+//       y->left = node->left;
+//       y->left->parent = y;
+//    }
+//    num_pairs--;
+//    delete node;
 }
 
 // begin()
