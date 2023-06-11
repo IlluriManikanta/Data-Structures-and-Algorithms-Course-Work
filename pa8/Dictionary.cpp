@@ -29,7 +29,7 @@ Dictionary::Node::Node(keyType k, valType v) {
   this->left = nullptr;
   this->right = nullptr;
   this->parent = nullptr;
-  color = RED;
+  color = BLACK;
 }
 
 // Class Constructors & Destructors -------------------------------------------
@@ -87,7 +87,7 @@ void Dictionary::inOrderString(std::string& s, Node* R) const{
 void Dictionary::preOrderString(std::string& s, Node* R) const{
     if(R != nil){
         s.append(R->key);
-        if(R->color == 0){
+        if(R->color == RED){
             s.append(" (RED)");
         }
         s.append("\n");
@@ -235,13 +235,13 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
         Node* M = N->right;
         N->right = M->left;
 
-        if (M->left != nullptr) { 
+        if (M->left != nil) { 
             M->left->parent = N;
         }
 
         M->parent = N->parent;
 
-        if (N->parent == nullptr) { 
+        if (N->parent == nil) { 
             root = M;
         }
         else if (N == N->parent->left) {
@@ -259,13 +259,13 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
 
         N->left = M->right;
 
-        if (M->right != nullptr) {
+        if (M->right != nil) {
             M->right->parent = N;
         }
 
         M->parent = N->parent;
 
-        if (N->parent == nullptr) {
+        if (N->parent == nil) {
             root = M;
         }
         else {
@@ -277,7 +277,7 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
             }
         }
 
-        if (M != nullptr) {
+        if (M != nil) {
             M->right = N;
         }
         N->parent = M;
@@ -285,7 +285,7 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
 
    // RB_InsertFixUP()
    void Dictionary::RB_InsertFixUp(Node* N){
-        while (N->parent != nullptr && N->parent->color == RED) {
+        while (N->parent->color == RED) {
             if (N->parent == N->parent->parent->left) {
                 Node* y = N->parent->parent->right;
                 if (y != nullptr && y->color == RED) {
@@ -403,29 +403,26 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
    // RB_Delete()
    void Dictionary::RB_Delete(Node* N){
     Node* y = N;
-    Node* x = nil;
+    Node* x;
     int y_original_color = y->color;
 
-    if (N->left == nil) {
+    if (y->left == nil) {
         x = N->right;
-        RB_Transplant( N, N->right);
+        RB_Transplant( y, y->right);
     }
-    else if (N->right == nil) {
-        x = N->left;
-        RB_Transplant(N, N->left);
+    else if (y->right == nil) {
+        x = y->left;
+        RB_Transplant(y, y->left);
     }
     else {
-        y = findMin(N->right);
+        y = findMin(y->right);
         y_original_color = y->color;
         x = y->right;
-        if (y->parent == N) {
-            x->parent = y;
-        }
-        else {
-            RB_Transplant(y, y->right);
-            y->right = N->right;
-            y->right->parent = y;
-        }
+       
+        RB_Transplant(y, y->right);
+        y->right = N->right;
+        y->right->parent = y;
+        
         RB_Transplant(N, y);
         y->left = N->left;
         y->left->parent = y;
@@ -435,6 +432,7 @@ Dictionary::Node* Dictionary::findPrev(Node* N){
     if (y_original_color == BLACK) {
         RB_DeleteFixUp(x);
     }
+    delete N;
    }
 
 
@@ -591,7 +589,6 @@ void Dictionary::remove(keyType k){
    if(node == current){
       current = nil;
    }
-   Node *node_clear = search(root, k);
    if(node != nil){
     RB_Delete(node);
     num_pairs--;
